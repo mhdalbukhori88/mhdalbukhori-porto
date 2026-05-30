@@ -133,22 +133,20 @@ export default function Hero() {
 
           {/* clean framed portrait */}
           <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-ink-900 shadow-2xl shadow-black/50">
-            {/* thin top accent */}
-            <div className="h-1 w-full bg-gradient-to-r from-brand-600 via-brand-400 to-brand-600" />
-
             <div className="relative aspect-[4/5]">
               <Image
                 src={siteConfig.profileImage}
                 alt={`${siteConfig.name} — ${siteConfig.role}`}
                 fill
                 priority
-                sizes="(max-width: 768px) 80vw, 380px"
+                quality={100}
+                sizes="(max-width: 768px) 90vw, 420px"
                 className="object-cover"
               />
               {/* gentle grounding gradient for the caption */}
               <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-ink-950 via-ink-950/60 to-transparent" />
               {/* subtle edge vignette to blend with the theme */}
-              <div className="pointer-events-none absolute inset-0 rounded-b-2xl ring-1 ring-inset ring-black/20" />
+              <div className="pointer-events-none absolute inset-0 rounded-2xl ring-1 ring-inset ring-black/20" />
 
               {/* name + role caption */}
               <div className="absolute inset-x-0 bottom-0 p-5">
@@ -158,19 +156,6 @@ export default function Hero() {
                 <p className="text-sm font-medium text-brand-300">{siteConfig.role}</p>
               </div>
             </div>
-          </div>
-
-          {/* tasteful info strip instead of floating badges */}
-          <div className="mt-3 flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
-            <div className="min-w-0">
-              <p className="text-xs text-white/50">Education</p>
-              <p className="truncate text-sm font-medium text-white/90">
-                STMIK Kaputama Binjai
-              </p>
-            </div>
-            <span className="chip shrink-0 border-emerald-500/30 bg-emerald-500/10 text-emerald-300">
-              Open to work
-            </span>
           </div>
         </motion.div>
       </div>
