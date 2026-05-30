@@ -18,7 +18,9 @@ export default function Footer() {
                 {siteConfig.name}
               </span>
             </div>
-            <p className="mt-3 max-w-sm text-sm text-white/55">{siteConfig.role} — building reliable digital solutions from front-end to back-end.</p>
+            <p className="mt-3 max-w-sm text-sm text-white/55">
+              {siteConfig.role} — proficient in Java, Python, JavaScript, TypeScript, PHP, and SQL.
+            </p>
           </div>
 
           <div className="flex items-center gap-3">
