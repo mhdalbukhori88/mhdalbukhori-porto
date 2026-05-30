@@ -1,0 +1,82 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #070b16;
+  --foreground: #e6edf7;
+}
+
+* {
+  scroll-behavior: smooth;
+}
+
+html {
+  scroll-padding-top: 90px;
+}
+
+body {
+  background-color: var(--background);
+  color: var(--foreground);
+  -webkit-font-smoothing: antialiased;
+}
+
+::selection {
+  background-color: rgba(51, 128, 252, 0.3);
+  color: #ffffff;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #0b1120;
+}
+::-webkit-scrollbar-thumb {
+  background: #1d5ff1;
+  border-radius: 8px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #3380fc;
+}
+
+@layer components {
+  .container-px {
+    @apply mx-auto w-full max-w-6xl px-5 sm:px-8;
+  }
+
+  .section-pad {
+    @apply py-20 sm:py-28;
+  }
+
+  .glass {
+    @apply border border-white/10 bg-white/[0.03] backdrop-blur-sm;
+  }
+
+  .gradient-text {
+    @apply bg-gradient-to-r from-brand-300 via-brand-400 to-brand-200 bg-clip-text text-transparent;
+  }
+
+  .btn-primary {
+    @apply inline-flex items-center justify-center gap-2 rounded-full bg-brand-600 px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-brand-900/40 transition-all hover:bg-brand-500 hover:shadow-brand-700/40 focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-ink-950;
+  }
+
+  .btn-ghost {
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-white/15 bg-white/[0.02] px-6 py-3 text-sm font-semibold text-white/90 transition-all hover:border-white/30 hover:bg-white/[0.06] focus:outline-none focus:ring-2 focus:ring-brand-400 focus:ring-offset-2 focus:ring-offset-ink-950;
+  }
+
+  .card {
+    @apply rounded-2xl border border-white/10 bg-white/[0.03] p-6 transition-all duration-300 hover:border-brand-500/40 hover:bg-white/[0.05];
+  }
+
+  .chip {
+    @apply inline-flex items-center rounded-full border border-white/10 bg-white/[0.04] px-3 py-1 text-xs font-medium text-white/80;
+  }
+}
+
+.section-glow {
+  background:
+    radial-gradient(600px circle at 0% 0%, rgba(29, 95, 241, 0.08), transparent 40%),
+    radial-gradient(600px circle at 100% 100%, rgba(51, 128, 252, 0.06), transparent 40%);
+}

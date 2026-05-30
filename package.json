@@ -1,0 +1,28 @@
+{
+  "name": "mhd-al-bukhori-portfolio",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Professional portfolio website of Mhd Al Bukhori - Fullstack Web Developer",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "framer-motion": "^11.18.2",
+    "lucide-react": "^0.544.0",
+    "next": "^16.2.6",
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/node": "^20.17.6",
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "autoprefixer": "^10.4.20",
+    "postcss": "^8.5.10",
+    "tailwindcss": "^3.4.15",
+    "typescript": "^5.6.3"
+  }
+}
