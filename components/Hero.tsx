@@ -47,14 +47,6 @@ export default function Hero() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="chip mb-6 gap-2 border-brand-500/30 bg-brand-500/10 text-brand-200">
-            <span className="relative flex h-2 w-2">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-              <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
-            </span>
-            {siteConfig.availability}
-          </span>
-
           <p className="font-display text-lg font-medium text-white/60">
             Hi, I&apos;m{" "}
             <span className="font-semibold text-white">{siteConfig.name}</span>
