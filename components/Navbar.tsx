@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Image from "next/image";
 import { Menu, X, Download } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 
@@ -35,9 +36,9 @@ export default function Navbar() {
       }`}
     >
       <nav className="container-px flex h-16 items-center justify-between sm:h-20">
-        <a href="#home" className="group flex items-center gap-2">
-          <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-600 font-display text-lg font-bold text-white shadow-lg shadow-brand-900/50">
-            MA
+        <a href="#home" className="group flex items-center gap-2.5">
+          <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-ink-900 shadow-lg shadow-brand-900/30 transition-transform group-hover:scale-105">
+            <Image src="/logo.svg" alt="MAB logo" width={28} height={28} className="h-7 w-7" priority />
           </span>
           <span className="hidden font-display text-sm font-semibold tracking-wide text-white sm:block">
             {siteConfig.name}

@@ -1,0 +1,25 @@
+<svg width="128" height="128" viewBox="0 0 128 128" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MAB icon">
+  <defs>
+    <linearGradient id="iBlue" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1d5ff1"/>
+      <stop offset="0.55" stop-color="#3380fc"/>
+      <stop offset="1" stop-color="#6cb0ff"/>
+    </linearGradient>
+    <linearGradient id="iSilver" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ffffff"/>
+      <stop offset="1" stop-color="#c2cede"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="#0b1120"/>
+  <g stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="8.5">
+    <!-- M -->
+    <path d="M20 90 V44 L38 66 L56 44 V90" stroke="url(#iBlue)"/>
+    <!-- A -->
+    <path d="M60 90 L77 40 L94 90" stroke="url(#iBlue)"/>
+    <path d="M67 73 H87" stroke="url(#iBlue)"/>
+    <!-- B -->
+    <path d="M104 44 V90" stroke="url(#iSilver)"/>
+    <path d="M104 44 H112 A10 10 0 0 1 112 67 H104" stroke="url(#iSilver)"/>
+    <path d="M104 67 H114 A11 11 0 0 1 114 90 H104" stroke="url(#iSilver)"/>
+  </g>
+</svg>

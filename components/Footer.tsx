@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Github, Linkedin, Instagram, Mail, ArrowUp } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 
@@ -9,9 +10,9 @@ export default function Footer() {
       <div className="container-px py-12">
         <div className="flex flex-col items-center justify-between gap-8 sm:flex-row sm:items-start">
           <div className="text-center sm:text-left">
-            <div className="flex items-center justify-center gap-2 sm:justify-start">
-              <span className="flex h-9 w-9 items-center justify-center rounded-xl bg-brand-600 font-display text-lg font-bold text-white">
-                MA
+            <div className="flex items-center justify-center gap-2.5 sm:justify-start">
+              <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-ink-900">
+                <Image src="/logo.svg" alt="MAB logo" width={28} height={28} className="h-7 w-7" />
               </span>
               <span className="font-display text-base font-semibold text-white">
                 {siteConfig.name}

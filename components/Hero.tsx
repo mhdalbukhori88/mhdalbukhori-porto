@@ -1,26 +1,53 @@
 "use client";
 
 import Image from "next/image";
+import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
-import { ArrowRight, Download, MapPin, Github, Linkedin, Instagram, Mail } from "lucide-react";
+import {
+  ArrowRight,
+  Download,
+  MapPin,
+  Github,
+  Linkedin,
+  Instagram,
+  Mail,
+  Sparkles,
+} from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 
-const roles = ["Fullstack Web Developer", "Software Engineer", "Data Analyst", "Digital Marketer"];
+const roles = [
+  "Fullstack Web Developer",
+  "Software Engineer",
+  "Data Analyst",
+  "Digital Marketer",
+];
+
+function useRotatingRole() {
+  const [index, setIndex] = useState(0);
+  useEffect(() => {
+    const id = setInterval(() => setIndex((i) => (i + 1) % roles.length), 2600);
+    return () => clearInterval(id);
+  }, []);
+  return roles[index];
+}
 
 export default function Hero() {
+  const role = useRotatingRole();
+
   return (
     <section id="home" className="relative overflow-hidden pt-28 sm:pt-36">
       {/* background decoration */}
       <div className="pointer-events-none absolute inset-0 bg-grid-pattern bg-[size:42px_42px] opacity-40" />
-      <div className="pointer-events-none absolute -top-40 left-1/2 h-[480px] w-[480px] -translate-x-1/2 rounded-full bg-brand-600/20 blur-[120px]" />
+      <div className="pointer-events-none absolute -top-40 left-1/4 h-[460px] w-[460px] -translate-x-1/2 rounded-full bg-brand-600/25 blur-[130px]" />
+      <div className="pointer-events-none absolute -top-20 right-0 h-[380px] w-[380px] rounded-full bg-brand-400/10 blur-[120px]" />
 
-      <div className="container-px relative grid items-center gap-12 pb-20 lg:grid-cols-[1.1fr_0.9fr]">
+      <div className="container-px relative grid items-center gap-12 pb-24 lg:grid-cols-[1.12fr_0.88fr]">
         <motion.div
           initial={{ opacity: 0, y: 24 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.6 }}
         >
-          <span className="chip mb-5 gap-2 border-brand-500/30 bg-brand-500/10 text-brand-200">
+          <span className="chip mb-6 gap-2 border-brand-500/30 bg-brand-500/10 text-brand-200">
             <span className="relative flex h-2 w-2">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
               <span className="relative inline-flex h-2 w-2 rounded-full bg-emerald-400" />
@@ -28,17 +55,30 @@ export default function Hero() {
             {siteConfig.availability}
           </span>
 
-          <h1 className="font-display text-4xl font-extrabold leading-tight tracking-tight text-white sm:text-5xl lg:text-6xl">
+          <p className="font-display text-lg font-medium text-white/60">
             Hi, I&apos;m{" "}
-            <span className="gradient-text">{siteConfig.name}</span>
+            <span className="font-semibold text-white">{siteConfig.name}</span>
+          </p>
+
+          {/* Prominent role headline */}
+          <h1 className="mt-2 font-display text-4xl font-extrabold leading-[1.05] tracking-tight text-white sm:text-5xl lg:text-6xl">
+            <span className="gradient-text">Fullstack</span> Web
+            <br className="hidden sm:block" /> Developer
           </h1>
 
-          <div className="mt-4 flex flex-wrap gap-2">
-            {roles.map((r) => (
-              <span key={r} className="chip border-brand-500/20 text-brand-100">
-                {r}
-              </span>
-            ))}
+          {/* Animated rotating sub-role */}
+          <div className="mt-4 flex h-8 items-center gap-2 text-base font-medium text-white/70 sm:text-lg">
+            <Sparkles size={18} className="text-brand-400" />
+            <span>Also working as</span>
+            <motion.span
+              key={role}
+              initial={{ opacity: 0, y: 8 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4 }}
+              className="font-semibold text-brand-300"
+            >
+              {role}
+            </motion.span>
           </div>
 
           <p className="mt-6 max-w-xl text-base leading-relaxed text-white/70 sm:text-lg">
@@ -55,7 +95,12 @@ export default function Hero() {
               Order a Website
               <ArrowRight size={16} />
             </a>
-            <a href={siteConfig.resumeUrl} target="_blank" rel="noreferrer" className="btn-ghost">
+            <a
+              href={siteConfig.resumeUrl}
+              target="_blank"
+              rel="noreferrer"
+              className="btn-ghost"
+            >
               <Download size={16} />
               Download CV
             </a>
@@ -81,33 +126,61 @@ export default function Hero() {
           initial={{ opacity: 0, scale: 0.92 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.7, delay: 0.15 }}
-          className="relative mx-auto w-full max-w-sm"
+          className="relative mx-auto w-full max-w-[360px]"
         >
-          <div className="absolute inset-0 -z-10 animate-float rounded-[2rem] bg-gradient-to-tr from-brand-600/40 to-brand-300/20 blur-2xl" />
-          <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.03] p-3 shadow-2xl">
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem]">
-              <Image
-                src={siteConfig.profileImage}
-                alt={siteConfig.name}
-                fill
-                priority
-                sizes="(max-width: 768px) 80vw, 400px"
-                className="object-cover"
-              />
+          {/* glow behind */}
+          <div className="absolute inset-0 -z-10 animate-float rounded-[2rem] bg-gradient-to-tr from-brand-600/50 to-brand-300/20 blur-2xl" />
+
+          {/* gradient ring frame */}
+          <div className="relative rounded-[2rem] bg-gradient-to-br from-brand-500 via-brand-400 to-brand-600 p-[2px] shadow-2xl shadow-brand-900/50">
+            <div className="relative overflow-hidden rounded-[1.9rem] bg-ink-900 p-2.5">
+              <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem]">
+                <Image
+                  src={siteConfig.profileImage}
+                  alt={siteConfig.name}
+                  fill
+                  priority
+                  sizes="(max-width: 768px) 80vw, 360px"
+                  className="object-cover"
+                />
+                {/* overlay to harmonize photo background with the dark theme */}
+                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/15 to-transparent" />
+                <div className="pointer-events-none absolute inset-0 bg-brand-900/15 mix-blend-multiply" />
+                <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[1.5rem]" />
+              </div>
             </div>
           </div>
 
-          {/* floating badge */}
-          <div className="absolute -bottom-5 -left-5 glass rounded-2xl px-4 py-3 shadow-xl">
-            <p className="font-display text-2xl font-bold text-white">STMIK</p>
-            <p className="text-xs text-white/60">Kaputama Binjai</p>
+          {/* floating badges */}
+          <div className="absolute -bottom-5 -left-4 glass rounded-2xl px-4 py-3 shadow-xl">
+            <p className="font-display text-xl font-bold gradient-text">Fullstack</p>
+            <p className="text-xs text-white/60">Front-End + Back-End</p>
           </div>
-          <div className="absolute -right-4 top-6 glass rounded-2xl px-4 py-3 shadow-xl">
-            <p className="font-display text-lg font-bold gradient-text">Fullstack</p>
-            <p className="text-xs text-white/60">Front + Back End</p>
+          <div className="absolute -right-3 top-6 glass rounded-2xl px-4 py-3 text-right shadow-xl">
+            <p className="font-display text-lg font-bold text-white">STMIK</p>
+            <p className="text-xs text-white/60">Kaputama Binjai</p>
           </div>
         </motion.div>
       </div>
+
+      {/* Stats strip */}
+      <motion.div
+        initial={{ opacity: 0, y: 20 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.6, delay: 0.35 }}
+        className="container-px relative -mt-2 pb-6"
+      >
+        <div className="grid grid-cols-2 gap-3 rounded-2xl border border-white/10 bg-white/[0.03] p-5 sm:grid-cols-4 sm:gap-4">
+          {siteConfig.stats.map((s) => (
+            <div key={s.label} className="text-center">
+              <p className="font-display text-lg font-bold text-white sm:text-xl">
+                {s.value}
+              </p>
+              <p className="mt-1 text-xs text-white/55">{s.label}</p>
+            </div>
+          ))}
+        </div>
+      </motion.div>
     </section>
   );
 }
