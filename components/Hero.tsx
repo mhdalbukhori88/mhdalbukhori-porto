@@ -123,42 +123,54 @@ export default function Hero() {
         </motion.div>
 
         <motion.div
-          initial={{ opacity: 0, scale: 0.92 }}
-          animate={{ opacity: 1, scale: 1 }}
+          initial={{ opacity: 0, y: 16 }}
+          animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.7, delay: 0.15 }}
-          className="relative mx-auto w-full max-w-[360px]"
+          className="relative mx-auto w-full max-w-[380px]"
         >
-          {/* glow behind */}
-          <div className="absolute inset-0 -z-10 animate-float rounded-[2rem] bg-gradient-to-tr from-brand-600/50 to-brand-300/20 blur-2xl" />
+          {/* soft ambient backdrop (subtle, not neon) */}
+          <div className="absolute -inset-6 -z-10 rounded-[2.5rem] bg-gradient-to-tr from-brand-700/20 via-brand-500/10 to-transparent blur-3xl" />
 
-          {/* gradient ring frame */}
-          <div className="relative rounded-[2rem] bg-gradient-to-br from-brand-500 via-brand-400 to-brand-600 p-[2px] shadow-2xl shadow-brand-900/50">
-            <div className="relative overflow-hidden rounded-[1.9rem] bg-ink-900 p-2.5">
-              <div className="relative aspect-[4/5] overflow-hidden rounded-[1.5rem]">
-                <Image
-                  src={siteConfig.profileImage}
-                  alt={siteConfig.name}
-                  fill
-                  priority
-                  sizes="(max-width: 768px) 80vw, 360px"
-                  className="object-cover"
-                />
-                {/* overlay to harmonize photo background with the dark theme */}
-                <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-ink-950 via-ink-950/15 to-transparent" />
-                <div className="pointer-events-none absolute inset-0 bg-brand-900/15 mix-blend-multiply" />
-                <div className="pointer-events-none absolute inset-0 ring-1 ring-inset ring-white/10 rounded-[1.5rem]" />
+          {/* clean framed portrait */}
+          <div className="relative overflow-hidden rounded-2xl border border-white/10 bg-ink-900 shadow-2xl shadow-black/50">
+            {/* thin top accent */}
+            <div className="h-1 w-full bg-gradient-to-r from-brand-600 via-brand-400 to-brand-600" />
+
+            <div className="relative aspect-[4/5]">
+              <Image
+                src={siteConfig.profileImage}
+                alt={`${siteConfig.name} — ${siteConfig.role}`}
+                fill
+                priority
+                sizes="(max-width: 768px) 80vw, 380px"
+                className="object-cover"
+              />
+              {/* gentle grounding gradient for the caption */}
+              <div className="pointer-events-none absolute inset-x-0 bottom-0 h-2/5 bg-gradient-to-t from-ink-950 via-ink-950/60 to-transparent" />
+              {/* subtle edge vignette to blend with the theme */}
+              <div className="pointer-events-none absolute inset-0 rounded-b-2xl ring-1 ring-inset ring-black/20" />
+
+              {/* name + role caption */}
+              <div className="absolute inset-x-0 bottom-0 p-5">
+                <p className="font-display text-lg font-bold text-white">
+                  {siteConfig.name}
+                </p>
+                <p className="text-sm font-medium text-brand-300">{siteConfig.role}</p>
               </div>
             </div>
           </div>
 
-          {/* floating badges */}
-          <div className="absolute -bottom-5 -left-4 glass rounded-2xl px-4 py-3 shadow-xl">
-            <p className="font-display text-xl font-bold gradient-text">Fullstack</p>
-            <p className="text-xs text-white/60">Front-End + Back-End</p>
-          </div>
-          <div className="absolute -right-3 top-6 glass rounded-2xl px-4 py-3 text-right shadow-xl">
-            <p className="font-display text-lg font-bold text-white">STMIK</p>
-            <p className="text-xs text-white/60">Kaputama Binjai</p>
+          {/* tasteful info strip instead of floating badges */}
+          <div className="mt-3 flex items-center justify-between gap-3 rounded-xl border border-white/10 bg-white/[0.03] px-4 py-3">
+            <div className="min-w-0">
+              <p className="text-xs text-white/50">Education</p>
+              <p className="truncate text-sm font-medium text-white/90">
+                STMIK Kaputama Binjai
+              </p>
+            </div>
+            <span className="chip shrink-0 border-emerald-500/30 bg-emerald-500/10 text-emerald-300">
+              Open to work
+            </span>
           </div>
         </motion.div>
       </div>
