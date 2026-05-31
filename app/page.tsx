@@ -1,10 +1,8 @@
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
-import About from "@/components/About";
-import Skills from "@/components/Skills";
-import Services from "@/components/Services";
+import Expertise from "@/components/Expertise";
+import Timeline from "@/components/Timeline";
 import Projects from "@/components/Projects";
-import Experience from "@/components/Experience";
 import Certificates from "@/components/Certificates";
 import OrderForm from "@/components/OrderForm";
 import Contact from "@/components/Contact";
@@ -15,11 +13,9 @@ export default function Home() {
     <main className="relative min-h-screen overflow-hidden">
       <Navbar />
       <Hero />
-      <About />
-      <Skills />
-      <Services />
+      <Expertise />
+      <Timeline />
       <Projects />
-      <Experience />
       <Certificates />
       <OrderForm />
       <Contact />

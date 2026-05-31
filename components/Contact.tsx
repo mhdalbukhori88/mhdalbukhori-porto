@@ -1,126 +1,67 @@
 "use client";
 
-import {
-  Mail,
-  Phone,
-  MapPin,
-  Github,
-  Linkedin,
-  Instagram,
-  MessageCircle,
-  Send,
-} from "lucide-react";
+import { Mail, Phone, MapPin, Github, Linkedin, Instagram, MessageCircle } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
-import { SectionHeading, FadeIn } from "./Section";
+import Reveal from "./Reveal";
 
 export default function Contact() {
   const waLink = `https://wa.me/${siteConfig.contact.phoneRaw}?text=${encodeURIComponent(
     `Hi ${siteConfig.name}, I'd like to connect with you.`
   )}`;
 
-  const contactItems = [
-    {
-      icon: Mail,
-      label: "Email",
-      value: siteConfig.contact.email,
-      href: `mailto:${siteConfig.contact.email}`,
-    },
-    {
-      icon: Phone,
-      label: "Phone / WhatsApp",
-      value: siteConfig.contact.whatsappDisplay,
-      href: waLink,
-    },
-    {
-      icon: MapPin,
-      label: "Location",
-      value: siteConfig.location,
-      href: undefined,
-    },
-  ];
-
-  const socials = [
-    { icon: Github, label: "GitHub", href: siteConfig.socials.github, value: "mhdalbukhori88" },
-    { icon: Linkedin, label: "LinkedIn", href: siteConfig.socials.linkedin, value: "mhd-al-bukhori" },
-    { icon: Instagram, label: "Instagram", href: siteConfig.socials.instagram, value: siteConfig.socials.instagramHandle },
+  const items = [
+    { icon: Mail, label: "Email", value: siteConfig.contact.email, href: `mailto:${siteConfig.contact.email}` },
+    { icon: Phone, label: "Phone / WhatsApp", value: siteConfig.contact.whatsappDisplay, href: waLink },
+    { icon: MapPin, label: "Location", value: siteConfig.location, href: undefined },
+    { icon: Github, label: "GitHub", value: "mhdalbukhori88", href: siteConfig.socials.github },
+    { icon: Linkedin, label: "LinkedIn", value: "mhd-al-bukhori", href: siteConfig.socials.linkedin },
+    { icon: Instagram, label: "Instagram", value: siteConfig.socials.instagramHandle, href: siteConfig.socials.instagram },
   ];
 
   return (
-    <section id="contact" className="section-pad">
-      <div className="container-px">
-        <SectionHeading
-          eyebrow="Contact"
-          title="Get In Touch"
-          description="Open for full-time roles, freelance projects, and collaborations. Let's talk."
-        />
+    <section id="contact" className="section">
+      <Reveal>
+        <h1 className="section-title">Contact Me</h1>
+        <p className="-mt-6 mb-10 max-w-2xl text-base muted">
+          Got a project waiting to be realized, or a role to fill? Let&apos;s connect and make it happen.
+        </p>
+      </Reveal>
 
-        <div className="grid gap-5 lg:grid-cols-2">
-          <FadeIn>
-            <div className="space-y-4">
-              {contactItems.map((item) => {
-                const content = (
-                  <div className="card flex items-center gap-4">
-                    <div className="flex h-12 w-12 shrink-0 items-center justify-center rounded-xl bg-brand-600/15 text-brand-300">
-                      <item.icon size={22} />
-                    </div>
-                    <div className="min-w-0">
-                      <p className="text-xs font-semibold uppercase tracking-wider text-white/50">
-                        {item.label}
-                      </p>
-                      <p className="truncate text-sm font-medium text-white/90">{item.value}</p>
-                    </div>
-                  </div>
-                );
-                return item.href ? (
-                  <a key={item.label} href={item.href} target="_blank" rel="noreferrer" className="block">
-                    {content}
-                  </a>
-                ) : (
-                  <div key={item.label}>{content}</div>
-                );
-              })}
-            </div>
-          </FadeIn>
-
-          <FadeIn delay={0.1}>
-            <div className="flex h-full flex-col justify-between gap-6 rounded-3xl border border-white/10 bg-white/[0.03] p-7">
-              <div>
-                <h3 className="font-display text-lg font-semibold text-white">Find me online</h3>
-                <div className="mt-4 space-y-3">
-                  {socials.map((s) => (
-                    <a
-                      key={s.label}
-                      href={s.href}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="flex items-center gap-4 rounded-xl border border-white/10 bg-white/[0.02] p-3 transition-all hover:border-brand-500/40 hover:bg-brand-500/5"
-                    >
-                      <div className="flex h-10 w-10 items-center justify-center rounded-lg bg-white/5 text-brand-300">
-                        <s.icon size={20} />
-                      </div>
-                      <div>
-                        <p className="text-sm font-medium text-white/90">{s.label}</p>
-                        <p className="text-xs text-white/50">{s.value}</p>
-                      </div>
-                    </a>
-                  ))}
-                </div>
-              </div>
-
-              <div className="grid grid-cols-2 gap-3">
-                <a href={waLink} target="_blank" rel="noreferrer" className="btn-primary !bg-emerald-600 hover:!bg-emerald-500">
-                  <MessageCircle size={18} />
-                  WhatsApp
-                </a>
-                <a href={`mailto:${siteConfig.contact.email}`} className="btn-ghost">
-                  <Send size={18} />
-                  Email Me
-                </a>
+      <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+        {items.map((item, i) => {
+          const inner = (
+            <div className="flex h-full items-center gap-4 rounded-lg p-5 surface-card transition-colors hover:border-accent">
+              <span className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-accent/15 text-accent">
+                <item.icon size={20} />
+              </span>
+              <div className="min-w-0">
+                <p className="font-mono text-xs muted">{item.label}</p>
+                <p className="truncate text-sm font-semibold">{item.value}</p>
               </div>
             </div>
-          </FadeIn>
-        </div>
+          );
+          return (
+            <Reveal key={item.label} delay={(i % 3) * 100}>
+              {item.href ? (
+                <a href={item.href} target="_blank" rel="noreferrer" className="block h-full">{inner}</a>
+              ) : (
+                inner
+              )}
+            </Reveal>
+          );
+        })}
       </div>
+
+      <Reveal>
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
+          <a href={waLink} target="_blank" rel="noreferrer" className="btn-accent !bg-emerald-600 hover:!bg-emerald-500">
+            <MessageCircle size={18} /> Chat on WhatsApp
+          </a>
+          <a href={`mailto:${siteConfig.contact.email}`} className="btn-outline">
+            <Mail size={18} /> Send an Email
+          </a>
+        </div>
+      </Reveal>
     </section>
   );
 }

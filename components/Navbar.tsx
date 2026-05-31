@@ -2,103 +2,105 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Menu, X, Download } from "lucide-react";
-import { siteConfig } from "@/lib/site-config";
+import { Menu, X, Sun, Moon, List } from "lucide-react";
+import { useTheme } from "./ThemeProvider";
 
-const links = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#skills", label: "Skills" },
-  { href: "#services", label: "Services" },
-  { href: "#projects", label: "Projects" },
-  { href: "#certificates", label: "Certificates" },
-  { href: "#order", label: "Order Website" },
-  { href: "#contact", label: "Contact" },
+const navItems = [
+  ["Expertise", "expertise"],
+  ["History", "history"],
+  ["Projects", "projects"],
+  ["Certificates", "certificates"],
+  ["Order", "order"],
+  ["Contact", "contact"],
 ];
 
 export default function Navbar() {
+  const { theme, toggle } = useTheme();
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 20);
+    const onScroll = () => setScrolled(window.scrollY > 60);
     onScroll();
     window.addEventListener("scroll", onScroll);
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const scrollTo = (id: string) => {
+    setOpen(false);
+    document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+  };
+
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
-        scrolled
-          ? "border-b border-white/10 bg-ink-950/80 backdrop-blur-md"
-          : "bg-transparent"
-      }`}
-    >
-      <nav className="container-px flex h-16 items-center justify-between sm:h-20">
-        <a href="#home" className="group flex items-center gap-2.5">
-          <span className="flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-ink-900 shadow-lg shadow-brand-900/30 transition-transform group-hover:scale-105">
-            <Image src="/logo.svg" alt="MAB logo" width={28} height={28} className="h-7 w-7" priority />
-          </span>
-          <span className="hidden font-display text-sm font-semibold tracking-wide text-white sm:block">
-            {siteConfig.name}
-          </span>
-        </a>
-
-        <div className="hidden items-center gap-1 lg:flex">
-          {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="rounded-full px-3 py-2 text-sm font-medium text-white/70 transition-colors hover:bg-white/5 hover:text-white"
+    <>
+      <header
+        id="navigation"
+        className="fixed inset-x-0 top-0 z-50 transition-shadow"
+        style={{
+          backgroundColor: "var(--bg)",
+          boxShadow: scrolled ? "0 2px 16px rgba(0,0,0,0.25)" : "none",
+        }}
+      >
+        <nav className="flex h-16 items-center justify-between px-[5%] sm:px-[8%]">
+          <div className="flex items-center gap-4">
+            <button
+              onClick={() => setOpen(true)}
+              className="sm:hidden"
+              aria-label="Open menu"
             >
-              {l.label}
+              <Menu size={24} />
+            </button>
+            <button onClick={toggle} aria-label="Toggle theme" className="flex items-center">
+              {theme === "dark" ? <Sun size={22} /> : <Moon size={22} />}
+            </button>
+            <a href="#home" className="hidden items-center gap-2 sm:flex" onClick={(e) => { e.preventDefault(); scrollTo("home"); }}>
+              <Image src="/logo.svg" alt="MAB" width={26} height={26} className="h-6 w-6" />
             </a>
-          ))}
-        </div>
+          </div>
 
-        <div className="hidden lg:block">
-          <a href={siteConfig.resumeUrl} target="_blank" rel="noreferrer" className="btn-primary !px-5 !py-2.5">
-            <Download size={16} />
-            Download CV
-          </a>
-        </div>
-
-        <button
-          onClick={() => setOpen((v) => !v)}
-          className="rounded-lg p-2 text-white lg:hidden"
-          aria-label="Toggle menu"
-        >
-          {open ? <X size={24} /> : <Menu size={24} />}
-        </button>
-      </nav>
-
-      {open && (
-        <div className="border-t border-white/10 bg-ink-950/95 backdrop-blur-md lg:hidden">
-          <div className="container-px flex flex-col gap-1 py-4">
-            {links.map((l) => (
-              <a
-                key={l.href}
-                href={l.href}
-                onClick={() => setOpen(false)}
-                className="rounded-lg px-3 py-2.5 text-sm font-medium text-white/80 transition-colors hover:bg-white/5 hover:text-white"
+          <div className="hidden items-center gap-1 sm:flex">
+            {navItems.map(([label, id]) => (
+              <button
+                key={id}
+                onClick={() => scrollTo(id)}
+                className="rounded px-3 py-2 text-[1.05rem] font-normal transition-colors hover:text-accent"
               >
-                {l.label}
-              </a>
+                {label}
+              </button>
             ))}
-            <a
-              href={siteConfig.resumeUrl}
-              target="_blank"
-              rel="noreferrer"
+          </div>
+        </nav>
+      </header>
+
+      {/* Mobile drawer */}
+      {open && (
+        <div className="fixed inset-0 z-[60] sm:hidden">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setOpen(false)} />
+          <div className="absolute left-0 top-0 h-full w-60 bg-white p-4 text-night shadow-xl">
+            <p className="mb-3 flex items-center justify-center gap-2 font-bold text-night">
+              <List size={18} /> Menu
+            </p>
+            <button
               onClick={() => setOpen(false)}
-              className="btn-primary mt-2"
+              className="absolute right-3 top-3 text-night"
+              aria-label="Close menu"
             >
-              <Download size={16} />
-              Download CV
-            </a>
+              <X size={22} />
+            </button>
+            <div className="mt-4 border-t border-black/10 pt-2">
+              {navItems.map(([label, id]) => (
+                <button
+                  key={id}
+                  onClick={() => scrollTo(id)}
+                  className="block w-full py-3 text-center text-night transition-colors hover:text-accent"
+                >
+                  {label}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       )}
-    </header>
+    </>
   );
 }

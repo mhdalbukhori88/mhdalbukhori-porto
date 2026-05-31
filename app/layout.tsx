@@ -1,18 +1,19 @@
 import type { Metadata } from "next";
-import { Inter, Poppins } from "next/font/google";
+import { Lato, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/site-config";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
-const inter = Inter({
+const lato = Lato({
   subsets: ["latin"],
-  variable: "--font-inter",
+  weight: ["300", "400", "700", "900"],
+  variable: "--font-lato",
   display: "swap",
 });
 
-const poppins = Poppins({
+const mono = JetBrains_Mono({
   subsets: ["latin"],
-  weight: ["500", "600", "700", "800"],
-  variable: "--font-poppins",
+  variable: "--font-mono",
   display: "swap",
 });
 
@@ -36,10 +37,7 @@ export const metadata: Metadata = {
     type: "website",
     locale: "id_ID",
   },
-  robots: {
-    index: true,
-    follow: true,
-  },
+  robots: { index: true, follow: true },
 };
 
 export default function RootLayout({
@@ -48,8 +46,10 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${inter.variable} ${poppins.variable}`}>
-      <body className="font-sans antialiased">{children}</body>
+    <html lang="en" className={`${lato.variable} ${mono.variable} theme-dark dark`}>
+      <body className="font-sans antialiased">
+        <ThemeProvider>{children}</ThemeProvider>
+      </body>
     </html>
   );
 }
