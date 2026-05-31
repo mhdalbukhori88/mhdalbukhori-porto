@@ -115,6 +115,15 @@ a:hover {
   background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(248, 249, 250, 0.85)), url("/bg-light.png");
 }
 
+/* mobile drawer background — always dark for readable white text */
+.drawer-bg {
+  background-image: url("/bg-dark.png");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: center;
+  background-attachment: scroll;
+}
+
 /* timeline */
 .tl-line {
   background: var(--border);
