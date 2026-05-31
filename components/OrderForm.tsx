@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Send, MessageCircle, Mail, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 import Reveal from "./Reveal";
@@ -28,9 +28,11 @@ export default function OrderForm() {
     budget: budgets[0],
     deadline: "",
     details: "",
+    company: "", // honeypot — must stay empty
   });
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
+  const startedAt = useRef<number>(Date.now());
 
   const update = (key: keyof typeof form, value: string) =>
     setForm((f) => ({ ...f, [key]: value }));
@@ -69,7 +71,7 @@ export default function OrderForm() {
       const res = await fetch("/api/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(form),
+        body: JSON.stringify({ ...form, startedAt: startedAt.current }),
       });
       const data = await res.json();
       if (res.ok && data.delivered) {
@@ -133,6 +135,19 @@ export default function OrderForm() {
 
         <Reveal delay={120}>
           <form onSubmit={handleSubmit} className="rounded-lg p-7 surface-card">
+            {/* Honeypot field — hidden from humans, bots tend to fill it. */}
+            <div aria-hidden="true" className="absolute left-[-9999px] top-[-9999px] h-0 w-0 overflow-hidden">
+              <label>
+                Company
+                <input
+                  type="text"
+                  tabIndex={-1}
+                  autoComplete="off"
+                  value={form.company}
+                  onChange={(e) => update("company", e.target.value)}
+                />
+              </label>
+            </div>
             <div className="grid gap-4 sm:grid-cols-2">
               <Field label="Full Name *">
                 <input type="text" required value={form.name} onChange={(e) => update("name", e.target.value)} placeholder="Your name" className="form-input" />
