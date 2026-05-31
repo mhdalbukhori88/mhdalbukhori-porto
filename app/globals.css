@@ -15,16 +15,18 @@ body {
 /* ===== Theme tokens ===== */
 .theme-dark {
   --bg: #0d1116;
-  --bg-alt: rgba(0, 0, 0, 0.2);
+  --bg-alt: #141a22;
+  --bg-alt-2: #1a212b;
   --text: #ffffff;
   --text-muted: #b6c0cc;
   --card: #ffffff;
   --card-text: #272822;
-  --border: rgba(255, 255, 255, 0.12);
+  --border: rgba(255, 255, 255, 0.1);
 }
 .theme-light {
   --bg: #f8f9fa;
   --bg-alt: #ffffff;
+  --bg-alt-2: #f1f3f6;
   --text: #0d1116;
   --text-muted: #4a5560;
   --card: #ffffff;
@@ -71,6 +73,18 @@ a:hover {
   .section-title {
     @apply mb-10 font-sans text-3xl font-extrabold tracking-tight sm:text-4xl;
     color: var(--text);
+    position: relative;
+    padding-bottom: 0.6rem;
+  }
+  .section-title::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 4px;
+    width: 64px;
+    border-radius: 9999px;
+    background: linear-gradient(90deg, #5000ca, #7b3ff2);
   }
 
   /* tag chip — white pill with dark monospace text, like the template */
@@ -94,6 +108,23 @@ a:hover {
   .surface-card {
     background-color: var(--bg-alt);
     border: 1px solid var(--border);
+    transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+  }
+  .surface-card:hover {
+    border-color: rgba(80, 0, 202, 0.5);
+    box-shadow: 0 10px 30px -12px rgba(80, 0, 202, 0.45);
+  }
+}
+
+/* Honor reduced-motion: disable all non-essential animation/transition. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
