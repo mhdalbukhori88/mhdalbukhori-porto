@@ -119,8 +119,41 @@ only add fake security.
 ## 🔁 Quick checklist
 
 - [ ] Deploy the latest code to Vercel (security headers + form hardening are in it).
+- [ ] (Optional) Enable reCAPTCHA "I'm not a robot" — see below.
 - [ ] Test headers at <https://securityheaders.com>.
 - [ ] Add a custom domain and route DNS through Cloudflare (orange cloud / Proxied).
 - [ ] Enable SSL Full (strict), Always Use HTTPS, Bot Fight Mode, and a rate-limit rule on `/api/order`.
 - [ ] (Custom-domain email only) add SPF, DKIM, DMARC records.
 - [ ] Make the GitHub repo **private** if you don't want the source visible.
+
+---
+
+## 🤖 Step 4 — Enable reCAPTCHA "I'm not a robot" (optional but recommended)
+
+The code already supports Google reCAPTCHA v2. It stays **hidden and inactive**
+until you add keys, so the site works fine without it. Once you add the keys, a
+"I'm not a robot" checkbox appears in the order form, and the visitor must pass it
+before the order is sent or before WhatsApp/Email opens.
+
+### Get your keys (free)
+
+1. Go to <https://www.google.com/recaptcha/admin/create>.
+2. Label: `Portfolio`. Type: **reCAPTCHA v2 → "I'm not a robot" Checkbox**.
+3. Domains: add `localhost` (for testing) and your live domain
+   (e.g. `mhdalbukhori-porto.vercel.app` and your custom domain).
+4. Submit. You get a **Site Key** (public) and a **Secret Key** (private).
+
+### Add them to Vercel
+
+In **Vercel → your project → Settings → Environment Variables**, add:
+
+| Name | Value | Note |
+|---|---|---|
+| `NEXT_PUBLIC_RECAPTCHA_SITE_KEY` | your Site Key | public — shown in the browser |
+| `RECAPTCHA_SECRET_KEY` | your Secret Key | private — server only |
+
+Then **redeploy**. The checkbox now appears automatically and every submission is
+verified against Google on the server (`/api/order` and `/api/verify`).
+
+> Tip: for local testing, create a `.env.local` file with the same two variables.
+> Never commit it — `.gitignore` already ignores `.env*` files.

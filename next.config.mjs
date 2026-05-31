@@ -25,13 +25,15 @@ const securityHeaders = [
     key: "Content-Security-Policy",
     value: [
       "default-src 'self'",
-      // Next.js injects small inline scripts; 'unsafe-inline' is required for it.
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'",
-      "style-src 'self' 'unsafe-inline'",
-      "img-src 'self' data: blob:",
+      // Next.js inline scripts + Google reCAPTCHA.
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.google.com https://www.gstatic.com",
+      "style-src 'self' 'unsafe-inline' https://www.gstatic.com",
+      "img-src 'self' data: blob: https://www.gstatic.com https://www.google.com",
       "font-src 'self' data:",
-      // Allow the form to call our own API and Resend.
-      "connect-src 'self' https://api.resend.com",
+      // Allow the form to call our own API, Resend, and reCAPTCHA verify.
+      "connect-src 'self' https://api.resend.com https://www.google.com",
+      // reCAPTCHA renders inside a Google iframe.
+      "frame-src https://www.google.com https://recaptcha.google.com",
       "form-action 'self' https://wa.me mailto:",
       "frame-ancestors 'none'",
       "base-uri 'self'",

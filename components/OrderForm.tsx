@@ -4,6 +4,7 @@ import { useState, useRef } from "react";
 import { Send, MessageCircle, Mail, Loader2, CheckCircle2, AlertCircle } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 import Reveal from "./Reveal";
+import ReCaptcha, { RECAPTCHA_SITE_KEY } from "./ReCaptcha";
 
 const websiteTypes = [
   "Company Profile",
@@ -32,7 +33,10 @@ export default function OrderForm() {
   });
   const [status, setStatus] = useState<Status>("idle");
   const [message, setMessage] = useState("");
+  const [captchaToken, setCaptchaToken] = useState<string | null>(null);
   const startedAt = useRef<number>(Date.now());
+
+  const captchaRequired = Boolean(RECAPTCHA_SITE_KEY);
 
   const update = (key: keyof typeof form, value: string) =>
     setForm((f) => ({ ...f, [key]: value }));
@@ -47,12 +51,42 @@ export default function OrderForm() {
     `Target Deadline: ${form.deadline || "Flexible"}\n\n` +
     `Project Details:\n${form.details}`;
 
-  const openWhatsApp = () => {
+  // Confirm the visitor passed reCAPTCHA before opening WhatsApp/Email.
+  // Returns true if allowed to proceed.
+  const ensureHuman = async (): Promise<boolean> => {
+    if (!captchaRequired) return true;
+    if (!captchaToken) {
+      setStatus("error");
+      setMessage("Please complete the \"I'm not a robot\" verification first.");
+      return false;
+    }
+    try {
+      const res = await fetch("/api/verify", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ token: captchaToken }),
+      });
+      const data = await res.json();
+      if (!data.ok) {
+        setStatus("error");
+        setMessage("Verification failed. Please tick the box again.");
+        return false;
+      }
+      return true;
+    } catch {
+      // If the check can't run, don't hard-block the user.
+      return true;
+    }
+  };
+
+  const openWhatsApp = async () => {
+    if (!(await ensureHuman())) return;
     const text = encodeURIComponent(buildMessage());
     window.open(`https://wa.me/${siteConfig.contact.phoneRaw}?text=${text}`, "_blank");
   };
 
-  const openEmail = () => {
+  const openEmail = async () => {
+    if (!(await ensureHuman())) return;
     const subject = encodeURIComponent(`Website Order — ${form.name || "New Client"}`);
     const body = encodeURIComponent(buildMessage());
     window.open(`mailto:${siteConfig.contact.email}?subject=${subject}&body=${body}`, "_blank");
@@ -65,18 +99,26 @@ export default function OrderForm() {
       setMessage("Please fill in your name, email, and project details.");
       return;
     }
+    if (captchaRequired && !captchaToken) {
+      setStatus("error");
+      setMessage("Please complete the \"I'm not a robot\" verification first.");
+      return;
+    }
     setStatus("sending");
     setMessage("");
     try {
       const res = await fetch("/api/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, startedAt: startedAt.current }),
+        body: JSON.stringify({ ...form, startedAt: startedAt.current, recaptchaToken: captchaToken }),
       });
       const data = await res.json();
       if (res.ok && data.delivered) {
         setStatus("success");
         setMessage("Your order has been sent. I'll get back to you very soon!");
+      } else if (res.status === 400 && data.error) {
+        setStatus("error");
+        setMessage(data.error);
       } else {
         setStatus("success");
         setMessage("Opening WhatsApp and your email app so you can send the order directly. Thank you!");
@@ -182,6 +224,13 @@ export default function OrderForm() {
               <div className={`mt-4 flex items-start gap-2 rounded-md border p-3 text-sm ${status === "error" ? "border-red-500/40 bg-red-500/10 text-red-400" : "border-emerald-500/40 bg-emerald-500/10 text-emerald-400"}`}>
                 {status === "error" ? <AlertCircle size={18} className="mt-0.5 shrink-0" /> : <CheckCircle2 size={18} className="mt-0.5 shrink-0" />}
                 <span>{message}</span>
+              </div>
+            )}
+
+            {/* "I'm not a robot" — appears only when reCAPTCHA keys are set */}
+            {captchaRequired && (
+              <div className="mt-5 flex justify-center sm:justify-start">
+                <ReCaptcha onChange={setCaptchaToken} theme="dark" />
               </div>
             )}
 

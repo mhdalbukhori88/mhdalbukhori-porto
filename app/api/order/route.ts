@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { verifyRecaptcha } from "@/lib/recaptcha";
 
 // Order/contact submission endpoint — hardened against abuse.
 //
@@ -24,6 +25,7 @@ type OrderPayload = {
   // anti-bot
   company?: string; // honeypot: must stay empty
   startedAt?: number; // client timestamp when the form was opened
+  recaptchaToken?: string; // Google reCAPTCHA token
 };
 
 // ---- Simple in-memory rate limiter (per serverless instance) ----
@@ -104,6 +106,15 @@ export async function POST(req: Request) {
   // Time trap: a human takes more than ~2s to fill the form.
   if (typeof body.startedAt === "number" && Date.now() - body.startedAt < 2000) {
     return NextResponse.json({ delivered: true });
+  }
+
+  // reCAPTCHA verification (only enforced when keys are configured).
+  const captcha = await verifyRecaptcha(body.recaptchaToken, ip);
+  if (captcha.configured && !captcha.ok) {
+    return NextResponse.json(
+      { delivered: false, error: "Please complete the 'I'm not a robot' verification." },
+      { status: 400 }
+    );
   }
 
   const name = clean(body.name, 100);
