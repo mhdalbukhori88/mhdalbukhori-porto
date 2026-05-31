@@ -8,6 +8,7 @@ import {
   Megaphone,
   Globe,
   Boxes,
+  Palette,
 } from "lucide-react";
 
 /* ===== Expertise: 3 cards with tech chips ===== */
@@ -54,17 +55,19 @@ export const expertise: Expertise[] = [
     ],
   },
   {
-    title: "Digital Marketing & AI",
-    icon: Megaphone,
+    title: "Digital Marketing & Graphic Design",
+    icon: Palette,
     description:
-      "I help brands grow online with content strategy, branding, and audience engagement, and stay current by leveraging modern AI tools and prompt engineering in my workflow.",
+      "I help brands grow online with content strategy, branding, and audience engagement, and craft eye-catching visuals, logos, and social media designs. I also leverage modern AI tools and prompt engineering in my creative workflow.",
     stack: [
       "Content Strategy",
       "Branding",
       "SEO",
+      "Social Media",
+      "Graphic Design",
+      "Canva",
+      "Photoshop",
       "AI Tools",
-      "Prompt Engineering",
-      "MS Office",
     ],
   },
 ];

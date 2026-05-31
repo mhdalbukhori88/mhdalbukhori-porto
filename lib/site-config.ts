@@ -6,7 +6,7 @@ export const siteConfig = {
   shortName: "Al Bukhori",
   role: "Fullstack Web Developer",
   tagline:
-    "Fullstack Web Developer, Software Engineer & Data Analyst building reliable digital solutions from front-end to back-end.",
+    "Fullstack Web Developer, Software Engineer, Data Analyst, Digital Marketer & Graphic Designer building reliable digital solutions from front-end to back-end.",
   location: "Binjai, North Sumatra, Indonesia",
   availability: "Available for full-time roles & freelance projects",
   resumeUrl: "/cv-mhd-al-bukhori.pdf",
