@@ -1,24 +1,22 @@
-<svg width="256" height="128" viewBox="0 0 256 128" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MAB logo">
+<svg width="180" height="140" viewBox="0 0 180 140" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="MB logo">
   <defs>
-    <linearGradient id="mabBlue" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#1d5ff1"/>
-      <stop offset="0.55" stop-color="#3380fc"/>
-      <stop offset="1" stop-color="#6cb0ff"/>
-    </linearGradient>
-    <linearGradient id="mabSilver" x1="0" y1="0" x2="1" y2="1">
+    <linearGradient id="mbWhite" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#ffffff"/>
-      <stop offset="1" stop-color="#b8c4d6"/>
+      <stop offset="1" stop-color="#cdd3dd"/>
+    </linearGradient>
+    <linearGradient id="mbPurple" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#7b3ff2"/>
+      <stop offset="1" stop-color="#5000ca"/>
     </linearGradient>
   </defs>
-  <g stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="16">
-    <!-- M -->
-    <path d="M16 100 V40 L51 78 L86 40 V100" stroke="url(#mabBlue)"/>
-    <!-- A -->
-    <path d="M100 100 L132 36 L164 100" stroke="url(#mabBlue)"/>
-    <path d="M112 78 H152" stroke="url(#mabBlue)"/>
-    <!-- B -->
-    <path d="M184 36 V100" stroke="url(#mabSilver)"/>
-    <path d="M184 36 H210 A16 16 0 0 1 210 68 H184" stroke="url(#mabSilver)"/>
-    <path d="M184 68 H218 A16 16 0 0 1 218 100 H184" stroke="url(#mabSilver)"/>
+  <g stroke-linecap="round" stroke-linejoin="round" fill="none" stroke-width="18">
+    <!-- M: left half white -->
+    <path d="M20 110 V44 L58 88" stroke="url(#mbWhite)"/>
+    <!-- M: right diagonal + leg purple -->
+    <path d="M58 88 L98 44 V110" stroke="url(#mbPurple)"/>
+    <!-- B: purple -->
+    <path d="M120 44 V110" stroke="url(#mbPurple)"/>
+    <path d="M120 44 H148 A16 16 0 0 1 148 77 H120" stroke="url(#mbPurple)"/>
+    <path d="M120 77 H152 A16.5 16.5 0 0 1 152 110 H120" stroke="url(#mbPurple)"/>
   </g>
 </svg>

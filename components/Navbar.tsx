@@ -54,7 +54,7 @@ export default function Navbar() {
               {theme === "dark" ? <Sun size={22} /> : <Moon size={22} />}
             </button>
             <a href="#home" className="hidden items-center gap-2 sm:flex" onClick={(e) => { e.preventDefault(); scrollTo("home"); }}>
-              <Image src="/logo.svg" alt="MAB" width={26} height={26} className="h-6 w-6" />
+              <Image src="/logo.svg" alt="MB logo" width={42} height={32} className="h-8 w-auto" priority />
             </a>
           </div>
 
