@@ -45,7 +45,7 @@ a {
   color: inherit;
   transition: color 0.15s ease-in-out;
 }
-a:hover {
+a:not(.btn-accent):not(.btn-outline):hover {
   color: #5000ca;
 }
 
@@ -95,12 +95,18 @@ a:hover {
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
   }
 
+  .btn-accent,
+  .btn-accent:hover,
+  .btn-accent:focus,
+  .btn-accent:active {
+    color: #ffffff !important;
+  }
   .btn-accent {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-accent to-accent-light px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-accent/25 transition-all duration-300 hover:scale-[1.03] hover:shadow-accent/45 hover:from-accent-light hover:to-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 active:scale-[0.98];
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-accent to-accent-light px-6 py-3 text-sm font-semibold !text-white shadow-lg shadow-accent/25 transition-all duration-300 hover:scale-[1.03] hover:shadow-accent/45 hover:from-accent-light hover:to-accent hover:!text-white focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 active:scale-[0.98];
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 rounded-lg border px-6 py-3 text-sm font-semibold transition-all duration-300 hover:scale-[1.03] hover:border-accent hover:text-accent hover:shadow-md hover:shadow-accent/10 focus:outline-none active:scale-[0.98];
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border px-6 py-3 text-sm font-semibold transition-all duration-300 hover:scale-[1.03] hover:border-accent hover:bg-accent/10 hover:text-accent hover:shadow-md hover:shadow-accent/10 focus:outline-none active:scale-[0.98];
     border-color: var(--border);
     color: var(--text);
   }

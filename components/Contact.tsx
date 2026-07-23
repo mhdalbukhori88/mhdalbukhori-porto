@@ -74,10 +74,10 @@ export default function Contact() {
 
       <Reveal>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
-          <a href={siteConfig.socials.softwareHouse.url} target="_blank" rel="noreferrer" className="btn-accent flex items-center gap-2">
+          <a href={siteConfig.socials.softwareHouse.url} target="_blank" rel="noreferrer" className="btn-accent !text-white hover:!text-white flex items-center gap-2">
             <Instagram size={18} /> {siteConfig.socials.softwareHouse.name} ({siteConfig.socials.softwareHouse.handle})
           </a>
-          <a href={waLink} target="_blank" rel="noreferrer" className="btn-accent !bg-emerald-600 hover:!bg-emerald-500 flex items-center gap-2">
+          <a href={waLink} target="_blank" rel="noreferrer" className="btn-accent !bg-emerald-600 hover:!bg-emerald-500 !text-white hover:!text-white flex items-center gap-2">
             <MessageCircle size={18} /> Chat on WhatsApp
           </a>
           <a href={`mailto:${siteConfig.contact.email}`} className="btn-outline flex items-center gap-2">
