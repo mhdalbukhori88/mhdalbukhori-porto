@@ -122,9 +122,9 @@ export default function Navbar() {
                   target="_blank"
                   rel="noreferrer"
                   onClick={() => setOpen(false)}
-                  className="btn-accent w-full"
+                  className="btn-accent w-full flex items-center justify-center gap-2"
                 >
-                  Download CV
+                  Download Resume
                 </a>
                 <div className="flex items-center justify-center gap-4 pt-1">
                   <a href={siteConfig.socials.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="text-white/80 hover:text-accent">

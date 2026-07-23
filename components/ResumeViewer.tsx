@@ -68,7 +68,7 @@ export default function ResumeViewer() {
               download="Resume_Mhd_Al_Bukhori.pdf"
               className="btn-accent flex items-center gap-2"
             >
-              <Download size={18} /> Download CV (PDF)
+              <Download size={18} /> Download Resume (PDF)
             </a>
           </div>
         </div>

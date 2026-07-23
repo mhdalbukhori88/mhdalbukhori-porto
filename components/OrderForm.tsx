@@ -6,17 +6,25 @@ import { siteConfig } from "@/lib/site-config";
 import Reveal from "./Reveal";
 import ReCaptcha, { RECAPTCHA_SITE_KEY } from "./ReCaptcha";
 
-const websiteTypes = [
-  "Company Profile",
-  "Landing Page",
-  "E-Commerce / Online Store",
-  "Web Application",
-  "Personal / Portfolio",
-  "Community / Organization",
-  "Other",
+const projectTypes = [
+  "Software House Custom Project (Golden Tech ID)",
+  "Full Stack Web Application / SaaS",
+  "Mobile App Development (Android & iOS)",
+  "Company Profile & Corporate Website",
+  "E-Commerce Platform & Online Store",
+  "UI/UX Design & Interactive Prototyping",
+  "Data Analytics & Custom Dashboards",
+  "AI Integration & Prompt Engineering",
+  "Other Custom Software Project",
 ];
 
-const budgets = ["Under Rp 1 Juta", "Rp 1 - 3 Juta", "Rp 3 - 7 Juta", "Rp 7 Juta+", "Let's discuss"];
+const budgets = [
+  "Under Rp 2 Juta",
+  "Rp 2 - 5 Juta",
+  "Rp 5 - 15 Juta",
+  "Rp 15 Juta+",
+  "Flexible / Discussion Needed",
+];
 
 type Status = "idle" | "sending" | "success" | "error";
 
@@ -25,7 +33,7 @@ export default function OrderForm() {
     name: "",
     email: "",
     phone: "",
-    type: websiteTypes[0],
+    type: projectTypes[0],
     budget: budgets[0],
     deadline: "",
     details: "",
@@ -42,17 +50,16 @@ export default function OrderForm() {
     setForm((f) => ({ ...f, [key]: value }));
 
   const buildMessage = () =>
-    `Hi ${siteConfig.name}, I'd like to order a website.\n\n` +
+    `Hi ${siteConfig.name} (${siteConfig.socials.softwareHouse.name}), I'd like to order a project / services.\n\n` +
     `Name: ${form.name}\n` +
     `Email: ${form.email}\n` +
     `Phone: ${form.phone}\n` +
-    `Website Type: ${form.type}\n` +
+    `Project Type: ${form.type}\n` +
     `Budget: ${form.budget}\n` +
     `Target Deadline: ${form.deadline || "Flexible"}\n\n` +
     `Project Details:\n${form.details}`;
 
   // Confirm the visitor passed reCAPTCHA before opening WhatsApp/Email.
-  // Returns true if allowed to proceed.
   const ensureHuman = async (): Promise<boolean> => {
     if (!captchaRequired) return true;
     if (!captchaToken) {
@@ -74,7 +81,6 @@ export default function OrderForm() {
       }
       return true;
     } catch {
-      // If the check can't run, don't hard-block the user.
       return true;
     }
   };
@@ -87,7 +93,7 @@ export default function OrderForm() {
 
   const openEmail = async () => {
     if (!(await ensureHuman())) return;
-    const subject = encodeURIComponent(`Website Order — ${form.name || "New Client"}`);
+    const subject = encodeURIComponent(`Project Order (${siteConfig.socials.softwareHouse.name}) — ${form.name || "New Client"}`);
     const body = encodeURIComponent(buildMessage());
     window.open(`mailto:${siteConfig.contact.email}?subject=${subject}&body=${body}`, "_blank");
   };
@@ -115,7 +121,7 @@ export default function OrderForm() {
       const data = await res.json();
       if (res.ok && data.delivered) {
         setStatus("success");
-        setMessage("Your order has been sent. I'll get back to you very soon!");
+        setMessage("Your project order has been sent! We will get back to you shortly.");
       } else if (res.status === 400 && data.error) {
         setStatus("error");
         setMessage(data.error);
@@ -136,10 +142,9 @@ export default function OrderForm() {
   return (
     <section id="order" className="section">
       <Reveal>
-        <h1 className="section-title">Order a Website</h1>
+        <h1 className="section-title">Start a Project / Software House Services</h1>
         <p className="-mt-6 mb-10 max-w-2xl text-base muted">
-          Need a website for yourself, your community, or your company? Fill in the form and it goes
-          straight to my email and WhatsApp.
+          Looking for custom software development, web applications, or mobile apps via <strong>{siteConfig.socials.softwareHouse.name}</strong>? Fill out the project form below.
         </p>
       </Reveal>
 
@@ -203,9 +208,9 @@ export default function OrderForm() {
               <Field label="Target Deadline">
                 <input type="text" value={form.deadline} onChange={(e) => update("deadline", e.target.value)} placeholder="e.g. 2 weeks" className="form-input" />
               </Field>
-              <Field label="Website Type">
+              <Field label="Project / Service Type">
                 <select value={form.type} onChange={(e) => update("type", e.target.value)} className="form-input">
-                  {websiteTypes.map((t) => <option key={t} value={t}>{t}</option>)}
+                  {projectTypes.map((t) => <option key={t} value={t}>{t}</option>)}
                 </select>
               </Field>
               <Field label="Budget Range">
