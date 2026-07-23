@@ -173,25 +173,27 @@ export default function ResumeViewer() {
         </div>
       </Reveal>
 
-      {/* 100% Reliable Native Resume Document Modal (Guaranteed No Browser Blocking) */}
+      {/* 100% Reliable Native Resume Document Modal (Fully Theme Responsive - Light & Dark Mode) */}
       {isPreviewOpen && (
         <div className="fixed inset-0 z-[100] flex items-center justify-center p-3 sm:p-6 overflow-y-auto">
           <div
-            className="fixed inset-0 bg-black/85 backdrop-blur-md"
+            className="fixed inset-0 bg-black/70 backdrop-blur-sm"
             onClick={() => setIsPreviewOpen(false)}
           />
-          <div className="relative flex max-h-[92vh] w-full max-w-4xl flex-col rounded-2xl border border-white/20 bg-night text-white shadow-2xl overflow-hidden animate-[fadeInUp_0.25s_ease] my-auto">
+          <div className="relative flex max-h-[92vh] w-full max-w-4xl flex-col rounded-2xl border border-[var(--border)] surface-card shadow-2xl overflow-hidden animate-[fadeInUp_0.25s_ease] my-auto text-[var(--text)]">
             {/* Modal Navigation Header */}
-            <div className="flex items-center justify-between border-b border-white/10 px-5 py-3.5 bg-black/60 shrink-0">
+            <div className="flex items-center justify-between border-b border-[var(--border)] px-5 py-3.5 bg-[var(--bg-alt)] shrink-0">
               <div className="flex items-center gap-3">
-                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/20 text-accent">
+                <div className="flex h-9 w-9 items-center justify-center rounded-lg bg-accent/15 text-accent">
                   <FileText size={20} />
                 </div>
                 <div>
-                  <h3 className="text-sm font-bold text-white sm:text-base">
+                  <h3 className="text-sm font-bold sm:text-base">
                     Resume Mhd. Al Bukhori.pdf
                   </h3>
-                  <p className="text-xs text-emerald-400 font-mono">Verified Full Document</p>
+                  <p className="text-xs text-emerald-600 dark:text-emerald-400 font-mono font-medium">
+                    Verified Full Document
+                  </p>
                 </div>
               </div>
               <div className="flex items-center gap-2">
@@ -199,20 +201,20 @@ export default function ResumeViewer() {
                   href={siteConfig.resumeUrl}
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-center gap-1.5 rounded-lg border border-white/20 px-3 py-1.5 text-xs text-white transition-colors hover:bg-white/10"
+                  className="flex items-center gap-1.5 rounded-lg border border-[var(--border)] px-3 py-1.5 text-xs font-medium transition-colors hover:bg-accent/10 hover:border-accent/40"
                 >
                   Open PDF <ExternalLink size={14} />
                 </a>
                 <a
                   href={siteConfig.resumeUrl}
                   download="Resume_Mhd_Al_Bukhori.pdf"
-                  className="hidden sm:flex items-center gap-1.5 rounded-lg bg-accent px-3 py-1.5 text-xs font-semibold text-white hover:bg-accent-light transition-colors"
+                  className="hidden sm:flex items-center gap-1.5 rounded-lg btn-accent !py-1.5 !px-3 text-xs font-semibold"
                 >
                   Download <Download size={14} />
                 </a>
                 <button
                   onClick={() => setIsPreviewOpen(false)}
-                  className="flex h-8 w-8 items-center justify-center rounded-full border border-white/20 text-white hover:bg-white/20 transition-colors ml-1"
+                  className="flex h-8 w-8 items-center justify-center rounded-full border border-[var(--border)] hover:bg-accent/10 transition-colors ml-1"
                   aria-label="Close Preview"
                 >
                   <X size={18} />
@@ -220,30 +222,30 @@ export default function ResumeViewer() {
               </div>
             </div>
 
-            {/* Modal Body: Clean Document Viewer */}
-            <div className="flex-1 overflow-y-auto p-5 sm:p-8 bg-neutral-950 text-neutral-200 font-sans space-y-6">
+            {/* Modal Body: Theme-Responsive Clean Document Viewer */}
+            <div className="flex-1 overflow-y-auto p-5 sm:p-8 bg-[var(--bg)] font-sans space-y-6">
               {/* Document Header */}
-              <div className="border-b border-neutral-800 pb-6 text-center sm:text-left flex flex-col sm:flex-row justify-between items-start gap-4">
+              <div className="border-b border-[var(--border)] pb-6 text-center sm:text-left flex flex-col sm:flex-row justify-between items-start gap-4">
                 <div>
-                  <h1 className="text-3xl font-black text-white tracking-tight uppercase">
+                  <h1 className="text-3xl font-black tracking-tight uppercase">
                     Mhd. Al Bukhori
                   </h1>
                   <p className="text-lg font-semibold text-accent mt-1">Full Stack Developer</p>
-                  <p className="text-xs text-emerald-400 font-mono mt-1">
+                  <p className="text-xs text-emerald-600 dark:text-emerald-400 font-mono font-semibold mt-1">
                     Open to Remote Work | GMT+7 (WIB)
                   </p>
                 </div>
-                <div className="text-xs font-mono space-y-1 text-neutral-300 bg-neutral-900/80 p-3 rounded-lg border border-neutral-800">
-                  <p className="flex items-center gap-2">
+                <div className="text-xs font-mono space-y-1.5 muted bg-[var(--bg-alt)] p-3.5 rounded-xl border border-[var(--border)]">
+                  <p className="flex items-center gap-2 font-medium">
                     <Mail size={13} className="text-accent" /> {siteConfig.contact.email}
                   </p>
-                  <p className="flex items-center gap-2">
+                  <p className="flex items-center gap-2 font-medium">
                     <Phone size={13} className="text-accent" /> {siteConfig.contact.phone}
                   </p>
-                  <p className="flex items-center gap-2">
+                  <p className="flex items-center gap-2 font-medium">
                     <MapPin size={13} className="text-accent" /> Binjai, Indonesia
                   </p>
-                  <p className="flex items-center gap-2 pt-1 border-t border-neutral-800">
+                  <p className="flex items-center gap-2 pt-1 border-t border-[var(--border)] font-medium">
                     <Globe size={13} className="text-accent" /> mhdalbukhori-porto.vercel.app
                   </p>
                 </div>
@@ -254,7 +256,7 @@ export default function ResumeViewer() {
                 <h2 className="text-xs font-mono uppercase tracking-widest text-accent font-bold mb-2">
                   Professional Summary
                 </h2>
-                <p className="text-sm leading-relaxed text-neutral-300 bg-neutral-900/40 p-4 rounded-xl border border-neutral-800/80">
+                <p className="text-sm leading-relaxed muted bg-[var(--bg-alt)] p-4 rounded-xl border border-[var(--border)]">
                   Full Stack Developer and IT professional currently completing a Bachelor&apos;s degree (S1) in Informatics Engineering at STMIK Kaputama Binjai, with hands-on freelance experience since 2021 delivering 250+ end-to-end web and mobile projects for clients across diverse needs. Proficient in building responsive frontend interfaces (React, Vue, Next.js) and scalable backend systems (Node.js, Java Spring, PHP Laravel, Python Django/Flask), backed by strong database and cloud expertise (MySQL, PostgreSQL, MongoDB, Firebase, Supabase, Google Cloud Platform, Vercel, Netlify, Docker). Also experienced in native mobile app development for Android and iOS using Java and Kotlin. Complements technical development skills with strong data analysis capability, including advanced Microsoft Excel, SQL, Power BI, and Tableau, as well as graphic design and UI/UX design using Figma, Adobe XD, Photoshop, Illustrator, CorelDRAW, and Canva.
                 </p>
               </div>
@@ -264,11 +266,11 @@ export default function ResumeViewer() {
                 <h2 className="text-xs font-mono uppercase tracking-widest text-accent font-bold mb-3">
                   Technical Skills Matrix
                 </h2>
-                <div className="space-y-2 text-sm bg-neutral-900/40 p-4 rounded-xl border border-neutral-800/80">
+                <div className="space-y-2 text-sm bg-[var(--bg-alt)] p-4 rounded-xl border border-[var(--border)]">
                   {technicalSkillsMatrix.map((item) => (
                     <div key={item.label} className="grid grid-cols-1 sm:grid-cols-[170px_1fr] gap-1 sm:gap-2">
-                      <span className="font-semibold text-white text-xs font-mono">{item.label}:</span>
-                      <span className="text-neutral-300 text-xs">{item.items}</span>
+                      <span className="font-bold text-xs font-mono text-accent">{item.label}:</span>
+                      <span className="muted text-xs">{item.items}</span>
                     </div>
                   ))}
                 </div>
@@ -281,17 +283,17 @@ export default function ResumeViewer() {
                 </h2>
                 <div className="space-y-4">
                   {timeline.map((item, idx) => (
-                    <div key={idx} className="bg-neutral-900/40 p-4 rounded-xl border border-neutral-800/80">
-                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-neutral-800 pb-2 mb-2">
+                    <div key={idx} className="bg-[var(--bg-alt)] p-4 rounded-xl border border-[var(--border)]">
+                      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-1 border-b border-[var(--border)] pb-2 mb-2">
                         <div>
-                          <h3 className="font-bold text-white text-base">{item.title}</h3>
+                          <h3 className="font-bold text-base">{item.title}</h3>
                           <p className="text-xs font-semibold text-accent">{item.place}</p>
                         </div>
-                        <span className="font-mono text-xs text-neutral-400">{item.date}</span>
+                        <span className="font-mono text-xs text-accent font-medium">{item.date}</span>
                       </div>
-                      <p className="text-xs text-neutral-300 leading-relaxed mb-2">{item.description}</p>
+                      <p className="text-xs muted leading-relaxed mb-2">{item.description}</p>
                       {item.bullets && item.bullets.length > 0 && (
-                        <ul className="space-y-1 text-xs text-neutral-400 pl-1">
+                        <ul className="space-y-1 text-xs muted pl-1">
                           {item.bullets.map((b, bIdx) => (
                             <li key={bIdx} className="flex items-start gap-2">
                               <span className="text-accent mt-0.5">•</span>
@@ -311,21 +313,21 @@ export default function ResumeViewer() {
                   Education &amp; Core Competencies
                 </h2>
                 <div className="grid gap-3 sm:grid-cols-2">
-                  <div className="bg-neutral-900/40 p-4 rounded-xl border border-neutral-800/80">
-                    <h3 className="font-bold text-white text-sm">Bachelor of Informatics Engineering (S1)</h3>
-                    <p className="text-xs text-accent">STMIK Kaputama Binjai (In Progress)</p>
+                  <div className="bg-[var(--bg-alt)] p-4 rounded-xl border border-[var(--border)]">
+                    <h3 className="font-bold text-sm">Bachelor of Informatics Engineering (S1)</h3>
+                    <p className="text-xs font-medium text-accent">STMIK Kaputama Binjai (In Progress)</p>
                   </div>
-                  <div className="bg-neutral-900/40 p-4 rounded-xl border border-neutral-800/80">
-                    <h3 className="font-bold text-white text-sm">Natural Sciences (IPA) — SMA Negeri 5 Binjai</h3>
-                    <p className="text-xs text-accent">Final Score: 97.14 | Chairman of Student Council (Ketua OSIS)</p>
+                  <div className="bg-[var(--bg-alt)] p-4 rounded-xl border border-[var(--border)]">
+                    <h3 className="font-bold text-sm">Natural Sciences (IPA) — SMA Negeri 5 Binjai</h3>
+                    <p className="text-xs font-medium text-accent">Final Score: 97.14 | Chairman of Student Council (Ketua OSIS)</p>
                   </div>
                 </div>
               </div>
             </div>
 
             {/* Modal Footer Actions */}
-            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-white/10 bg-black/60 px-5 py-3 shrink-0">
-              <span className="text-xs text-neutral-400 font-mono">
+            <div className="flex flex-wrap items-center justify-between gap-3 border-t border-[var(--border)] bg-[var(--bg-alt)] px-5 py-3 shrink-0">
+              <span className="text-xs font-mono muted">
                 Official Document • Mhd. Al Bukhori
               </span>
               <div className="flex items-center gap-2">
