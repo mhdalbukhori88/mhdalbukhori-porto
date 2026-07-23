@@ -5,9 +5,9 @@ import {
   Code2,
   Database,
   LineChart,
-  Megaphone,
   Globe,
   Boxes,
+  Sparkles,
   Palette,
 } from "lucide-react";
 
@@ -21,53 +21,63 @@ export type Expertise = {
 
 export const expertise: Expertise[] = [
   {
-    title: "Fullstack Web Development",
+    title: "Frontend & Mobile Development",
+    icon: Globe,
+    description:
+      "Building highly responsive web user interfaces and native mobile applications for Android & iOS with modern frameworks and robust UI patterns.",
+    stack: [
+      "HTML/CSS",
+      "JavaScript",
+      "TypeScript",
+      "React",
+      "Vue",
+      "Next.js",
+      "Tailwind CSS",
+      "Bootstrap",
+      "Java (Android)",
+      "Kotlin (Android & iOS)",
+    ],
+  },
+  {
+    title: "Backend, Cloud & Database Systems",
     icon: Code2,
     description:
-      "I build complete web applications from scratch, handling both front-end and back-end. From responsive interfaces to server logic and databases, I deliver the entire stack end-to-end.",
+      "Architecting scalable backend services, RESTful & GraphQL APIs, microservices, and database solutions with cloud hosting & containerization.",
     stack: [
-      "React",
-      "Next.js",
-      "TypeScript",
-      "JavaScript",
-      "HTML5",
-      "CSS3",
-      "Tailwind",
       "Node.js",
-      "PHP",
-      "REST API",
-    ],
-  },
-  {
-    title: "Software Engineering & Data",
-    icon: Database,
-    description:
-      "Backed by Java and Python, I develop software and turn raw data into clear insight. I design databases, process data, and build reports and dashboards for better decisions.",
-    stack: [
-      "Java",
-      "Python",
+      "Express",
+      "Java (Spring)",
+      "PHP (Laravel, CodeIgniter)",
+      "Python (Django, Flask)",
       "MySQL",
       "PostgreSQL",
-      "Pandas",
-      "Excel",
-      "SQL",
-      "Data Analysis",
+      "MongoDB",
+      "Firebase",
+      "Supabase",
+      "GCP",
+      "Vercel",
+      "Netlify",
+      "Docker",
     ],
   },
   {
-    title: "Digital Marketing & Graphic Design",
-    icon: Palette,
+    title: "UI/UX, Data Analytics & AI Tools",
+    icon: Sparkles,
     description:
-      "I help brands grow online with content strategy, branding, and audience engagement, and craft eye-catching visuals, logos, and social media designs. I also leverage modern AI tools and prompt engineering in my creative workflow.",
+      "Transforming complex requirements into intuitive Figma designs and converting raw datasets into actionable Power BI, Tableau, and SQL dashboards, enhanced by AI prompt engineering.",
     stack: [
-      "Content Strategy",
-      "Branding",
-      "SEO",
-      "Social Media",
-      "Graphic Design",
-      "Canva",
+      "Figma",
+      "Google Stitch",
+      "Adobe XD",
       "Photoshop",
-      "AI Tools",
+      "Illustrator",
+      "CorelDRAW",
+      "Canva",
+      "Power BI",
+      "Tableau",
+      "Advanced Excel",
+      "SQL",
+      "AI Tools & Prompting",
     ],
   },
 ];
@@ -77,37 +87,82 @@ export type TimelineItem = {
   title: string;
   place: string;
   date: string;
+  type?: string;
   description: string;
+  bullets?: string[];
 };
 
 export const timeline: TimelineItem[] = [
   {
-    title: "Freelance Web Developer & Software Engineer",
-    place: "Self-employed",
-    date: "Present",
+    title: "Freelance Full Stack Developer & Graphic Designer",
+    place: "Self-Employed — Remote / Binjai, Indonesia",
+    date: "2021 – Present",
+    type: "Work Experience",
     description:
-      "Building websites and digital solutions for clients end-to-end — front-end, back-end, and data processing tailored to client needs.",
+      "Delivered 250+ freelance web and mobile development projects end-to-end based on client requirements across frontend, backend, database design, UI/UX, and cloud hosting.",
+    bullets: [
+      "Delivered 250+ web development projects from concept and UI/UX design to production deployment.",
+      "Developed frontend & backend features, including database structures and REST/GraphQL API integration.",
+      "Created graphic design assets for client branding using Photoshop, Illustrator, CorelDRAW, and Canva.",
+      "Coordinated directly with remote clients from initial requirement gathering through final delivery.",
+      "Managed website deployment, hosting, domain configuration, and continuous maintenance.",
+    ],
   },
   {
-    title: "Data Analyst (Freelance)",
-    place: "Remote",
-    date: "Present",
+    title: "Warehouse Staff",
+    place: "PT. KS Binjai — Binjai, Indonesia (Contract)",
+    date: "Jan 2025 – Jul 2025",
+    type: "Work Experience",
     description:
-      "Processing and analyzing data, building reports and visual insights using Python and SQL to support decision-making.",
+      "Managed thousands of spare parts and workshop equipment items, maintaining exact inventory control and technician support.",
+    bullets: [
+      "Managed and issued thousands of spare parts and workshop equipment items.",
+      "Conducted monthly physical stock opnames covering thousands of tools and spare parts.",
+      "Maintained storage organization and tracked incoming/outgoing goods in inventory systems.",
+    ],
   },
   {
-    title: "IT & Network Services / Operations",
-    place: "Internet & Network Service Environment",
-    date: "Experience",
+    title: "Warehouse Administration Staff",
+    place: "PT. Quantum Nusatama — Binjai, Indonesia (Contract)",
+    date: "Nov 2023 – Dec 2024",
+    type: "Work Experience",
     description:
-      "Warehouse management, inventory control, stock opname, asset tracking, equipment maintenance, and administrative operations.",
+      "Managed logistics and data operations for 5,000+ network equipment units per month supporting 40 field technicians.",
+    bullets: [
+      "Managed receiving, storage, and distribution of 5,000+ network equipment units/month (modems, routers, ONTs).",
+      "Prepared precon cables and fiber optic installation materials for 40 field technicians.",
+      "Updated device data and serial numbers in the OSS system and processed BAST documents.",
+      "Maintained technician tools (Splicer, OTDR, OPM) and generated daily inventory status reports.",
+    ],
   },
   {
-    title: "Informatics Engineering Student",
-    place: "STMIK Kaputama Binjai",
-    date: "Currently enrolled",
+    title: "Production Staff",
+    place: "Aneka Kreatif Studio — Binjai, Indonesia (Permanent)",
+    date: "Jul 2021 – Sep 2023",
+    type: "Work Experience",
     description:
-      "Studying Computer Science with focus on software development, databases, and computer science fundamentals.",
+      "Operated digital and offset printing machinery while handling prepress design edits and finishing processes.",
+    bullets: [
+      "Operated digital & offset printing machines producing ~500 print outputs per day.",
+      "Edited prepress design files using CorelDRAW and Photoshop prior to printing.",
+      "Handled quality control, finishing processes (cutting, laminating, binding), and equipment maintenance.",
+    ],
+  },
+  {
+    title: "Bachelor of Informatics Engineering (S1)",
+    place: "STMIK Kaputama Binjai — Binjai, Indonesia",
+    date: "In Progress",
+    type: "Education",
+    description:
+      "Pursuing S1 degree focusing on software engineering, web & mobile technologies, database architectures, and IT infrastructure.",
+  },
+  {
+    title: "Natural Sciences (IPA)",
+    place: "SMA Negeri 5 Binjai — Binjai, Indonesia",
+    date: "Jul 2018 – May 2021",
+    type: "Education",
+    description:
+      "Graduated with Final Score: 97.14. Served as Chairman of Student Council (Ketua OSIS). Active in Scout Organization (Pramuka), English Club, and City-Level Science Olympiad (OSK Biologi).",
   },
 ];
 
@@ -122,37 +177,50 @@ export type Project = {
 
 export const projects: Project[] = [
   {
-    title: "Company Profile Website",
-    category: "Web Development",
+    title: "End-to-End Client Web & Mobile Platforms (250+ Projects)",
+    category: "Full Stack Development",
     description:
-      "Responsive company profile website with a modern UI, content sections, and contact integration. Built fullstack and deployment-ready.",
-    tech: ["Next.js", "Tailwind CSS", "Node.js"],
+      "Over 250 freelance web applications and mobile apps delivered with responsive UI/UX (React, Vue, Next.js, Kotlin), robust APIs (Node, Spring, Laravel), and automated cloud deployments.",
+    tech: ["React", "Next.js", "Node.js", "PHP Laravel", "Java Spring", "PostgreSQL", "Firebase"],
     icon: Globe,
   },
   {
-    title: "Inventory & Stock Management",
-    category: "Fullstack App",
+    title: "Network Equipment & Asset Management System",
+    category: "Operations & Software",
     description:
-      "Web application for inventory control, stock opname, and asset tracking, inspired by real operational warehouse experience.",
-    tech: ["Java", "MySQL", "REST API"],
+      "Operational tracking system for 5,000+ network devices, inventory logging, serial number tracking, OSS data integration, and technician equipment dispatching.",
+    tech: ["Java", "MySQL", "OSS Integration", "Data Logging", "Excel/SQL"],
     icon: Boxes,
   },
   {
-    title: "Data Analysis Dashboard",
-    category: "Data Analyst",
+    title: "AI Tools & Smart Workflow Integration",
+    category: "AI & Innovation",
     description:
-      "Data processing pipeline and reporting dashboard turning raw datasets into clear visual insights for decision-making.",
-    tech: ["Python", "Pandas", "PostgreSQL"],
-    icon: LineChart,
+      "Custom workflow tools leveraging AI prompt engineering, data processing scripts, and modern developer tooling to optimize digital design and development pipelines.",
+    tech: ["Python", "Prompt Engineering", "AI Tools", "REST API", "Tailwind CSS"],
+    icon: Sparkles,
   },
   {
-    title: "Business Landing Page",
-    category: "Digital Marketing",
+    title: "Data Analytics & Executive Dashboards",
+    category: "Data Analysis",
     description:
-      "Conversion-focused landing page combining clean design, branding, and content strategy to drive audience engagement.",
-    tech: ["Next.js", "SEO", "Tailwind CSS"],
-    icon: Megaphone,
+      "Interactive analytics dashboards turning complex operational data and stock counts into clear visual metrics using Power BI, Tableau, Advanced Excel, and SQL queries.",
+    tech: ["Power BI", "Tableau", "SQL", "Advanced Excel", "Data Processing"],
+    icon: LineChart,
   },
+];
+
+/* ===== Core Competencies ===== */
+export const competencies = [
+  "Problem-Solving",
+  "Communication & Negotiation",
+  "Team Collaboration",
+  "Time Management",
+  "Attention to Detail",
+  "Document & Administrative Management",
+  "Analytical Thinking",
+  "Adaptability",
+  "Discipline & Reliability",
 ];
 
 /* ===== Certificates ===== */
@@ -179,3 +247,4 @@ export const certificates: Certificate[] = [
     type: "pdf",
   },
 ];
+

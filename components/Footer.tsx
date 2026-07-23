@@ -1,30 +1,48 @@
 "use client";
 
-import { Github, Linkedin, Instagram, Mail } from "lucide-react";
+import { Github, Linkedin, Instagram, Mail, Building2 } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 
 export default function Footer() {
   return (
     <footer className="px-[5%] py-12 text-center">
-      <div className="mb-4 flex justify-center gap-5">
+      <div className="mb-4 flex flex-wrap justify-center items-center gap-5">
         <a href={siteConfig.socials.github} target="_blank" rel="noreferrer" className="transition-colors hover:text-accent" aria-label="GitHub">
           <Github size={22} />
         </a>
         <a href={siteConfig.socials.linkedin} target="_blank" rel="noreferrer" className="transition-colors hover:text-accent" aria-label="LinkedIn">
           <Linkedin size={22} />
         </a>
-        <a href={siteConfig.socials.instagram} target="_blank" rel="noreferrer" className="transition-colors hover:text-accent" aria-label="Instagram">
+        <a href={siteConfig.socials.instagram} target="_blank" rel="noreferrer" className="transition-colors hover:text-accent" aria-label="Personal Instagram">
           <Instagram size={22} />
+        </a>
+        <a
+          href={siteConfig.socials.softwareHouse.url}
+          target="_blank"
+          rel="noreferrer"
+          className="flex items-center gap-1.5 font-semibold text-xs text-accent transition-colors hover:underline"
+          aria-label={siteConfig.socials.softwareHouse.name}
+        >
+          <Building2 size={18} /> {siteConfig.socials.softwareHouse.handle}
         </a>
         <a href={`mailto:${siteConfig.contact.email}`} className="transition-colors hover:text-accent" aria-label="Email">
           <Mail size={22} />
         </a>
       </div>
       <p className="text-sm muted">
-        © {new Date().getFullYear()} {siteConfig.name} — {siteConfig.role}.
+        © {new Date().getFullYear()} {siteConfig.name} — Founder of{" "}
+        <a
+          href={siteConfig.socials.softwareHouse.url}
+          target="_blank"
+          rel="noreferrer"
+          className="font-medium text-accent hover:underline"
+        >
+          {siteConfig.socials.softwareHouse.name}
+        </a>
+        .
       </p>
       <p className="mt-1 text-xs muted">
-        Proficient in Java, Python, JavaScript, TypeScript, PHP &amp; SQL.
+        Full Stack Development, UI/UX Design, Cloud Systems &amp; Data Analytics.
       </p>
     </footer>
   );

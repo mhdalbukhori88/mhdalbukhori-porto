@@ -2,44 +2,50 @@
 // content across the entire website.
 
 export const siteConfig = {
-  name: "Mhd Al Bukhori",
+  name: "Mhd. Al Bukhori",
   shortName: "Al Bukhori",
-  role: "Fullstack Web Developer",
+  role: "Full Stack Developer & IT Professional",
   tagline:
-    "Fullstack Web Developer, Software Engineer, Data Analyst, Digital Marketer & Graphic Designer building reliable digital solutions from front-end to back-end.",
-  location: "Binjai, North Sumatra, Indonesia",
-  availability: "Available for full-time roles & freelance projects",
+    "Full Stack Developer & IT professional with 250+ delivered projects. Proficient in React, Vue, Next.js, Node.js, Spring, Laravel, Django, Mobile App Dev (Android/iOS), Data Analytics & UI/UX Design.",
+  location: "Binjai, Indonesia",
+  availability: "Open to Remote Work | GMT+7 (WIB)",
   resumeUrl: "/cv-mhd-al-bukhori.pdf",
   profileImage: "/profile.jpeg",
 
   contact: {
-    email: "mhdalbukhori026@gmail.com",
-    phone: "+62 877-9019-9115",
-    phoneRaw: "6287790199115", // for WhatsApp links (no +, no spaces)
-    whatsappDisplay: "0877-9019-9115",
+    email: "mhdalbukhori296@gmail.com",
+    phone: "+62 819-9708-0296",
+    phoneRaw: "6281997080296", // for WhatsApp links (no +, no spaces)
+    whatsappDisplay: "0819-9708-0296",
   },
 
   socials: {
     github: "https://github.com/mhdalbukhori88",
-    linkedin: "https://www.linkedin.com/in/mhd-al-bukhori",
+    linkedin: "https://linkedin.com/in/mhd-al-bukhori",
     instagram: "https://instagram.com/mhdalbukhori_",
     instagramHandle: "@mhdalbukhori_",
+    softwareHouse: {
+      name: "Golden Tech Indonesia",
+      handle: "@goldentech.id",
+      url: "https://www.instagram.com/goldentech.id",
+    },
+    website: "https://mhdalbukhori-porto.vercel.app",
   },
 
   about: {
     summary:
-      "Computer Science student at STMIK Kaputama Binjai majoring in Informatics Engineering, with experience in production, warehouse operations, administration, and information technology services. Currently working as a Freelance Web Developer, Software Engineer, and Data Analyst, focusing on website development, data processing, and digital solution development based on client needs.",
+      "Full Stack Developer and IT professional currently completing a Bachelor's degree (S1) in Informatics Engineering at STMIK Kaputama Binjai, with hands-on freelance experience since 2021 delivering 250+ end-to-end web and mobile projects.",
     extended:
-      "Also interested in Digital Marketing, particularly in content strategy, branding, audience engagement, and digital business growth. Experienced in warehouse management, inventory control, stock opname, logistics support, asset tracking, equipment maintenance, and administrative operations within internet and network service environments. Skilled in managing operational documents, coordinating workflows, and supporting efficient business processes.",
+      "Proficient in modern frontend (React, Vue, Next.js, Tailwind CSS), scalable backend frameworks (Node.js, Java Spring, PHP Laravel, Python Django/Flask), native mobile app dev (Java, Kotlin), databases & BaaS (MySQL, PostgreSQL, MongoDB, Firebase, Supabase), cloud & DevOps (GCP, Docker, Vercel, Netlify), data analytics (Power BI, Tableau, Advanced Excel, SQL), UI/UX design (Figma, Adobe XD), and AI prompt engineering.",
     closing:
-      "Proficient in Microsoft Office, Java, Python, MySQL, PostgreSQL, and data analysis tools. Also experienced in website management, troubleshooting, AI tools, and prompt engineering. Able to work independently or collaboratively with strong problem-solving, communication, teamwork, and time management skills. Passionate about technology, software development, data analysis, digital marketing, and continuous learning.",
+      "Combines strong technical expertise, operational discipline, and asynchronous remote collaboration skills to build complete, reliable, and high-performance digital products.",
   },
 
   stats: [
-    { label: "Tech Disciplines", value: "4+" },
-    { label: "Core Languages", value: "Java · Python · JS" },
-    { label: "Databases", value: "MySQL · PostgreSQL" },
-    { label: "Focus", value: "Fullstack & Data" },
+    { label: "Delivered Projects", value: "250+ Web & Mobile" },
+    { label: "Core Stacks", value: "React · Next.js · Node · Spring · Laravel" },
+    { label: "Cloud & Databases", value: "GCP · Firebase · Postgres · MySQL" },
+    { label: "Design & Analytics", value: "Figma · Power BI · Tableau · AI" },
   ],
 };
 

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Github, Linkedin, Instagram, Mail } from "lucide-react";
+import { Github, Linkedin, Instagram, Mail, Building2 } from "lucide-react";
 import { siteConfig } from "@/lib/site-config";
 
 export default function Hero() {
@@ -25,11 +25,16 @@ export default function Hero() {
         </div>
 
         <div className="text-center sm:text-left">
-          <div className="mb-3 flex justify-center gap-4 sm:justify-start">
-            <Social href={siteConfig.socials.github}><Github size={26} /></Social>
-            <Social href={siteConfig.socials.linkedin}><Linkedin size={26} /></Social>
-            <Social href={siteConfig.socials.instagram}><Instagram size={26} /></Social>
-            <Social href={`mailto:${siteConfig.contact.email}`}><Mail size={26} /></Social>
+          <div className="mb-3 flex flex-wrap items-center justify-center gap-4 sm:justify-start">
+            <Social href={siteConfig.socials.github} title="GitHub"><Github size={26} /></Social>
+            <Social href={siteConfig.socials.linkedin} title="LinkedIn"><Linkedin size={26} /></Social>
+            <Social href={siteConfig.socials.instagram} title="Personal Instagram"><Instagram size={26} /></Social>
+            <Social href={siteConfig.socials.softwareHouse.url} title={`Software House: ${siteConfig.socials.softwareHouse.name}`}>
+              <span className="flex items-center gap-1 text-accent font-semibold text-sm rounded-full bg-accent/10 px-2.5 py-1 border border-accent/30 hover:bg-accent/20 transition-colors">
+                <Building2 size={18} /> {siteConfig.socials.softwareHouse.handle}
+              </span>
+            </Social>
+            <Social href={`mailto:${siteConfig.contact.email}`} title="Email"><Mail size={26} /></Social>
           </div>
 
           <p className="mb-2 font-mono text-sm uppercase tracking-[0.25em] text-accent">
@@ -40,7 +45,16 @@ export default function Hero() {
           </h1>
           <p className="mt-3 text-2xl font-light muted sm:text-3xl">{siteConfig.role}</p>
           <p className="mt-4 max-w-xl text-base leading-relaxed muted">
-            {siteConfig.tagline}
+            {siteConfig.tagline} Founder of{" "}
+            <a
+              href={siteConfig.socials.softwareHouse.url}
+              target="_blank"
+              rel="noreferrer"
+              className="font-semibold text-accent hover:underline"
+            >
+              {siteConfig.socials.softwareHouse.name}
+            </a>
+            .
           </p>
 
           <div className="mt-7 flex flex-wrap justify-center gap-3 sm:justify-start">
@@ -64,12 +78,13 @@ export default function Hero() {
   );
 }
 
-function Social({ href, children }: { href: string; children: React.ReactNode }) {
+function Social({ href, title, children }: { href: string; title?: string; children: React.ReactNode }) {
   return (
     <a
       href={href}
       target="_blank"
       rel="noreferrer"
+      title={title}
       className="transition-colors hover:text-accent"
     >
       {children}

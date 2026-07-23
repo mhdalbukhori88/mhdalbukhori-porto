@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Menu, X, Sun, Moon, Github, Linkedin, Instagram, Mail } from "lucide-react";
+import { Menu, X, Sun, Moon, Github, Linkedin, Instagram, Mail, Building2 } from "lucide-react";
 import { useTheme } from "./ThemeProvider";
 import { siteConfig } from "@/lib/site-config";
 
@@ -10,6 +10,7 @@ const navItems = [
   ["Expertise", "expertise"],
   ["History", "history"],
   ["Projects", "projects"],
+  ["Resume", "resume"],
   ["Certificates", "certificates"],
   ["Order", "order"],
   ["Contact", "contact"],
@@ -125,7 +126,7 @@ export default function Navbar() {
                 >
                   Download CV
                 </a>
-                <div className="flex items-center justify-center gap-5 pt-1">
+                <div className="flex items-center justify-center gap-4 pt-1">
                   <a href={siteConfig.socials.github} target="_blank" rel="noreferrer" aria-label="GitHub" className="text-white/80 hover:text-accent">
                     <Github size={20} />
                   </a>
@@ -134,6 +135,9 @@ export default function Navbar() {
                   </a>
                   <a href={siteConfig.socials.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="text-white/80 hover:text-accent">
                     <Instagram size={20} />
+                  </a>
+                  <a href={siteConfig.socials.softwareHouse.url} target="_blank" rel="noreferrer" aria-label={siteConfig.socials.softwareHouse.name} title={siteConfig.socials.softwareHouse.name} className="text-accent hover:text-white flex items-center gap-1 font-mono text-xs border border-accent/40 bg-accent/20 px-2 py-1 rounded">
+                    <Building2 size={16} /> @goldentech.id
                   </a>
                   <a href={`mailto:${siteConfig.contact.email}`} aria-label="Email" className="text-white/80 hover:text-accent">
                     <Mail size={20} />

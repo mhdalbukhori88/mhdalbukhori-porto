@@ -1,6 +1,6 @@
-w# Mhd Al Bukhori — Portfolio Website
+# Mhd Al Bukhori — Portfolio Website
 
-A professional, modern portfolio website for **Mhd Al Bukhori**, Fullstack Web Developer, Software Engineer & Data Analyst. Built with Next.js 14, TypeScript, Tailwind CSS, and Framer Motion. Ready to deploy on Vercel.
+A professional, modern portfolio website for **Mhd Al Bukhori**, Software Engineer | Full Stack Developer | UI/UX Designer | AI Enthusiast. Built with Next.js, TypeScript, Tailwind CSS, and Framer Motion. Ready to deploy on Vercel.
 
 ## ✨ Features
 

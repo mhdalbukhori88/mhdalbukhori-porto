@@ -3,6 +3,7 @@ import Hero from "@/components/Hero";
 import Expertise from "@/components/Expertise";
 import Timeline from "@/components/Timeline";
 import Projects from "@/components/Projects";
+import ResumeViewer from "@/components/ResumeViewer";
 import Certificates from "@/components/Certificates";
 import OrderForm from "@/components/OrderForm";
 import Contact from "@/components/Contact";
@@ -16,6 +17,7 @@ export default function Home() {
       <Expertise />
       <Timeline />
       <Projects />
+      <ResumeViewer />
       <Certificates />
       <OrderForm />
       <Contact />
