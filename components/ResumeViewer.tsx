@@ -188,13 +188,24 @@ export default function ResumeViewer() {
               </div>
             </div>
 
-            {/* Modal Body: PDF Iframe */}
-            <div className="relative flex-1 bg-neutral-900">
+            {/* Modal Body: PDF Viewer with Google Docs Viewer fallback to bypass browser PDF blocking */}
+            <div className="relative flex-1 bg-neutral-900 flex flex-col">
               <iframe
-                src={`${siteConfig.resumeUrl}#toolbar=1&navpanes=0`}
+                src={`https://docs.google.com/gview?url=https://mhdalbukhori-porto.vercel.app${siteConfig.resumeUrl}&embedded=true`}
                 className="h-full w-full border-none"
-                title="CV Mhd Al Bukhori Preview"
+                title="CV Mhd Al Bukhori PDF Preview"
               />
+              <div className="flex items-center justify-between border-t border-white/10 bg-black/60 px-6 py-2 text-xs text-white/70">
+                <span>If PDF does not display in your browser, click &quot;Open tab&quot; or Download.</span>
+                <a
+                  href={siteConfig.resumeUrl}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="font-semibold text-accent hover:underline flex items-center gap-1"
+                >
+                  Direct PDF Link <ExternalLink size={12} />
+                </a>
+              </div>
             </div>
           </div>
         </div>
