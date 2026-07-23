@@ -118,7 +118,7 @@ export default function ResumeViewer() {
             <h3 className="mb-4 text-lg font-bold">Technical Skills</h3>
             <div className="grid gap-4 sm:grid-cols-2">
               {skillCategories.map((cat) => (
-                <div key={cat.name} className="rounded-xl border border-[var(--border)] p-4 bg-[var(--bg)]/40">
+                <div key={cat.name} className="rounded-xl border border-[var(--border)] p-4 bg-[var(--bg)]/40 transition-all duration-300 hover:border-accent/50 hover:bg-accent/5">
                   <div className="flex items-center gap-2 text-sm font-semibold text-accent mb-2.5">
                     <cat.icon size={16} />
                     {cat.name}
@@ -142,7 +142,7 @@ export default function ResumeViewer() {
               {competencies.map((comp) => (
                 <span
                   key={comp}
-                  className="flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-medium text-accent"
+                  className="flex items-center gap-1.5 rounded-full border border-accent/30 bg-accent/10 px-3 py-1 text-xs font-medium text-accent transition-all duration-200 hover:scale-105 hover:bg-accent/20"
                 >
                   <CheckCircle size={12} /> {comp}
                 </span>

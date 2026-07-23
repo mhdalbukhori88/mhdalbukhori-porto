@@ -87,20 +87,20 @@ a:hover {
     background: linear-gradient(90deg, #5000ca, #7b3ff2);
   }
 
-  /* tag chip — white pill with dark monospace text, like the template */
+  /* tag chip — white pill with dark monospace text */
   .tag {
-    @apply inline-flex items-center rounded-full px-3 py-[3px] font-mono text-[0.78rem];
+    @apply inline-flex items-center rounded-full px-3 py-[3px] font-mono text-[0.78rem] transition-transform duration-200 hover:scale-105;
     background-color: #ffffff;
     color: #272822;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
   }
 
   .btn-accent {
-    @apply inline-flex items-center justify-center gap-2 rounded-md bg-accent px-6 py-3 text-sm font-semibold text-white transition-colors hover:bg-accent-light focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg bg-gradient-to-r from-accent to-accent-light px-6 py-3 text-sm font-semibold text-white shadow-lg shadow-accent/25 transition-all duration-300 hover:scale-[1.03] hover:shadow-accent/45 hover:from-accent-light hover:to-accent focus:outline-none focus:ring-2 focus:ring-accent focus:ring-offset-2 active:scale-[0.98];
   }
 
   .btn-outline {
-    @apply inline-flex items-center justify-center gap-2 rounded-md border px-6 py-3 text-sm font-semibold transition-colors hover:border-accent hover:text-accent;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg border px-6 py-3 text-sm font-semibold transition-all duration-300 hover:scale-[1.03] hover:border-accent hover:text-accent hover:shadow-md hover:shadow-accent/10 focus:outline-none active:scale-[0.98];
     border-color: var(--border);
     color: var(--text);
   }
@@ -108,12 +108,33 @@ a:hover {
   .surface-card {
     background-color: var(--bg-alt);
     border: 1px solid var(--border);
-    transition: border-color 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+    transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
   }
   .surface-card:hover {
-    border-color: rgba(80, 0, 202, 0.5);
-    box-shadow: 0 10px 30px -12px rgba(80, 0, 202, 0.45);
+    transform: translateY(-5px);
+    border-color: rgba(80, 0, 202, 0.55);
+    box-shadow: 0 16px 36px -12px rgba(80, 0, 202, 0.35);
   }
+}
+
+/* Ambient Background Orbs for glassmorphism aesthetics */
+.glow-orb-accent {
+  position: absolute;
+  width: 320px;
+  height: 320px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(80, 0, 202, 0.25) 0%, rgba(80, 0, 202, 0) 70%);
+  filter: blur(40px);
+  pointer-events: none;
+}
+.glow-orb-cyan {
+  position: absolute;
+  width: 280px;
+  height: 280px;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(16, 185, 129, 0.2) 0%, rgba(16, 185, 129, 0) 70%);
+  filter: blur(40px);
+  pointer-events: none;
 }
 
 /* Honor reduced-motion: disable all non-essential animation/transition. */
@@ -132,11 +153,8 @@ a:hover {
   color: var(--text-muted);
 }
 
-/* hero background — use normal scroll attachment everywhere.
-   background-attachment: fixed and GPU layer hacks (translateZ, backface)
-   cause text smearing / ghosting while scrolling on Android Chrome, so we
-   avoid them entirely. */
 .hero-bg {
+  position: relative;
   background-repeat: no-repeat;
   background-size: cover;
   background-position: center;

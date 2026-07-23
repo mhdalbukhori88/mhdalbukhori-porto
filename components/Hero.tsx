@@ -6,27 +6,35 @@ import { siteConfig } from "@/lib/site-config";
 
 export default function Hero() {
   return (
-    <section id="home" className="hero-bg flex min-h-[720px] items-center px-[8%] pt-20 sm:px-[15%]">
-      <div className="flex w-full flex-col items-center gap-8 py-16 sm:flex-row sm:items-center sm:gap-10 sm:py-0">
-        <div className="shrink-0">
-          <div className="rounded-full bg-gradient-to-br from-accent to-accent-light p-[3px] shadow-2xl">
-            <div className="overflow-hidden rounded-full border-4 border-[var(--bg)]">
-              <Image
-                src={siteConfig.profileImage}
-                alt={siteConfig.name}
-                width={170}
-                height={170}
-                priority
-                quality={100}
-                className="h-[150px] w-[150px] object-cover sm:h-[170px] sm:w-[170px]"
-              />
+    <section id="home" className="hero-bg relative flex min-h-[750px] items-center px-[8%] pt-20 sm:px-[12%] overflow-hidden">
+      {/* Background ambient glowing orbs */}
+      <div className="glow-orb-accent -top-10 -left-10 animate-pulseGlow" />
+      <div className="glow-orb-cyan -bottom-10 right-10 animate-pulseGlow" style={{ animationDelay: "1.5s" }} />
+
+      <div className="relative z-10 flex w-full flex-col items-center gap-10 py-16 sm:flex-row sm:items-center sm:gap-12 sm:py-0">
+        {/* Profile Avatar with floating animation and glowing aura */}
+        <div className="shrink-0 animate-float">
+          <div className="relative group">
+            <div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-accent via-purple-500 to-emerald-400 opacity-75 blur-md transition duration-500 group-hover:opacity-100 group-hover:blur-lg animate-spinSlow" />
+            <div className="relative rounded-full bg-gradient-to-br from-accent to-accent-light p-[3px] shadow-2xl">
+              <div className="overflow-hidden rounded-full border-4 border-[var(--bg)]">
+                <Image
+                  src={siteConfig.profileImage}
+                  alt={siteConfig.name}
+                  width={180}
+                  height={180}
+                  priority
+                  quality={100}
+                  className="h-[160px] w-[160px] object-cover sm:h-[180px] sm:w-[180px] transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
             </div>
           </div>
         </div>
 
         <div className="text-center sm:text-left">
           {/* Animated Open to Remote Work Status Badge */}
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-semibold text-emerald-400 backdrop-blur-md shadow-sm">
+          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-semibold text-emerald-400 backdrop-blur-md shadow-sm transition-all hover:scale-105 hover:bg-emerald-500/20">
             <span className="relative flex h-2.5 w-2.5">
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
@@ -39,27 +47,27 @@ export default function Hero() {
             <Social href={siteConfig.socials.linkedin} title="LinkedIn"><Linkedin size={26} /></Social>
             <Social href={siteConfig.socials.instagram} title="Personal Instagram"><Instagram size={26} /></Social>
             <Social href={siteConfig.socials.softwareHouse.url} title={`Software House: ${siteConfig.socials.softwareHouse.name}`}>
-              <span className="flex items-center gap-1.5 text-accent font-semibold text-xs rounded-full bg-accent/15 px-3 py-1 border border-accent/40 hover:bg-accent/25 transition-colors">
+              <span className="flex items-center gap-1.5 text-accent font-semibold text-xs rounded-full bg-accent/15 px-3 py-1 border border-accent/40 hover:bg-accent/25 transition-all hover:scale-105 shadow-sm">
                 <Building2 size={16} /> {siteConfig.socials.softwareHouse.handle}
               </span>
             </Social>
             <Social href={`mailto:${siteConfig.contact.email}`} title="Email"><Mail size={26} /></Social>
           </div>
 
-          <p className="mb-1.5 font-mono text-xs uppercase tracking-[0.25em] text-accent">
+          <p className="mb-1.5 font-mono text-xs uppercase tracking-[0.25em] text-accent font-semibold">
             Hello, I&apos;m
           </p>
-          <h1 className="font-sans text-4xl font-black leading-none tracking-tight sm:text-6xl">
+          <h1 className="font-sans text-4xl font-black leading-none tracking-tight sm:text-6xl bg-gradient-to-r from-[var(--text)] via-[var(--text)] to-accent/90 bg-clip-text">
             {siteConfig.name}
           </h1>
-          <p className="mt-2.5 text-xl font-light muted sm:text-3xl">{siteConfig.role}</p>
+          <p className="mt-2.5 text-xl font-light muted sm:text-3xl font-sans">{siteConfig.role}</p>
           <p className="mt-4 max-w-xl text-base leading-relaxed muted">
             {siteConfig.tagline} Founder &amp; Full Stack Lead at{" "}
             <a
               href={siteConfig.socials.softwareHouse.url}
               target="_blank"
               rel="noreferrer"
-              className="font-semibold text-accent hover:underline"
+              className="font-semibold text-accent hover:underline inline-flex items-center gap-1"
             >
               {siteConfig.socials.softwareHouse.name}
             </a>
@@ -85,6 +93,19 @@ export default function Hero() {
             >
               <Download size={18} /> Download Resume
             </a>
+          </div>
+
+          {/* Quick Highlight Metrics Pills */}
+          <div className="mt-8 pt-6 border-t border-[var(--border)] flex flex-wrap justify-center sm:justify-start gap-4 text-xs font-mono text-muted">
+            <div className="flex items-center gap-2 rounded-lg bg-[var(--bg-alt)]/60 px-3 py-1.5 border border-[var(--border)]">
+              <span className="h-2 w-2 rounded-full bg-accent" /> 250+ Delivered Projects
+            </div>
+            <div className="flex items-center gap-2 rounded-lg bg-[var(--bg-alt)]/60 px-3 py-1.5 border border-[var(--border)]">
+              <span className="h-2 w-2 rounded-full bg-emerald-400" /> Software House Founder
+            </div>
+            <div className="flex items-center gap-2 rounded-lg bg-[var(--bg-alt)]/60 px-3 py-1.5 border border-[var(--border)]">
+              <span className="h-2 w-2 rounded-full bg-purple-400" /> Full Stack &amp; Mobile
+            </div>
           </div>
         </div>
       </div>
