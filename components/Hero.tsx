@@ -6,28 +6,21 @@ import { siteConfig } from "@/lib/site-config";
 
 export default function Hero() {
   return (
-    <section id="home" className="hero-bg relative flex min-h-[750px] items-center px-[8%] pt-20 sm:px-[12%] overflow-hidden">
-      {/* Background ambient glowing orbs */}
-      <div className="glow-orb-accent -top-10 -left-10 animate-pulseGlow" />
-      <div className="glow-orb-cyan -bottom-10 right-10 animate-pulseGlow" style={{ animationDelay: "1.5s" }} />
-
-      <div className="relative z-10 flex w-full flex-col items-center gap-10 py-16 sm:flex-row sm:items-center sm:gap-12 sm:py-0">
-        {/* Profile Avatar with floating animation and glowing aura */}
-        <div className="shrink-0 animate-float">
-          <div className="relative group">
-            <div className="absolute -inset-1.5 rounded-full bg-gradient-to-r from-accent via-purple-500 to-emerald-400 opacity-75 blur-md transition duration-500 group-hover:opacity-100 group-hover:blur-lg animate-spinSlow" />
-            <div className="relative rounded-full bg-gradient-to-br from-accent to-accent-light p-[3px] shadow-2xl">
-              <div className="overflow-hidden rounded-full border-4 border-[var(--bg)]">
-                <Image
-                  src={siteConfig.profileImage}
-                  alt={siteConfig.name}
-                  width={180}
-                  height={180}
-                  priority
-                  quality={100}
-                  className="h-[160px] w-[160px] object-cover sm:h-[180px] sm:w-[180px] transition-transform duration-500 group-hover:scale-105"
-                />
-              </div>
+    <section id="home" className="hero-bg flex min-h-[720px] items-center px-[8%] pt-20 sm:px-[12%]">
+      <div className="flex w-full flex-col items-center gap-10 py-16 sm:flex-row sm:items-center sm:gap-12 sm:py-0">
+        {/* Profile Avatar — Clean & Professional */}
+        <div className="shrink-0">
+          <div className="rounded-full bg-gradient-to-br from-accent to-accent-light p-[3px] shadow-xl">
+            <div className="overflow-hidden rounded-full border-4 border-[var(--bg)]">
+              <Image
+                src={siteConfig.profileImage}
+                alt={siteConfig.name}
+                width={180}
+                height={180}
+                priority
+                quality={100}
+                className="h-[160px] w-[160px] object-cover sm:h-[180px] sm:w-[180px]"
+              />
             </div>
           </div>
         </div>
