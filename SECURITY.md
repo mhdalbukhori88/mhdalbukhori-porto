@@ -70,7 +70,7 @@ custom domain email, add these in **Cloudflare → DNS**:
 
 3. **DMARC** (tells receivers what to do with spoofed mail):
    ```
-   Type: TXT   Name: _dmarc   Value: v=DMARC1; p=quarantine; rua=mailto:mhdalbukhori026@gmail.com; pct=100; adkim=s; aspf=s
+   Type: TXT   Name: _dmarc   Value: v=DMARC1; p=quarantine; rua=mailto:mhdalbukhori296@gmail.com; pct=100; adkim=s; aspf=s
    ```
    Start with `p=quarantine`; once you confirm legitimate mail passes, you can move to `p=reject` for the strongest protection.
 

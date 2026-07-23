@@ -139,7 +139,7 @@ export async function POST(req: Request) {
   }
 
   const apiKey = process.env.RESEND_API_KEY;
-  const to = process.env.CONTACT_EMAIL || "mhdalbukhori026@gmail.com";
+  const to = process.env.CONTACT_EMAIL || "mhdalbukhori296@gmail.com";
 
   // No email provider configured — client handles WhatsApp/email fallback.
   if (!apiKey) {

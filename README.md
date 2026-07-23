@@ -43,7 +43,7 @@ To update them, just replace these files with the same names.
 The form **always works**. When a visitor submits an order:
 
 1. It tries to send the order to your email via the `/api/order` endpoint.
-2. If no email provider is configured, it automatically **opens WhatsApp** (`0877-9019-9115`) and your **email app** (`mhdalbukhori026@gmail.com`) with the order pre-filled.
+2. If no email provider is configured, it automatically **opens WhatsApp** (`0819-9708-0296`) and your **email app** (`mhdalbukhori296@gmail.com`) with the order pre-filled.
 
 There are also dedicated **"Order via WhatsApp"** and **"Order via Email"** buttons.
 
@@ -54,7 +54,7 @@ To have orders emailed to you automatically (no WhatsApp/email app popup):
 1. Create a free account at [resend.com](https://resend.com) and get an API key.
 2. In Vercel, add these environment variables in the project settings:
    - `RESEND_API_KEY` = your Resend API key
-   - `CONTACT_EMAIL` = `mhdalbukhori026@gmail.com`
+   - `CONTACT_EMAIL` = `mhdalbukhori296@gmail.com`
 3. Redeploy. Orders will now arrive directly in your inbox.
 
 ## 🌐 Deploy to Vercel
