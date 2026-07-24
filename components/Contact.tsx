@@ -1,6 +1,7 @@
 "use client";
 
-import { Mail, Phone, MapPin, Github, Linkedin, Instagram, MessageCircle, Building2 } from "lucide-react";
+import { Mail, Phone, MapPin, Github, Linkedin, Instagram, MessageCircle } from "lucide-react";
+import GoldenTechIcon from "./GoldenTechIcon";
 import { siteConfig } from "@/lib/site-config";
 import Reveal from "./Reveal";
 
@@ -11,7 +12,7 @@ export default function Contact() {
 
   const items = [
     {
-      icon: Building2,
+      icon: GoldenTechIcon,
       label: "Software House",
       value: siteConfig.socials.softwareHouse.name,
       subValue: siteConfig.socials.softwareHouse.handle,

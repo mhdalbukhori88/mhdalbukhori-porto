@@ -2,7 +2,8 @@
 
 import { useState, useEffect } from "react";
 import Image from "next/image";
-import { Menu, X, Sun, Moon, Github, Linkedin, Instagram, Mail, Building2 } from "lucide-react";
+import { Menu, X, Sun, Moon, Github, Linkedin, Instagram, Mail } from "lucide-react";
+import GoldenTechIcon from "./GoldenTechIcon";
 import { useTheme } from "./ThemeProvider";
 import { siteConfig } from "@/lib/site-config";
 
@@ -136,8 +137,8 @@ export default function Navbar() {
                   <a href={siteConfig.socials.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="text-white/80 hover:text-accent">
                     <Instagram size={20} />
                   </a>
-                  <a href={siteConfig.socials.softwareHouse.url} target="_blank" rel="noreferrer" aria-label={siteConfig.socials.softwareHouse.name} title={siteConfig.socials.softwareHouse.name} className="text-accent hover:text-white flex items-center gap-1 font-mono text-xs border border-accent/40 bg-accent/20 px-2 py-1 rounded">
-                    <Building2 size={16} /> @goldentech.id
+                  <a href={siteConfig.socials.softwareHouse.url} target="_blank" rel="noreferrer" aria-label={siteConfig.socials.softwareHouse.name} title={siteConfig.socials.softwareHouse.name} className="text-accent hover:text-white flex items-center gap-1.5 font-mono text-xs border border-accent/40 bg-accent/20 px-2.5 py-1 rounded-md shadow-sm transition-all hover:bg-accent/30">
+                    <GoldenTechIcon size={16} /> @goldentech.id
                   </a>
                   <a href={`mailto:${siteConfig.contact.email}`} aria-label="Email" className="text-white/80 hover:text-accent">
                     <Mail size={20} />

@@ -1,6 +1,7 @@
 "use client";
 
-import { Github, Linkedin, Instagram, Mail, Building2 } from "lucide-react";
+import { Github, Linkedin, Instagram, Mail } from "lucide-react";
+import GoldenTechIcon from "./GoldenTechIcon";
 import { siteConfig } from "@/lib/site-config";
 
 export default function Footer() {
@@ -23,7 +24,7 @@ export default function Footer() {
           className="flex items-center gap-1.5 font-semibold text-xs text-accent transition-colors hover:underline"
           aria-label={siteConfig.socials.softwareHouse.name}
         >
-          <Building2 size={18} /> {siteConfig.socials.softwareHouse.handle}
+          <GoldenTechIcon size={18} /> {siteConfig.socials.softwareHouse.handle}
         </a>
         <a href={`mailto:${siteConfig.contact.email}`} className="transition-colors hover:text-accent" aria-label="Email">
           <Mail size={22} />

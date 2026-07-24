@@ -1,7 +1,8 @@
 "use client";
 
 import Image from "next/image";
-import { Github, Linkedin, Instagram, Mail, Building2, Download, Rocket } from "lucide-react";
+import { Github, Linkedin, Instagram, Mail, Download, Rocket } from "lucide-react";
+import GoldenTechIcon from "@/components/GoldenTechIcon";
 import { siteConfig } from "@/lib/site-config";
 
 export default function Hero() {
@@ -41,7 +42,7 @@ export default function Hero() {
             <Social href={siteConfig.socials.instagram} title="Personal Instagram"><Instagram size={26} /></Social>
             <Social href={siteConfig.socials.softwareHouse.url} title={`Software House: ${siteConfig.socials.softwareHouse.name}`}>
               <span className="flex items-center gap-1.5 text-accent font-semibold text-xs rounded-full bg-accent/15 px-3 py-1 border border-accent/40 hover:bg-accent/25 transition-all hover:scale-105 shadow-sm">
-                <Building2 size={16} /> {siteConfig.socials.softwareHouse.handle}
+                <GoldenTechIcon size={18} /> {siteConfig.socials.softwareHouse.handle}
               </span>
             </Social>
             <Social href={`mailto:${siteConfig.contact.email}`} title="Email"><Mail size={26} /></Social>
