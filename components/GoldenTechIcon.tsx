@@ -9,45 +9,40 @@ interface GoldenTechIconProps {
 }
 
 /**
- * GoldenTechIcon - Custom high-tech logo icon for Golden Tech Indonesia (@goldentech.id)
- * Designed for maximum clarity at small (16px) and large (48px+) resolutions.
+ * GoldenTechIcon - Ultra-Professional Custom Logo Icon for Golden Tech Indonesia (@goldentech.id)
+ * Combines Hexagonal Tech Frame, GT Monogram, Terminal Brackets (< />) and a Glowing Core.
  */
 export default function GoldenTechIcon({
   size = 20,
   className = "",
   variant = "gradient",
 }: GoldenTechIconProps) {
-  const strokeWidth = 1.8;
-
   if (variant === "currentColor") {
     return (
       <svg
         width={size}
         height={size}
-        viewBox="0 0 24 24"
+        viewBox="0 0 32 32"
         fill="none"
         xmlns="http://www.w3.org/2000/svg"
         className={className}
         aria-hidden="true"
       >
-        {/* Hexagon Outer Frame */}
         <path
-          d="M12 2L20.6603 7V17L12 22L3.33975 17V7L12 2Z"
+          d="M16 3L27.25 9.5V22.5L16 29L4.75 22.5V9.5L16 3Z"
           stroke="currentColor"
-          strokeWidth={strokeWidth}
+          strokeWidth="2.2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        {/* Stylized GT Code Emblem */}
         <path
-          d="M7.5 9.5H16.5M12 9.5V16.5M8 14.5L6.5 13L8 11.5M16 14.5L17.5 13L16 11.5"
+          d="M10 11.5H22M16 11.5V21.5M10.5 18L8 16.5L10.5 15M21.5 18L24 16.5L21.5 15"
           stroke="currentColor"
-          strokeWidth={strokeWidth}
+          strokeWidth="2.2"
           strokeLinecap="round"
           strokeLinejoin="round"
         />
-        {/* Tech Core Dot */}
-        <circle cx="12" cy="13" r="1.2" fill="currentColor" />
+        <circle cx="16" cy="16.5" r="1.8" fill="currentColor" />
       </svg>
     );
   }
@@ -56,102 +51,103 @@ export default function GoldenTechIcon({
     <svg
       width={size}
       height={size}
-      viewBox="0 0 24 24"
+      viewBox="0 0 32 32"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       className={className}
       aria-label="Golden Tech Logo"
     >
       <defs>
-        {/* Golden Tech Signature Gradient: Vivid Amber Gold to Royal Electric Purple */}
+        {/* Main Golden Tech Gradient: Electric Amber Gold (#F59E0B) -> Royal Purple (#8B5CF6) -> Neon Cyan (#06B6D4) */}
         <linearGradient
-          id="gtGradPrimary"
+          id="gtMainGrad"
           x1="2"
           y1="2"
-          x2="22"
-          y2="22"
+          x2="30"
+          y2="30"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0%" stopColor="#F59E0B" />
-          <stop offset="50%" stopColor="#8B5CF6" />
+          <stop offset="0%" stopColor="#FBBF24" />
+          <stop offset="45%" stopColor="#9333EA" />
           <stop offset="100%" stopColor="#3B82F6" />
         </linearGradient>
 
         <linearGradient
-          id="gtGradGold"
-          x1="0"
-          y1="0"
-          x2="24"
-          y2="24"
+          id="gtGoldGrad"
+          x1="4"
+          y1="4"
+          x2="28"
+          y2="28"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0%" stopColor="#FBBF24" />
-          <stop offset="100%" stopColor="#F59E0B" />
+          <stop offset="0%" stopColor="#FDE047" />
+          <stop offset="60%" stopColor="#F59E0B" />
+          <stop offset="100%" stopColor="#D97706" />
         </linearGradient>
 
         <linearGradient
-          id="gtGradGlow"
-          x1="12"
-          y1="2"
-          x2="12"
-          y2="22"
+          id="gtPurpleGrad"
+          x1="0"
+          y1="0"
+          x2="32"
+          y2="32"
           gradientUnits="userSpaceOnUse"
         >
-          <stop offset="0%" stopColor="#A855F7" />
-          <stop offset="100%" stopColor="#6366F1" />
+          <stop offset="0%" stopColor="#C084FC" />
+          <stop offset="100%" stopColor="#7E22CE" />
         </linearGradient>
       </defs>
 
-      {/* Hexagonal Shield Outer Border */}
+      {/* Hexagonal Shield Base */}
       <path
-        d="M12 2.2L20.5 7.1V16.9L12 21.8L3.5 16.9V7.1L12 2.2Z"
-        stroke={variant === "gold" ? "url(#gtGradGold)" : "url(#gtGradPrimary)"}
-        strokeWidth={1.8}
+        d="M16 2.8L27.5 9.4V22.6L16 29.2L4.5 22.6V9.4L16 2.8Z"
+        stroke={variant === "gold" ? "url(#gtGoldGrad)" : "url(#gtMainGrad)"}
+        strokeWidth="2.2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="rgba(147, 51, 234, 0.08)"
+      />
+
+      {/* Inner Tech Monogram: GT Header */}
+      <path
+        d="M9.5 11H22.5"
+        stroke={variant === "gold" ? "url(#gtGoldGrad)" : "url(#gtMainGrad)"}
+        strokeWidth="2.2"
+        strokeLinecap="round"
+      />
+
+      {/* Central Stem */}
+      <path
+        d="M16 11V21"
+        stroke={variant === "gold" ? "#F59E0B" : "url(#gtPurpleGrad)"}
+        strokeWidth="2.2"
+        strokeLinecap="round"
+      />
+
+      {/* Code Brackets: Left '<' */}
+      <path
+        d="M11 14.5L8.5 16.5L11 18.5"
+        stroke="#FBBF24"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
 
-      {/* Modern GT Code & Circuit Architecture */}
-      {/* Top Bar (T & G header) */}
+      {/* Code Brackets: Right '>' */}
       <path
-        d="M7.5 9H16.5"
-        stroke={variant === "gold" ? "url(#gtGradGold)" : "url(#gtGradPrimary)"}
-        strokeWidth={1.8}
-        strokeLinecap="round"
-      />
-
-      {/* Central Stem (T vertical & G base) */}
-      <path
-        d="M12 9V16"
-        stroke={variant === "gold" ? "url(#gtGradGold)" : "url(#gtGradGlow)"}
-        strokeWidth={1.8}
-        strokeLinecap="round"
-      />
-
-      {/* Left Code Bracket '<' (G loop) */}
-      <path
-        d="M8.5 11.5L6.5 13L8.5 14.5"
-        stroke={variant === "gold" ? "#FBBF24" : "#F59E0B"}
-        strokeWidth={1.6}
+        d="M21 14.5L23.5 16.5L21 18.5"
+        stroke="#A855F7"
+        strokeWidth="2"
         strokeLinecap="round"
         strokeLinejoin="round"
       />
 
-      {/* Right Code Bracket '>' (Tech arrow) */}
-      <path
-        d="M15.5 11.5L17.5 13L15.5 14.5"
-        stroke={variant === "gold" ? "#F59E0B" : "#8B5CF6"}
-        strokeWidth={1.6}
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-
-      {/* Center Software Core Node */}
+      {/* Core Node */}
       <circle
-        cx="12"
-        cy="13"
-        r="1.25"
-        fill={variant === "gold" ? "#FBBF24" : "#C084FC"}
+        cx="16"
+        cy="16.5"
+        r="1.8"
+        fill="#FDE047"
       />
     </svg>
   );

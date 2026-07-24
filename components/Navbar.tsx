@@ -59,6 +59,17 @@ export default function Navbar() {
             <a href="#home" className="hidden items-center gap-2 sm:flex" onClick={(e) => { e.preventDefault(); scrollTo("home"); }}>
               <Image src="/logo.svg" alt="MB logo" width={42} height={32} className="h-8 w-auto" priority />
             </a>
+            <a
+              href={siteConfig.socials.softwareHouse.url}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={siteConfig.socials.softwareHouse.name}
+              title={siteConfig.socials.softwareHouse.name}
+              className="hidden sm:inline-flex items-center gap-2 rounded-full border border-purple-500/40 bg-purple-500/15 px-3.5 py-1 text-xs font-mono font-semibold text-purple-400 dark:text-purple-300 backdrop-blur-md shadow-sm transition-all hover:scale-105 hover:bg-purple-500/25"
+            >
+              <GoldenTechIcon size={18} />
+              <span>{siteConfig.socials.softwareHouse.handle}</span>
+            </a>
           </div>
 
           <div className="hidden items-center gap-1 sm:flex">

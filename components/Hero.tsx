@@ -40,11 +40,16 @@ export default function Hero() {
             <Social href={siteConfig.socials.github} title="GitHub"><Github size={26} /></Social>
             <Social href={siteConfig.socials.linkedin} title="LinkedIn"><Linkedin size={26} /></Social>
             <Social href={siteConfig.socials.instagram} title="Personal Instagram"><Instagram size={26} /></Social>
-            <Social href={siteConfig.socials.softwareHouse.url} title={`Software House: ${siteConfig.socials.softwareHouse.name}`}>
-              <span className="flex items-center gap-1.5 text-accent font-semibold text-xs rounded-full bg-accent/15 px-3 py-1 border border-accent/40 hover:bg-accent/25 transition-all hover:scale-105 shadow-sm">
-                <GoldenTechIcon size={18} /> {siteConfig.socials.softwareHouse.handle}
-              </span>
-            </Social>
+            <a
+              href={siteConfig.socials.softwareHouse.url}
+              target="_blank"
+              rel="noreferrer"
+              title={`Software House: ${siteConfig.socials.softwareHouse.name}`}
+              className="inline-flex items-center gap-2 rounded-full border border-purple-500/40 bg-purple-500/15 px-3.5 py-1.5 text-xs font-mono font-semibold text-purple-400 dark:text-purple-300 backdrop-blur-md shadow-md shadow-purple-500/10 transition-all hover:scale-105 hover:bg-purple-500/25 hover:border-purple-400"
+            >
+              <GoldenTechIcon size={20} />
+              <span>{siteConfig.socials.softwareHouse.handle}</span>
+            </a>
             <Social href={`mailto:${siteConfig.contact.email}`} title="Email"><Mail size={26} /></Social>
           </div>
 
