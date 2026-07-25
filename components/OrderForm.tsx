@@ -266,7 +266,7 @@ export default function OrderForm() {
           opacity: 0.7;
         }
         .form-input:focus {
-          border-color: #5000ca;
+          border-color: #64748b;
         }
         .form-input option {
           color: #272822;

@@ -46,11 +46,11 @@ a {
   transition: color 0.15s ease-in-out;
 }
 a:not(.btn-accent):not(.btn-outline):hover {
-  color: #5000ca;
+  color: #64748b;
 }
 
 ::selection {
-  background-color: rgba(80, 0, 202, 0.3);
+  background-color: rgba(100, 116, 139, 0.3);
   color: #fff;
 }
 
@@ -61,7 +61,7 @@ a:not(.btn-accent):not(.btn-outline):hover {
   background: transparent;
 }
 ::-webkit-scrollbar-thumb {
-  background: #5000ca;
+  background: #64748b;
   border-radius: 8px;
 }
 
@@ -84,7 +84,7 @@ a:not(.btn-accent):not(.btn-outline):hover {
     height: 4px;
     width: 64px;
     border-radius: 9999px;
-    background: linear-gradient(90deg, #5000ca, #7b3ff2);
+    background: linear-gradient(90deg, #64748b, #94a3b8);
   }
 
   /* tag chip — white pill with dark monospace text */
@@ -118,8 +118,8 @@ a:not(.btn-accent):not(.btn-outline):hover {
   }
   .surface-card:hover {
     transform: translateY(-5px);
-    border-color: rgba(80, 0, 202, 0.55);
-    box-shadow: 0 16px 36px -12px rgba(80, 0, 202, 0.35);
+    border-color: rgba(100, 116, 139, 0.55);
+    box-shadow: 0 16px 36px -12px rgba(100, 116, 139, 0.35);
   }
 }
 
@@ -129,7 +129,7 @@ a:not(.btn-accent):not(.btn-outline):hover {
   width: 320px;
   height: 320px;
   border-radius: 9999px;
-  background: radial-gradient(circle, rgba(80, 0, 202, 0.25) 0%, rgba(80, 0, 202, 0) 70%);
+  background: radial-gradient(circle, rgba(100, 116, 139, 0.25) 0%, rgba(100, 116, 139, 0) 70%);
   filter: blur(40px);
   pointer-events: none;
 }

@@ -87,7 +87,7 @@ export default function Hero() {
               <span className="h-2 w-2 rounded-full bg-emerald-400" /> Software House Founder
             </div>
             <div className="flex items-center gap-2 rounded-lg bg-[var(--bg-alt)]/60 px-3 py-1.5 border border-[var(--border)]">
-              <span className="h-2 w-2 rounded-full bg-purple-400" /> Full Stack &amp; Mobile
+              <span className="h-2 w-2 rounded-full bg-slate-400" /> Full Stack &amp; Mobile
             </div>
           </div>
         </div>
