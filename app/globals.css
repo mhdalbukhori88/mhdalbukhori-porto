@@ -121,6 +121,52 @@ a:not(.btn-accent):not(.btn-outline):hover {
     border-color: rgba(100, 116, 139, 0.55);
     box-shadow: 0 16px 36px -12px rgba(100, 116, 139, 0.35);
   }
+
+  /* Animated Navbar Utilities */
+  .nav-link-item {
+    position: relative;
+    transition: color 0.25s ease, transform 0.25s ease;
+  }
+  .nav-link-item::after {
+    content: "";
+    position: absolute;
+    bottom: 2px;
+    left: 50%;
+    width: 0;
+    height: 2.5px;
+    background: linear-gradient(90deg, #64748b, #94a3b8);
+    border-radius: 9999px;
+    transition: width 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), left 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.3s ease;
+    opacity: 0;
+  }
+  .nav-link-item:hover,
+  .nav-link-item.active-nav {
+    color: var(--accent);
+    transform: translateY(-2px);
+  }
+  .nav-link-item:hover::after,
+  .nav-link-item.active-nav::after {
+    width: 75%;
+    left: 12.5%;
+    opacity: 1;
+  }
+
+  .nav-icon-animate {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), color 0.2s ease, filter 0.3s ease;
+  }
+  .nav-icon-animate:hover {
+    transform: scale(1.18) rotate(6deg);
+    color: var(--accent);
+    filter: drop-shadow(0 0 6px rgba(100, 116, 139, 0.4));
+  }
+
+  .nav-logo-animate {
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.3s ease;
+  }
+  .nav-logo-animate:hover {
+    transform: scale(1.08) translateY(-1px);
+    filter: drop-shadow(0 2px 8px rgba(100, 116, 139, 0.3));
+  }
 }
 
 /* Ambient Background Orbs for glassmorphism aesthetics */
