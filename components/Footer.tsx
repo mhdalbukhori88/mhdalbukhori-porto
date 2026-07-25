@@ -31,20 +31,20 @@ export default function Footer() {
           <Mail size={22} />
         </a>
       </div>
-      <p className="text-sm muted">
-        © {new Date().getFullYear()} {siteConfig.name} — Founder of{" "}
+      <p className="text-sm font-medium muted">
+        © {new Date().getFullYear()} <strong>{siteConfig.name}</strong>. Hak Cipta Dilindungi Undang-Undang (All Rights Reserved).
+      </p>
+      <p className="mt-1.5 text-xs muted">
+        Founder &amp; Full Stack Lead at{" "}
         <a
           href={siteConfig.socials.softwareHouse.url}
           target="_blank"
           rel="noreferrer"
-          className="font-medium text-accent hover:underline"
+          className="font-semibold text-accent hover:underline"
         >
           {siteConfig.socials.softwareHouse.name}
         </a>
         .
-      </p>
-      <p className="mt-1 text-xs muted">
-        Full Stack Development, UI/UX Design, Cloud Systems &amp; Data Analytics.
       </p>
     </footer>
   );
