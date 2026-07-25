@@ -166,10 +166,10 @@ a:not(.btn-accent):not(.btn-outline):hover {
   background-position: center;
 }
 .theme-dark .hero-bg {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.55), rgba(13, 17, 22, 0.85)), url("/bg-dark.png");
+  background-image: linear-gradient(rgba(0, 0, 0, 0.25), rgba(13, 17, 22, 0.65)), url("/bg-dark.png");
 }
 .theme-light .hero-bg {
-  background-image: linear-gradient(rgba(255, 255, 255, 0.4), rgba(248, 249, 250, 0.85)), url("/bg-light.png");
+  background-image: linear-gradient(rgba(255, 255, 255, 0.25), rgba(248, 249, 250, 0.70)), url("/bg-light.png");
 }
 
 /* mobile drawer background — always dark for readable white text */
