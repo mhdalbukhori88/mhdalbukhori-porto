@@ -11,24 +11,12 @@
     </linearGradient>
   </defs>
 
-  <!-- Ground Line -->
-  <path d="M3 28H29" stroke="url(#gtMainGrad)" stroke-width="2.5" stroke-linecap="round" />
+  <!-- Left Tower -->
+  <path d="M4 28V13.6L9.3 11.7V28H4Z" fill="url(#gtMainGrad)" />
 
-  # Central Skyscraper Tower
-  <path d="M12 28V6.5L20 2.5V28" stroke="url(#gtMainGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="rgba(100, 116, 139, 0.12)" />
+  <!-- Central Skyscraper Tower -->
+  <path d="M11.3 28V2L20 5.6V10.6H16.6V28H11.3Z" fill="url(#gtMainGrad)" />
 
-  # Left Tower
-  <path d="M5 28V13.5L12 9" stroke="url(#gtMainGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="rgba(100, 116, 139, 0.08)" />
-
-  # Left Windows
-  <path d="M8 15H10" stroke="url(#gtGoldGrad)" stroke-width="2" stroke-linecap="round" />
-  <path d="M8 19H10" stroke="url(#gtGoldGrad)" stroke-width="2" stroke-linecap="round" />
-  <path d="M8 23H10" stroke="url(#gtGoldGrad)" stroke-width="2" stroke-linecap="round" />
-
-  # Right Tower
-  <path d="M20 12L27 16V28" stroke="url(#gtMainGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="rgba(100, 116, 139, 0.08)" />
-
-  # Right Windows
-  <path d="M22 18H24.5" stroke="url(#gtGoldGrad)" stroke-width="2" stroke-linecap="round" />
-  <path d="M22 22H24.5" stroke="url(#gtGoldGrad)" stroke-width="2" stroke-linecap="round" />
+  <!-- Right Tower -->
+  <path d="M18 28V12.2L28 9V28H18Z" fill="url(#gtGoldGrad)" />
 </svg>
