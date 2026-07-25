@@ -6,43 +6,29 @@
       <stop offset="100%" stop-color="#475569" />
     </linearGradient>
     <linearGradient id="gtGoldGrad" x1="4" y1="4" x2="28" y2="28" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#F59E0B" />
-      <stop offset="100%" stop-color="#D97706" />
+      <stop offset="0%" stop-color="#FDE047" />
+      <stop offset="100%" stop-color="#F59E0B" />
     </linearGradient>
   </defs>
 
-  <!-- Corporate Geometric Shield Base -->
-  <path
-    d="M16 2.8L27.5 9.4V22.6L16 29.2L4.5 22.6V9.4L16 2.8Z"
-    stroke="url(#gtMainGrad)"
-    stroke-width="2.2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-    fill="rgba(100, 116, 139, 0.08)"
-  />
+  <!-- Ground Line -->
+  <path d="M3 28H29" stroke="url(#gtMainGrad)" stroke-width="2.5" stroke-linecap="round" />
 
-  <!-- Central Executive Pillar -->
-  <path
-    d="M16 8V24"
-    stroke="url(#gtMainGrad)"
-    stroke-width="2.2"
-    stroke-linecap="round"
-  />
+  # Central Skyscraper Tower
+  <path d="M12 28V6.5L20 2.5V28" stroke="url(#gtMainGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="rgba(100, 116, 139, 0.12)" />
 
-  <!-- Crown Roof Fold -->
-  <path
-    d="M10.5 11.5L16 8L21.5 11.5"
-    stroke="url(#gtGoldGrad)"
-    stroke-width="2.2"
-    stroke-linecap="round"
-    stroke-linejoin="round"
-  />
+  # Left Tower
+  <path d="M5 28V13.5L12 9" stroke="url(#gtMainGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="rgba(100, 116, 139, 0.08)" />
 
-  <!-- Corporate Horizontal Tech Crossbar -->
-  <path
-    d="M9.5 18H22.5"
-    stroke="url(#gtMainGrad)"
-    stroke-width="2.2"
-    stroke-linecap="round"
-  />
+  # Left Windows
+  <path d="M8 15H10" stroke="url(#gtGoldGrad)" stroke-width="2" stroke-linecap="round" />
+  <path d="M8 19H10" stroke="url(#gtGoldGrad)" stroke-width="2" stroke-linecap="round" />
+  <path d="M8 23H10" stroke="url(#gtGoldGrad)" stroke-width="2" stroke-linecap="round" />
+
+  # Right Tower
+  <path d="M20 12L27 16V28" stroke="url(#gtMainGrad)" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round" fill="rgba(100, 116, 139, 0.08)" />
+
+  # Right Windows
+  <path d="M22 18H24.5" stroke="url(#gtGoldGrad)" stroke-width="2" stroke-linecap="round" />
+  <path d="M22 22H24.5" stroke="url(#gtGoldGrad)" stroke-width="2" stroke-linecap="round" />
 </svg>

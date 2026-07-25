@@ -8,8 +8,8 @@ interface GoldenTechIconProps {
 }
 
 /**
- * GoldenTechIcon - Modern, ultra-professional corporate logo icon for Golden Tech Indonesia (@goldentech.id).
- * Styled with stroke="currentColor" and 2px stroke-width to blend seamlessly with Lucide icon sets.
+ * GoldenTechIcon - Corporate Company Skyscraper Headquarters logo icon for Golden Tech Indonesia (@goldentech.id).
+ * Specifically styled with stroke="currentColor" and 2px stroke-width to blend seamlessly with Lucide icon sets.
  */
 export default function GoldenTechIcon({
   size = 24,
@@ -26,13 +26,23 @@ export default function GoldenTechIcon({
       strokeLinecap="round"
       strokeLinejoin="round"
       className={className}
-      aria-label="Golden Tech Logo"
+      aria-label="Golden Tech Software House Logo"
     >
-      {/* Corporate Geometric 'GT' Tech Emblem */}
-      <path d="M12 2L20.5 7V17L12 22L3.5 17V7L12 2Z" />
-      <path d="M12 6V18" />
-      <path d="M8 8.5L12 6L16 8.5" />
-      <path d="M7 13.5H12H17" />
+      {/* Ground Foundation Line */}
+      <path d="M2 21H22" />
+      {/* Central Skyscraper Tower */}
+      <path d="M9 21V5L15 2V21" />
+      {/* Left Office Tower */}
+      <path d="M4 21V10L9 7" />
+      {/* Left Tower Windows */}
+      <path d="M6 11H8" />
+      <path d="M6 14H8" />
+      <path d="M6 17H8" />
+      {/* Right Office Tower */}
+      <path d="M15 9L20 12V21" />
+      {/* Right Tower Windows */}
+      <path d="M16 13H18" />
+      <path d="M16 16H18" />
     </svg>
   );
 }
