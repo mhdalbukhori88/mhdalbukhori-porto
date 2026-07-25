@@ -27,15 +27,6 @@ export default function Hero() {
         </div>
 
         <div className="text-center sm:text-left">
-          {/* Animated Open to Remote Work Status Badge */}
-          <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-emerald-500/40 bg-emerald-500/10 px-3.5 py-1.5 text-xs font-semibold text-emerald-400 backdrop-blur-md shadow-sm transition-all hover:scale-105 hover:bg-emerald-500/20">
-            <span className="relative flex h-2.5 w-2.5">
-              <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75"></span>
-              <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500"></span>
-            </span>
-            <span>Open to Remote Work • Full Stack Developer</span>
-          </div>
-
           <div className="mb-3 flex flex-wrap items-center justify-center gap-4 sm:justify-start">
             <Social href={siteConfig.socials.github} title="GitHub"><Github size={26} /></Social>
             <Social href={siteConfig.socials.linkedin} title="LinkedIn"><Linkedin size={26} /></Social>
