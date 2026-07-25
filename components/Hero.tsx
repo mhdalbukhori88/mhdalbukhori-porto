@@ -66,7 +66,7 @@ export default function Hero() {
               }}
               className="btn-accent flex items-center gap-2"
             >
-              <Rocket size={18} /> Start a Project / Software House
+              <Rocket size={18} /> Start a Project
             </a>
             <a
               href={siteConfig.resumeUrl}
