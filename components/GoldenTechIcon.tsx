@@ -8,8 +8,8 @@ interface GoldenTechIconProps {
 }
 
 /**
- * GoldenTechIcon - Minimalist, professional line-stroke logo icon for Golden Tech Indonesia (@goldentech.id).
- * Specifically styled with stroke="currentColor" and 2px stroke-width to match Lucide icons (GitHub, LinkedIn, Instagram).
+ * GoldenTechIcon - Modern, ultra-professional corporate logo icon for Golden Tech Indonesia (@goldentech.id).
+ * Styled with stroke="currentColor" and 2px stroke-width to blend seamlessly with Lucide icon sets.
  */
 export default function GoldenTechIcon({
   size = 24,
@@ -28,13 +28,12 @@ export default function GoldenTechIcon({
       className={className}
       aria-label="Golden Tech Logo"
     >
-      {/* Outer Tech Hexagon Shield */}
+      {/* Corporate Geometric 'GT' Tech Emblem */}
       <path d="M12 2L20.5 7V17L12 22L3.5 17V7L12 2Z" />
-      {/* Monogram T & G Header */}
-      <path d="M8 9.5H16M12 9.5V16.5" />
-      {/* Code Brackets < / > */}
-      <path d="M8 14.5L6.5 13L8 11.5" />
-      <path d="M16 14.5L17.5 13L16 11.5" />
+      <path d="M12 6V18" />
+      <path d="M8 8.5L12 6L16 8.5" />
+      <path d="M7 13.5H12H17" />
     </svg>
   );
 }
+

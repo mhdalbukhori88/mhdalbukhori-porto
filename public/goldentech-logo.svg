@@ -1,70 +1,48 @@
 <svg width="256" height="256" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
   <defs>
     <linearGradient id="gtMainGrad" x1="2" y1="2" x2="30" y2="30" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#FBBF24" />
-      <stop offset="45%" stop-color="#9333EA" />
-      <stop offset="100%" stop-color="#3B82F6" />
+      <stop offset="0%" stop-color="#94A3B8" />
+      <stop offset="50%" stop-color="#64748B" />
+      <stop offset="100%" stop-color="#475569" />
     </linearGradient>
     <linearGradient id="gtGoldGrad" x1="4" y1="4" x2="28" y2="28" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#FDE047" />
-      <stop offset="60%" stop-color="#F59E0B" />
+      <stop offset="0%" stop-color="#F59E0B" />
       <stop offset="100%" stop-color="#D97706" />
-    </linearGradient>
-    <linearGradient id="gtPurpleGrad" x1="0" y1="0" x2="32" y2="32" gradientUnits="userSpaceOnUse">
-      <stop offset="0%" stop-color="#C084FC" />
-      <stop offset="100%" stop-color="#7E22CE" />
     </linearGradient>
   </defs>
 
-  <!-- Hexagonal Shield Base -->
+  <!-- Corporate Geometric Shield Base -->
   <path
     d="M16 2.8L27.5 9.4V22.6L16 29.2L4.5 22.6V9.4L16 2.8Z"
     stroke="url(#gtMainGrad)"
     stroke-width="2.2"
     stroke-linecap="round"
     stroke-linejoin="round"
-    fill="rgba(147, 51, 234, 0.08)"
+    fill="rgba(100, 116, 139, 0.08)"
   />
 
-  <!-- Inner Tech Monogram: GT Header -->
+  <!-- Central Executive Pillar -->
   <path
-    d="M9.5 11H22.5"
+    d="M16 8V24"
     stroke="url(#gtMainGrad)"
     stroke-width="2.2"
     stroke-linecap="round"
   />
 
-  <!-- Central Stem -->
+  <!-- Crown Roof Fold -->
   <path
-    d="M16 11V21"
-    stroke="url(#gtPurpleGrad)"
+    d="M10.5 11.5L16 8L21.5 11.5"
+    stroke="url(#gtGoldGrad)"
     stroke-width="2.2"
     stroke-linecap="round"
-  />
-
-  <!-- Code Brackets: Left '<' -->
-  <path
-    d="M11 14.5L8.5 16.5L11 18.5"
-    stroke="#FBBF24"
-    stroke-width="2"
-    stroke-linecap="round"
     stroke-linejoin="round"
   />
 
-  <!-- Code Brackets: Right '>' -->
+  <!-- Corporate Horizontal Tech Crossbar -->
   <path
-    d="M21 14.5L23.5 16.5L21 18.5"
-    stroke="#A855F7"
-    stroke-width="2"
+    d="M9.5 18H22.5"
+    stroke="url(#gtMainGrad)"
+    stroke-width="2.2"
     stroke-linecap="round"
-    stroke-linejoin="round"
-  />
-
-  <!-- Core Node -->
-  <circle
-    cx="16"
-    cy="16.5"
-    r="1.8"
-    fill="#FDE047"
   />
 </svg>
