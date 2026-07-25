@@ -142,9 +142,9 @@ export default function OrderForm() {
   return (
     <section id="order" className="section">
       <Reveal>
-        <h1 className="section-title">Start a Project / Software House Services</h1>
+        <h1 className="section-title">Start a Project</h1>
         <p className="-mt-6 mb-10 max-w-2xl text-base muted">
-          Looking for custom software development, web applications, or mobile apps via <strong>{siteConfig.socials.softwareHouse.name}</strong>? Fill out the project form below.
+          Looking for custom software development, web applications, or mobile apps? Fill out the project form below.
         </p>
       </Reveal>
 
