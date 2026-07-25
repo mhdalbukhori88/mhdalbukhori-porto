@@ -21,10 +21,11 @@ export default function Footer() {
           href={siteConfig.socials.softwareHouse.url}
           target="_blank"
           rel="noreferrer"
-          className="flex items-center gap-1.5 font-semibold text-xs text-accent transition-colors hover:underline"
+          className="transition-colors hover:text-accent"
           aria-label={siteConfig.socials.softwareHouse.name}
+          title={`Software House: ${siteConfig.socials.softwareHouse.name} (${siteConfig.socials.softwareHouse.handle})`}
         >
-          <GoldenTechIcon size={18} /> {siteConfig.socials.softwareHouse.handle}
+          <GoldenTechIcon size={22} />
         </a>
         <a href={`mailto:${siteConfig.contact.email}`} className="transition-colors hover:text-accent" aria-label="Email">
           <Mail size={22} />

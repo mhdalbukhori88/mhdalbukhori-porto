@@ -10,7 +10,7 @@ export const siteConfig = {
   location: "Binjai, Indonesia",
   availability: "Open to Remote Work | GMT+7 (WIB)",
   resumeUrl: "/cv-mhd-al-bukhori.pdf",
-  profileImage: "/profile.jpeg",
+  profileImage: "/profile.png",
 
   contact: {
     email: "mhdalbukhori296@gmail.com",

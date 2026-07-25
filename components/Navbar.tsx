@@ -64,11 +64,10 @@ export default function Navbar() {
               target="_blank"
               rel="noreferrer"
               aria-label={siteConfig.socials.softwareHouse.name}
-              title={siteConfig.socials.softwareHouse.name}
-              className="hidden sm:inline-flex items-center gap-2 rounded-full border border-purple-500/40 bg-purple-500/15 px-3.5 py-1 text-xs font-mono font-semibold text-purple-400 dark:text-purple-300 backdrop-blur-md shadow-sm transition-all hover:scale-105 hover:bg-purple-500/25"
+              title={`Software House: ${siteConfig.socials.softwareHouse.name}`}
+              className="hidden sm:flex items-center text-[var(--text)] transition-colors hover:text-accent"
             >
-              <GoldenTechIcon size={18} />
-              <span>{siteConfig.socials.softwareHouse.handle}</span>
+              <GoldenTechIcon size={22} />
             </a>
           </div>
 
@@ -148,8 +147,8 @@ export default function Navbar() {
                   <a href={siteConfig.socials.instagram} target="_blank" rel="noreferrer" aria-label="Instagram" className="text-white/80 hover:text-accent">
                     <Instagram size={20} />
                   </a>
-                  <a href={siteConfig.socials.softwareHouse.url} target="_blank" rel="noreferrer" aria-label={siteConfig.socials.softwareHouse.name} title={siteConfig.socials.softwareHouse.name} className="text-accent hover:text-white flex items-center gap-1.5 font-mono text-xs border border-accent/40 bg-accent/20 px-2.5 py-1 rounded-md shadow-sm transition-all hover:bg-accent/30">
-                    <GoldenTechIcon size={16} /> @goldentech.id
+                  <a href={siteConfig.socials.softwareHouse.url} target="_blank" rel="noreferrer" aria-label={siteConfig.socials.softwareHouse.name} title={siteConfig.socials.softwareHouse.name} className="text-white/80 hover:text-accent">
+                    <GoldenTechIcon size={20} />
                   </a>
                   <a href={`mailto:${siteConfig.contact.email}`} aria-label="Email" className="text-white/80 hover:text-accent">
                     <Mail size={20} />
