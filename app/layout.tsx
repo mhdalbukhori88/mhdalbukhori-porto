@@ -3,6 +3,8 @@ import { Lato, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { siteConfig } from "@/lib/site-config";
 import { ThemeProvider } from "@/components/ThemeProvider";
+import { LanguageProvider } from "@/components/LanguageProvider";
+import AIChatWidget from "@/components/AIChatWidget";
 
 const lato = Lato({
   subsets: ["latin"],
@@ -51,7 +53,12 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${lato.variable} ${mono.variable} theme-dark dark`}>
       <body className="font-sans antialiased">
-        <ThemeProvider>{children}</ThemeProvider>
+        <LanguageProvider>
+          <ThemeProvider>
+            {children}
+            <AIChatWidget />
+          </ThemeProvider>
+        </LanguageProvider>
       </body>
     </html>
   );

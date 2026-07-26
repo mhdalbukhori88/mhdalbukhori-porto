@@ -3,14 +3,19 @@
 import { Briefcase, GraduationCap, CheckCircle2 } from "lucide-react";
 import { timeline } from "@/lib/content";
 import Reveal from "./Reveal";
+import { useLanguage } from "./LanguageProvider";
+import { translations } from "@/lib/translations";
 
 export default function Timeline() {
+  const { language } = useLanguage();
+  const tHist = translations[language].history;
+
   return (
     <section id="history" className="section">
       <Reveal>
-        <h1 className="section-title">Career & Education History</h1>
+        <h1 className="section-title">{tHist.sectionTitle}</h1>
         <p className="-mt-6 mb-12 max-w-2xl text-base muted">
-          A track record of professional roles in software development, inventory operations, production, and academic achievements.
+          {tHist.subTitle}
         </p>
       </Reveal>
 

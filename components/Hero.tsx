@@ -1,12 +1,17 @@
 "use client";
 
 import Image from "next/image";
-import { Github, Linkedin, Instagram, Mail, Download, Rocket } from "lucide-react";
+import { Github, Linkedin, Instagram, Mail, Download, Rocket, Globe } from "lucide-react";
 import MitrivoxIcon from "@/components/MitrivoxIcon";
 import HeroWaveBackground from "@/components/HeroWaveBackground";
+import { useLanguage } from "./LanguageProvider";
+import { translations } from "@/lib/translations";
 import { siteConfig } from "@/lib/site-config";
 
 export default function Hero() {
+  const { language } = useLanguage();
+  const tHero = translations[language].hero;
+
   return (
     <section id="home" className="hero-bg relative flex min-h-[720px] items-center px-[8%] pt-20 sm:px-[12%]">
       {/* Interactive Animated Wave Background Canvas */}
@@ -42,15 +47,21 @@ export default function Hero() {
             <Social href={`mailto:${siteConfig.contact.email}`} title="Email"><Mail size={26} /></Social>
           </div>
 
-          <p className="mb-1.5 font-mono text-xs uppercase tracking-[0.25em] text-accent font-semibold">
-            Hello, I&apos;m
-          </p>
+          <div className="mb-1.5 flex items-center justify-center sm:justify-start gap-2">
+            <span className="font-mono text-xs uppercase tracking-[0.25em] text-accent font-semibold">
+              {tHero.greeting}
+            </span>
+            <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-emerald-500 border border-emerald-500/30 inline-flex items-center gap-1">
+              <Globe size={11} /> {tHero.openRemote}
+            </span>
+          </div>
+
           <h1 className="font-sans text-4xl font-black leading-none tracking-tight sm:text-6xl bg-gradient-to-r from-[var(--text)] via-[var(--text)] to-accent/90 bg-clip-text">
             {siteConfig.name}
           </h1>
-          <p className="mt-2.5 text-xl font-light muted sm:text-3xl font-sans">{siteConfig.role}</p>
+          <p className="mt-2.5 text-xl font-light muted sm:text-3xl font-sans">{tHero.role}</p>
           <p className="mt-4 max-w-xl text-base leading-relaxed muted">
-            {siteConfig.tagline} Founder &amp; Full Stack Lead at{" "}
+            {tHero.tagline}{" "}
             <a
               href={siteConfig.socials.softwareHouse.url}
               target="_blank"
@@ -71,7 +82,7 @@ export default function Hero() {
               }}
               className="btn-accent flex items-center gap-2"
             >
-              <Rocket size={18} /> Start a Project
+              <Rocket size={18} /> {tHero.startProject}
             </a>
             <a
               href={siteConfig.resumeUrl}
@@ -79,20 +90,20 @@ export default function Hero() {
               rel="noreferrer"
               className="btn-outline flex items-center gap-2"
             >
-              <Download size={18} /> Download Resume
+              <Download size={18} /> {tHero.downloadResume}
             </a>
           </div>
 
           {/* Quick Highlight Metrics Pills */}
           <div className="mt-8 pt-6 border-t border-[var(--border)] flex flex-wrap justify-center sm:justify-start gap-4 text-xs font-mono text-muted">
             <div className="flex items-center gap-2 rounded-lg bg-[var(--bg-alt)]/60 px-3 py-1.5 border border-[var(--border)]">
-              <span className="h-2 w-2 rounded-full bg-accent" /> 250+ Delivered Projects
+              <span className="h-2 w-2 rounded-full bg-accent" /> {tHero.metric1}
             </div>
             <div className="flex items-center gap-2 rounded-lg bg-[var(--bg-alt)]/60 px-3 py-1.5 border border-[var(--border)]">
-              <span className="h-2 w-2 rounded-full bg-emerald-400" /> Software House Founder
+              <span className="h-2 w-2 rounded-full bg-emerald-400" /> {tHero.metric2}
             </div>
             <div className="flex items-center gap-2 rounded-lg bg-[var(--bg-alt)]/60 px-3 py-1.5 border border-[var(--border)]">
-              <span className="h-2 w-2 rounded-full bg-slate-400" /> Full Stack &amp; Mobile
+              <span className="h-2 w-2 rounded-full bg-slate-400" /> {tHero.metric3}
             </div>
           </div>
         </div>

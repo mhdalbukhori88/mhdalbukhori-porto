@@ -5,6 +5,8 @@ import { Send, MessageCircle, Mail, Loader2, CheckCircle2, AlertCircle } from "l
 import { siteConfig } from "@/lib/site-config";
 import Reveal from "./Reveal";
 import ReCaptcha, { RECAPTCHA_SITE_KEY } from "./ReCaptcha";
+import { useLanguage } from "./LanguageProvider";
+import { translations } from "@/lib/translations";
 
 const projectTypes = [
   "Software House Custom Project (Mitrivox Digital)",
@@ -29,6 +31,9 @@ const budgets = [
 type Status = "idle" | "sending" | "success" | "error";
 
 export default function OrderForm() {
+  const { language } = useLanguage();
+  const tOrd = translations[language].order;
+
   const [form, setForm] = useState({
     name: "",
     email: "",
@@ -59,14 +64,12 @@ export default function OrderForm() {
     `Target Deadline: ${form.deadline || "Flexible"}\n\n` +
     `Project Details:\n${form.details}`;
 
-  // Confirm the visitor passed reCAPTCHA before opening WhatsApp/Email.
   const ensureHuman = async (): Promise<boolean> => {
+    if (form.company) return false;
+    if (Date.now() - startedAt.current < 2500) return false;
     if (!captchaRequired) return true;
-    if (!captchaToken) {
-      setStatus("error");
-      setMessage("Please complete the \"I'm not a robot\" verification first.");
-      return false;
-    }
+    if (!captchaToken) return false;
+
     try {
       const res = await fetch("/api/verify", {
         method: "POST",
@@ -74,25 +77,18 @@ export default function OrderForm() {
         body: JSON.stringify({ token: captchaToken }),
       });
       const data = await res.json();
-      if (!data.ok) {
-        setStatus("error");
-        setMessage("Verification failed. Please tick the box again.");
-        return false;
-      }
-      return true;
+      return data.ok;
     } catch {
-      return true;
+      return false;
     }
   };
 
   const openWhatsApp = async () => {
-    if (!(await ensureHuman())) return;
     const text = encodeURIComponent(buildMessage());
     window.open(`https://wa.me/${siteConfig.contact.phoneRaw}?text=${text}`, "_blank");
   };
 
   const openEmail = async () => {
-    if (!(await ensureHuman())) return;
     const subject = encodeURIComponent(`Project Order (${siteConfig.socials.softwareHouse.name}) — ${form.name || "New Client"}`);
     const body = encodeURIComponent(buildMessage());
     window.open(`mailto:${siteConfig.contact.email}?subject=${subject}&body=${body}`, "_blank");
@@ -110,25 +106,34 @@ export default function OrderForm() {
       setMessage("Please complete the \"I'm not a robot\" verification first.");
       return;
     }
+    if (!(await ensureHuman())) return;
+
     setStatus("sending");
     setMessage("");
+
     try {
       const res = await fetch("/api/order", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ ...form, startedAt: startedAt.current, recaptchaToken: captchaToken }),
+        body: JSON.stringify(form),
       });
+
       const data = await res.json();
-      if (res.ok && data.delivered) {
+
+      if (res.ok && data.ok) {
         setStatus("success");
-        setMessage("Your project order has been sent! We will get back to you shortly.");
-      } else if (res.status === 400 && data.error) {
-        setStatus("error");
-        setMessage(data.error);
+        setMessage(tOrd.successDesc);
+        setForm({
+          name: "",
+          email: "",
+          phone: "",
+          type: projectTypes[0],
+          budget: budgets[0],
+          deadline: "",
+          details: "",
+          company: "",
+        });
       } else {
-        setStatus("success");
-        setMessage("Opening WhatsApp and your email app so you can send the order directly. Thank you!");
-        openWhatsApp();
         setTimeout(openEmail, 600);
       }
     } catch {

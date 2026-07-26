@@ -2,12 +2,18 @@
 
 import { projects } from "@/lib/content";
 import Reveal from "./Reveal";
+import { useLanguage } from "./LanguageProvider";
+import { translations } from "@/lib/translations";
 
 export default function Projects() {
+  const { language } = useLanguage();
+  const tProj = translations[language].projects;
+
   return (
     <section id="projects" className="section">
       <Reveal>
-        <h1 className="section-title">Projects</h1>
+        <h1 className="section-title">{tProj.sectionTitle}</h1>
+        <p className="-mt-6 mb-10 text-sm muted max-w-xl">{tProj.subTitle}</p>
       </Reveal>
 
       <div className="grid gap-8 md:grid-cols-2">

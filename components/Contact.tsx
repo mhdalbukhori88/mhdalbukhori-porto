@@ -4,8 +4,13 @@ import { Mail, Phone, MapPin, Github, Linkedin, Instagram, MessageCircle } from 
 import MitrivoxIcon from "./MitrivoxIcon";
 import { siteConfig } from "@/lib/site-config";
 import Reveal from "./Reveal";
+import { useLanguage } from "./LanguageProvider";
+import { translations } from "@/lib/translations";
 
 export default function Contact() {
+  const { language } = useLanguage();
+  const tContact = translations[language].contact;
+
   const waLink = `https://wa.me/${siteConfig.contact.phoneRaw}?text=${encodeURIComponent(
     `Hi ${siteConfig.name}, I'd like to connect with you regarding a project for ${siteConfig.socials.softwareHouse.name}.`
   )}`;
@@ -30,9 +35,9 @@ export default function Contact() {
   return (
     <section id="contact" className="section">
       <Reveal>
-        <h1 className="section-title">Contact & Socials</h1>
+        <h1 className="section-title">{tContact.sectionTitle}</h1>
         <p className="-mt-6 mb-10 max-w-2xl text-base muted">
-          Got a project for <strong>{siteConfig.socials.softwareHouse.name}</strong>, or want to collaborate? Connect with me across my channels.
+          {tContact.subTitle}
         </p>
       </Reveal>
 

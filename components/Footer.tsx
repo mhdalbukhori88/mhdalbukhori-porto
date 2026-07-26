@@ -3,9 +3,14 @@
 import { Github, Linkedin, Instagram, Mail } from "lucide-react";
 import MitrivoxIcon from "./MitrivoxIcon";
 import ImageWaveCanvas from "./ImageWaveCanvas";
+import { useLanguage } from "./LanguageProvider";
+import { translations } from "@/lib/translations";
 import { siteConfig } from "@/lib/site-config";
 
 export default function Footer() {
+  const { language } = useLanguage();
+  const tFoot = translations[language].footer;
+
   return (
     <footer className="relative overflow-hidden px-[5%] py-14 text-center">
       {/* Animated Original Line Artwork Background */}
@@ -38,10 +43,10 @@ export default function Footer() {
           </a>
         </div>
         <p className="text-sm font-medium muted">
-          © {new Date().getFullYear()} <strong>{siteConfig.name}</strong>. Hak Cipta Dilindungi Undang-Undang (All Rights Reserved).
+          © {new Date().getFullYear()} <strong>{siteConfig.name}</strong>. {tFoot.rights}
         </p>
         <p className="mt-1.5 text-xs muted">
-          Founder &amp; Full Stack Lead at{" "}
+          {tFoot.role}{" "}
           <a
             href={siteConfig.socials.softwareHouse.url}
             target="_blank"

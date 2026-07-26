@@ -2,12 +2,18 @@
 
 import { expertise } from "@/lib/content";
 import Reveal from "./Reveal";
+import { useLanguage } from "./LanguageProvider";
+import { translations } from "@/lib/translations";
 
 export default function Expertise() {
+  const { language } = useLanguage();
+  const tExp = translations[language].expertise;
+
   return (
     <section id="expertise" className="section">
       <Reveal>
-        <h1 className="section-title">Expertise</h1>
+        <h1 className="section-title">{tExp.sectionTitle}</h1>
+        <p className="mb-10 text-sm muted max-w-xl">{tExp.subTitle}</p>
       </Reveal>
 
       <div className="grid gap-8 lg:grid-cols-3">

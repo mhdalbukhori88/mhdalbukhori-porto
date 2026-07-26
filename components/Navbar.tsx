@@ -1,26 +1,31 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import { Menu, X, Sun, Moon, Github, Linkedin, Instagram, Mail } from "lucide-react";
+import { Menu, X, Sun, Moon, Globe, Github, Linkedin, Instagram, Mail } from "lucide-react";
 import MitrivoxIcon from "./MitrivoxIcon";
 import { useTheme } from "./ThemeProvider";
+import { useLanguage } from "./LanguageProvider";
+import { translations } from "@/lib/translations";
 import { siteConfig } from "@/lib/site-config";
-
-const navItems = [
-  ["Expertise", "expertise"],
-  ["History", "history"],
-  ["Projects", "projects"],
-  ["Resume", "resume"],
-  ["Certificates", "certificates"],
-  ["Order", "order"],
-  ["Contact", "contact"],
-];
 
 export default function Navbar() {
   const { theme, toggle } = useTheme();
+  const { language, toggleLanguage } = useLanguage();
+  const tNav = translations[language].nav;
+
   const [open, setOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("");
+
+  const navItems = [
+    [tNav.expertise, "expertise"],
+    [tNav.history, "history"],
+    [tNav.projects, "projects"],
+    [tNav.resume, "resume"],
+    [tNav.certificates, "certificates"],
+    [tNav.order, "order"],
+    [tNav.contact, "contact"],
+  ];
 
   useEffect(() => {
     const onScroll = () => {
@@ -65,7 +70,7 @@ export default function Navbar() {
             scrolled ? "h-14 px-5 sm:px-6" : "h-16 px-[5%] sm:px-[8%]"
           }`}
         >
-          <div className="flex items-center gap-3.5">
+          <div className="flex items-center gap-3">
             <button
               onClick={() => setOpen(true)}
               className="sm:hidden nav-icon-animate p-1"
@@ -73,12 +78,24 @@ export default function Navbar() {
             >
               <Menu size={22} />
             </button>
+
+            {/* Theme Toggle */}
             <button
               onClick={toggle}
               aria-label="Toggle theme"
-              className="nav-icon-animate flex items-center p-1 rounded-full hover:bg-[var(--bg-alt)] transition-all"
+              className="nav-icon-animate flex items-center p-1.5 rounded-full hover:bg-[var(--bg-alt)] transition-all"
             >
-              {theme === "dark" ? <Sun size={20} className="text-amber-400" /> : <Moon size={20} className="text-slate-700" />}
+              {theme === "dark" ? <Sun size={19} className="text-amber-400" /> : <Moon size={19} className="text-slate-700" />}
+            </button>
+
+            {/* Language Selector Pill (EN | ID) */}
+            <button
+              onClick={toggleLanguage}
+              title={language === "en" ? "Switch to Bahasa Indonesia" : "Switch to English"}
+              className="flex items-center gap-1.5 rounded-full bg-[var(--bg-alt)]/80 px-2.5 py-1 text-xs font-mono font-semibold text-[var(--text)] border border-[var(--border)] hover:border-accent hover:text-accent transition-all"
+            >
+              <Globe size={13} className="text-accent" />
+              <span>{language.toUpperCase()}</span>
             </button>
 
             <a
@@ -89,7 +106,7 @@ export default function Navbar() {
               title={`Software House: ${siteConfig.socials.softwareHouse.name}`}
               className="hidden sm:flex items-center text-[var(--text)] nav-icon-animate p-1"
             >
-              <MitrivoxIcon size={20} />
+              <MitrivoxIcon size={19} />
             </a>
           </div>
 
