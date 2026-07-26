@@ -1,11 +1,11 @@
 "use client";
 
-import WaveCanvas from "./WaveCanvas";
+import ImageWaveCanvas from "./ImageWaveCanvas";
 
 /**
- * HeroWaveBackground — Animated flowing wave lines for the Hero section.
- * Every individual line moves and undulates continuously with 60FPS precision.
+ * HeroWaveBackground — Renders the exact original line artwork image (bg-light.png & bg-dark.png)
+ * and animates every single line dynamically with 60FPS wave distortion & cursor interaction.
  */
 export default function HeroWaveBackground() {
-  return <WaveCanvas preset="hero" />;
+  return <ImageWaveCanvas variant="hero" />;
 }
