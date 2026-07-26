@@ -37,6 +37,17 @@ export default function GoogleTranslate() {
   const [currentLang, setCurrentLang] = useState("en");
 
   useEffect(() => {
+    // Read existing googtrans cookie on load
+    const cookies = document.cookie.split(";");
+    const match = cookies.find((c) => c.trim().startsWith("googtrans="));
+    if (match) {
+      const val = match.split("=")[1];
+      const code = val.split("/").pop();
+      if (code && code !== "en") {
+        setCurrentLang(code);
+      }
+    }
+
     // 1. Define global init callback for Google Translate
     window.googleTranslateElementInit = () => {
       if (window.google?.translate?.TranslateElement) {
@@ -44,7 +55,8 @@ export default function GoogleTranslate() {
           {
             pageLanguage: "en",
             includedLanguages:
-              "en,id,es,de,fr,ja,zh-CN,ar,ko,pt,nl,it,ru,ja,hi,tr,th,vi",
+              "en,id,es,de,fr,ja,zh-CN,ar,ko,pt,nl,it,ru,hi,tr,th,vi",
+            layout: window.google.translate.TranslateElement.InlineLayout.SIMPLE,
             autoDisplay: false,
           },
           "google_translate_element"
@@ -57,7 +69,7 @@ export default function GoogleTranslate() {
       const script = document.createElement("script");
       script.id = "google-translate-script";
       script.src =
-        "//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
+        "https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit";
       script.async = true;
       document.body.appendChild(script);
     }
@@ -67,7 +79,12 @@ export default function GoogleTranslate() {
     setCurrentLang(langCode);
     setOpen(false);
 
-    // Trigger Google Translate native select element
+    // Set Google Translate cookie
+    const hostname = window.location.hostname;
+    document.cookie = `googtrans=/en/${langCode}; path=/; domain=${hostname}`;
+    document.cookie = `googtrans=/en/${langCode}; path=/;`;
+
+    // Trigger Google Translate native select element if present
     const selectEl = document.querySelector(
       ".goog-te-combo"
     ) as HTMLSelectElement | null;
@@ -76,6 +93,11 @@ export default function GoogleTranslate() {
       selectEl.value = langCode;
       selectEl.dispatchEvent(new Event("change"));
     }
+
+    // Reload page to apply translation cleanly across all DOM nodes
+    setTimeout(() => {
+      window.location.reload();
+    }, 100);
   };
 
   const selectedObj =
@@ -83,7 +105,7 @@ export default function GoogleTranslate() {
 
   return (
     <div className="relative inline-block text-left">
-      {/* Hidden element where Google embeds its native widget */}
+      {/* Element where Google embeds its native Translate combo */}
       <div id="google_translate_element" className="hidden" aria-hidden="true" />
 
       {/* Custom Clean Language Selector Trigger Button */}
