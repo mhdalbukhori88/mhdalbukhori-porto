@@ -3,249 +3,249 @@
 import { useEffect, useRef, useCallback } from "react";
 import { useTheme } from "./ThemeProvider";
 
-/* ────────────────────────────────────────────────────
- *  WaveCanvas — Reusable animated flowing wave lines
- *  drawn with smooth quadratic Bézier curves.
- *  Responds to cursor movement with gentle parallax.
- *  Works in both dark and light themes.
- * ──────────────────────────────────────────────────── */
+/* ──────────────────────────────────────────────────────────────────────────
+ *  WaveCanvas — Ultra-smooth, elegant flowing wavy line artwork.
+ *  Recreates the signature curved wave-lines pattern with fluid 60FPS motion
+ *  and gentle interactive water-ripple cursor reaction.
+ * ────────────────────────────────────────────────────────────────────────── */
 
-export interface WaveGroup {
-  lines: number;
-  baseY: number;       // 0‒1 relative
-  amplitude: number;   // px
-  speed: number;       // radians/sec
-  wavelength: number;  // multiplier
-  spread: number;      // px total spread of lines in group
-}
+export type WavePreset = "hero" | "footer";
 
 interface WaveCanvasProps {
-  /** Pre-configured wave groups. Defaults to Hero preset. */
-  groups?: WaveGroup[];
-  /** Extra CSS class on the <canvas> */
+  preset?: WavePreset;
   className?: string;
   style?: React.CSSProperties;
 }
 
-/* ── Default presets ───────────────────────────────── */
-export const HERO_WAVES: WaveGroup[] = [
-  { lines: 20, baseY: 0.22, amplitude: 55, speed: 0.3, wavelength: 1.1, spread: 150 },
-  { lines: 24, baseY: 0.52, amplitude: 70, speed: 0.2, wavelength: 0.85, spread: 190 },
-  { lines: 18, baseY: 0.82, amplitude: 45, speed: 0.28, wavelength: 1.4, spread: 130 },
-];
+interface PresetConfig {
+  lineCount: number;
+  baseAmplitude: number;
+  speed: number;
+  frequency: number;
+  spread: number;
+  rippleRadius: number;
+  rippleForce: number;
+}
 
-export const FOOTER_WAVES: WaveGroup[] = [
-  { lines: 14, baseY: 0.3, amplitude: 30, speed: 0.2, wavelength: 1.3, spread: 90 },
-  { lines: 16, baseY: 0.65, amplitude: 35, speed: 0.15, wavelength: 1.0, spread: 100 },
-];
+const PRESETS: Record<WavePreset, PresetConfig> = {
+  hero: {
+    lineCount: 42,
+    baseAmplitude: 65,
+    speed: 0.35,
+    frequency: 0.0018,
+    spread: 0.85,
+    rippleRadius: 200,
+    rippleForce: 28,
+  },
+  footer: {
+    lineCount: 24,
+    baseAmplitude: 40,
+    speed: 0.25,
+    frequency: 0.0022,
+    spread: 0.7,
+    rippleRadius: 150,
+    rippleForce: 18,
+  },
+};
 
 export default function WaveCanvas({
-  groups = HERO_WAVES,
+  preset = "hero",
   className = "",
   style,
 }: WaveCanvasProps) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { theme } = useTheme();
-  const mouseRef = useRef({ x: 0.5, y: 0.5, active: false });
+  const mouseRef = useRef({ x: -9999, y: -9999, active: false });
   const animRef = useRef<number>(0);
   const themeRef = useRef(theme);
 
-  useEffect(() => { themeRef.current = theme; }, [theme]);
+  useEffect(() => {
+    themeRef.current = theme;
+  }, [theme]);
 
-  /* ── Mouse handlers ────────────────────────────── */
   const onMove = useCallback((e: MouseEvent) => {
     const c = canvasRef.current;
     if (!c) return;
     const r = c.getBoundingClientRect();
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
     mouseRef.current = {
-      x: (e.clientX - r.left) / r.width,
-      y: (e.clientY - r.top) / r.height,
+      x: (e.clientX - r.left) * dpr,
+      y: (e.clientY - r.top) * dpr,
       active: true,
     };
   }, []);
 
   const onLeave = useCallback(() => {
-    mouseRef.current.active = false;
+    mouseRef.current = { x: -9999, y: -9999, active: false };
   }, []);
 
-  /* ── Animation loop ────────────────────────────── */
   useEffect(() => {
     const canvas = canvasRef.current;
     if (!canvas) return;
-    const ctx = canvas.getContext("2d", { alpha: true });
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
-    let w = 0, h = 0;
+    const cfg = PRESETS[preset];
+    let W = 0;
+    let H = 0;
+    let dpr = 1;
 
     const resize = () => {
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const p = canvas.parentElement;
-      if (!p) return;
-      w = p.clientWidth;
-      h = p.clientHeight;
-      canvas.width = w * dpr;
-      canvas.height = h * dpr;
-      canvas.style.width = `${w}px`;
-      canvas.style.height = `${h}px`;
-      ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const parent = canvas.parentElement;
+      if (!parent) return;
+      const cw = parent.clientWidth;
+      const ch = parent.clientHeight;
+      W = cw * dpr;
+      H = ch * dpr;
+      canvas.width = W;
+      canvas.height = H;
+      canvas.style.width = `${cw}px`;
+      canvas.style.height = `${ch}px`;
     };
 
     resize();
     window.addEventListener("resize", resize, { passive: true });
 
-    // Smooth interpolated mouse
-    const sm = { x: 0.5, y: 0.5 };
-
-    // Helper: compute Y for a point on a wave line
-    const waveY = (
-      xNorm: number,
-      t: number,
-      g: WaveGroup,
-      lineIdx: number,
-      lineProgress: number,
-      baseYpx: number,
-    ): number => {
-      const amp = g.amplitude * (0.4 + lineProgress * 0.6);
-      // Primary sine
-      const w1 = Math.sin(xNorm * Math.PI * 2 * g.wavelength + t * g.speed + lineIdx * 0.28) * amp;
-      // Harmonic
-      const w2 = Math.sin(xNorm * Math.PI * 3.5 * g.wavelength + t * g.speed * 1.4 - lineIdx * 0.18) * amp * 0.22;
-      // Micro-detail
-      const w3 = Math.sin(xNorm * Math.PI * 6 + t * 0.6 + lineIdx * 0.45) * 5;
-
-      // Gentle cursor influence — smooth Gaussian-like falloff
-      const dx = xNorm - sm.x;
-      const dy = (baseYpx + w1) / h - sm.y;
-      const distSq = dx * dx + dy * dy;
-      const influence = Math.exp(-distSq * 8); // smooth Gaussian bell
-      const cursorY = influence * 28 * Math.sign(dy || 0.001);
-      const cursorX = influence * (sm.x - 0.5) * 18;
-
-      return baseYpx + w1 + w2 + w3 + cursorY + (sm.y - 0.5) * influence * 12 + cursorX * 0; // cursorX used below in x
-    };
-
-    // Helper: compute X offset for cursor
-    const cursorXOffset = (xNorm: number, baseYpx: number, w1: number): number => {
-      const dx = xNorm - sm.x;
-      const dy = (baseYpx + w1) / h - sm.y;
-      const distSq = dx * dx + dy * dy;
-      const influence = Math.exp(-distSq * 8);
-      return influence * (sm.x - 0.5) * 18;
-    };
+    // Smoothed mouse position for fluid movement without jumps
+    const sm = { x: -9999, y: -9999 };
 
     const draw = (time: number) => {
       const t = time * 0.001;
       const isDark = themeRef.current === "dark";
 
-      // Smooth mouse lerp — very gentle for fluid feel
-      const target = mouseRef.current;
-      const lerp = target.active ? 0.035 : 0.012;
-      sm.x += (target.x - sm.x) * lerp;
-      sm.y += (target.y - sm.y) * lerp;
-      if (!target.active) {
-        sm.x += (0.5 - sm.x) * 0.006;
-        sm.y += (0.5 - sm.y) * 0.006;
+      // Smooth cursor position interpolation
+      const raw = mouseRef.current;
+      if (raw.active) {
+        sm.x += (raw.x - sm.x) * 0.06;
+        sm.y += (raw.y - sm.y) * 0.06;
+      } else {
+        sm.x += (-9999 - sm.x) * 0.03;
+        sm.y += (-9999 - sm.y) * 0.03;
       }
 
-      ctx.clearRect(0, 0, w, h);
+      ctx.clearRect(0, 0, W, H);
 
-      // Background
+      // Background fill
       ctx.fillStyle = isDark ? "#0d1117" : "#f8f9fa";
-      ctx.fillRect(0, 0, w, h);
+      ctx.fillRect(0, 0, W, H);
 
-      // Number of control points for Bézier (fewer = smoother curves)
-      const POINTS = 32;
+      const count = cfg.lineCount;
+      const numSteps = Math.max(60, Math.floor(W / (12 * dpr)));
+      const stepX = W / numSteps;
+      const centerY = H * 0.5;
 
-      for (const g of groups) {
-        for (let li = 0; li < g.lines; li++) {
-          const lp = g.lines > 1 ? li / (g.lines - 1) : 0.5; // lineProgress 0‒1
-          const yOff = (lp - 0.5) * g.spread;
-          const baseYpx = g.baseY * h + yOff;
+      const rippleR = cfg.rippleRadius * dpr;
+      const rippleF = cfg.rippleForce * dpr;
 
-          // ── Color ──
-          let color: string;
-          if (isDark) {
-            const hue = 210 + lp * 25;
-            const sat = 20 + lp * 40;
-            const lit = 55 + lp * 15;
-            const a = 0.07 + lp * 0.13;
-            color = `hsla(${hue}, ${sat}%, ${lit}%, ${a})`;
-          } else {
-            const hue = 215 + lp * 18;
-            const sat = 12 + lp * 28;
-            const lit = 32 + lp * 22;
-            const a = 0.05 + lp * 0.11;
-            color = `hsla(${hue}, ${sat}%, ${lit}%, ${a})`;
-          }
+      // Draw concentric curved lines
+      for (let i = 0; i < count; i++) {
+        const progress = i / (count - 1); // 0 to 1
+        const lineOffset = (progress - 0.5) * (H * cfg.spread);
 
-          ctx.beginPath();
-          ctx.strokeStyle = color;
-          ctx.lineWidth = 0.5 + lp * 0.7;
-          ctx.lineJoin = "round";
-          ctx.lineCap = "round";
-
-          // Build array of smooth points
-          const pts: { x: number; y: number }[] = [];
-          for (let i = 0; i <= POINTS; i++) {
-            const xNorm = i / POINTS;
-            const x = xNorm * w;
-            const y = waveY(xNorm, t, g, li, lp, baseYpx);
-
-            // X-axis cursor offset
-            const amp = g.amplitude * (0.4 + lp * 0.6);
-            const w1 = Math.sin(xNorm * Math.PI * 2 * g.wavelength + t * g.speed + li * 0.28) * amp;
-            const xOff = cursorXOffset(xNorm, baseYpx, w1);
-
-            pts.push({ x: x + xOff, y });
-          }
-
-          // ── Draw smooth curve using quadratic Bézier through midpoints ──
-          ctx.moveTo(pts[0].x, pts[0].y);
-          for (let i = 0; i < pts.length - 1; i++) {
-            const curr = pts[i];
-            const next = pts[i + 1];
-            // Control point = current point, end point = midpoint
-            const mx = (curr.x + next.x) * 0.5;
-            const my = (curr.y + next.y) * 0.5;
-            ctx.quadraticCurveTo(curr.x, curr.y, mx, my);
-          }
-          // Final segment to last point
-          const last = pts[pts.length - 1];
-          ctx.lineTo(last.x, last.y);
-
-          ctx.stroke();
+        // Color computation
+        let strokeColor: string;
+        if (isDark) {
+          // Dark mode: slate blue to cyan neon glow
+          const alpha = 0.08 + Math.sin(progress * Math.PI) * 0.18;
+          const r = Math.round(100 + progress * 60);
+          const g = Math.round(160 + progress * 70);
+          const b = Math.round(230 + progress * 25);
+          strokeColor = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+        } else {
+          // Light mode: elegant dark slate to ocean blue
+          const alpha = 0.07 + Math.sin(progress * Math.PI) * 0.16;
+          const r = Math.round(30 + progress * 40);
+          const g = Math.round(50 + progress * 50);
+          const b = Math.round(90 + progress * 80);
+          strokeColor = `rgba(${r}, ${g}, ${b}, ${alpha})`;
         }
+
+        ctx.beginPath();
+        ctx.strokeStyle = strokeColor;
+        ctx.lineWidth = (0.7 + Math.sin(progress * Math.PI) * 0.9) * dpr;
+        ctx.lineCap = "round";
+        ctx.lineJoin = "round";
+
+        const points: { x: number; y: number }[] = [];
+
+        for (let s = 0; s <= numSteps; s++) {
+          const x = s * stepX;
+
+          // Multi-frequency wave calculation for organic swirl effect
+          const wave1 =
+            Math.sin(x * cfg.frequency + t * cfg.speed + progress * 2.2) *
+            cfg.baseAmplitude *
+            dpr;
+          const wave2 =
+            Math.cos(x * cfg.frequency * 1.8 - t * cfg.speed * 0.7 + progress * 1.5) *
+            (cfg.baseAmplitude * 0.45) *
+            dpr;
+          const wave3 =
+            Math.sin(x * cfg.frequency * 3.2 + t * 0.5 + i * 0.1) * (12 * dpr);
+
+          // Envelope curve so lines fan out gracefully in the center
+          const centerFactor = Math.sin((x / W) * Math.PI);
+          const waveTotal = (wave1 + wave2 + wave3) * (0.6 + centerFactor * 0.6);
+
+          let y = centerY + lineOffset + waveTotal;
+
+          // Interactive Gaussian Cursor Ripple Effect
+          if (sm.x > -1000) {
+            const dx = x - sm.x;
+            const dy = y - sm.y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+
+            if (dist < rippleR) {
+              const normDist = dist / rippleR;
+              // Smooth Gaussian bell curve
+              const rippleFactor = Math.exp(-normDist * normDist * 4);
+              const waveRipple = Math.cos(dist * 0.04 - t * 4) * rippleF * rippleFactor;
+              y += waveRipple;
+            }
+          }
+
+          points.push({ x, y });
+        }
+
+        // Draw ultra-smooth curve using quadratic bezier interpolation
+        ctx.moveTo(points[0].x, points[0].y);
+        for (let s = 0; s < points.length - 1; s++) {
+          const curr = points[s];
+          const next = points[s + 1];
+          const midX = (curr.x + next.x) * 0.5;
+          const midY = (curr.y + next.y) * 0.5;
+          ctx.quadraticCurveTo(curr.x, curr.y, midX, midY);
+        }
+        const last = points[points.length - 1];
+        ctx.lineTo(last.x, last.y);
+
+        ctx.stroke();
       }
 
-      // ── Radial glow following cursor ──
-      const gx = sm.x * w, gy = sm.y * h;
-      const gr = Math.min(w, h) * 0.38;
-      const glow = ctx.createRadialGradient(gx, gy, 0, gx, gy, gr);
-      if (isDark) {
-        glow.addColorStop(0, "rgba(59, 130, 246, 0.055)");
-        glow.addColorStop(0.5, "rgba(99, 102, 241, 0.025)");
-        glow.addColorStop(1, "transparent");
-      } else {
-        glow.addColorStop(0, "rgba(59, 130, 246, 0.035)");
-        glow.addColorStop(0.5, "rgba(99, 102, 241, 0.015)");
-        glow.addColorStop(1, "transparent");
+      // Soft radial glow tracking the cursor
+      if (sm.x > -1000) {
+        const glowRadius = 220 * dpr;
+        const glow = ctx.createRadialGradient(
+          sm.x,
+          sm.y,
+          0,
+          sm.x,
+          sm.y,
+          glowRadius
+        );
+        if (isDark) {
+          glow.addColorStop(0, "rgba(56, 189, 248, 0.06)");
+          glow.addColorStop(0.5, "rgba(99, 102, 241, 0.025)");
+          glow.addColorStop(1, "transparent");
+        } else {
+          glow.addColorStop(0, "rgba(59, 130, 246, 0.05)");
+          glow.addColorStop(0.5, "rgba(99, 102, 241, 0.02)");
+          glow.addColorStop(1, "transparent");
+        }
+        ctx.fillStyle = glow;
+        ctx.fillRect(0, 0, W, H);
       }
-      ctx.fillStyle = glow;
-      ctx.fillRect(0, 0, w, h);
-
-      // ── Top/bottom gradient overlay for content readability ──
-      const ov = ctx.createLinearGradient(0, 0, 0, h);
-      if (isDark) {
-        ov.addColorStop(0, "rgba(13, 17, 22, 0.12)");
-        ov.addColorStop(0.5, "rgba(13, 17, 22, 0.03)");
-        ov.addColorStop(1, "rgba(13, 17, 22, 0.45)");
-      } else {
-        ov.addColorStop(0, "rgba(248, 249, 250, 0.2)");
-        ov.addColorStop(0.5, "rgba(248, 249, 250, 0.08)");
-        ov.addColorStop(1, "rgba(248, 249, 250, 0.5)");
-      }
-      ctx.fillStyle = ov;
-      ctx.fillRect(0, 0, w, h);
 
       animRef.current = requestAnimationFrame(draw);
     };
@@ -260,7 +260,7 @@ export default function WaveCanvas({
       canvas.removeEventListener("mousemove", onMove);
       canvas.removeEventListener("mouseleave", onLeave);
     };
-  }, [groups, onMove, onLeave]);
+  }, [preset, onMove, onLeave]);
 
   return (
     <canvas

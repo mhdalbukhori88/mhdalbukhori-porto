@@ -1,11 +1,11 @@
 "use client";
 
-import ParticleCanvas from "./ParticleCanvas";
+import WaveCanvas from "./WaveCanvas";
 
 /**
- * HeroWaveBackground — Floating particle dash animation for the Hero section.
- * Antigravity-inspired style with cursor interaction.
+ * HeroWaveBackground — Ultra-smooth flowing concentric wave lines for the Hero section.
+ * Features 60FPS fluid motion and soft Gaussian cursor ripple interaction.
  */
 export default function HeroWaveBackground() {
-  return <ParticleCanvas preset="hero" />;
+  return <WaveCanvas preset="hero" />;
 }
