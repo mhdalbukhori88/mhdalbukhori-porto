@@ -7,8 +7,13 @@ import { siteConfig } from "@/lib/site-config";
 
 export default function Hero() {
   return (
-    <section id="home" className="hero-bg flex min-h-[720px] items-center px-[8%] pt-20 sm:px-[12%]">
-      <div className="flex w-full flex-col items-center gap-10 py-16 sm:flex-row sm:items-center sm:gap-12 sm:py-0">
+    <section id="home" className="hero-bg relative flex min-h-[720px] items-center px-[8%] pt-20 sm:px-[12%]">
+      {/* Animated Moving Background Image Layer */}
+      <div className="hero-bg-layer" aria-hidden="true" />
+      <div className="hero-bg-shimmer" aria-hidden="true" />
+
+      {/* Main Content (z-10 to stay strictly above animated background) */}
+      <div className="relative z-10 flex w-full flex-col items-center gap-10 py-16 sm:flex-row sm:items-center sm:gap-12 sm:py-0">
         {/* Profile Avatar — Clean & Professional */}
         <div className="shrink-0">
           <div className="rounded-full bg-gradient-to-br from-accent to-accent-light p-[3px] shadow-xl">
