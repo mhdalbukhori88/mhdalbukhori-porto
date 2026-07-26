@@ -55,34 +55,38 @@ export default function Navbar() {
     <>
       <header
         id="navigation"
-        className={`fixed inset-x-0 top-0 z-50 transition-all duration-300 ${
+        className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
           scrolled
-            ? "bg-[var(--bg)]/85 backdrop-blur-md border-b border-[var(--border)] shadow-lg shadow-black/10"
-            : "bg-[var(--bg)] border-b border-transparent"
+            ? "top-3 sm:top-4 mx-auto w-[92%] sm:w-[86%] max-w-5xl rounded-full bg-[var(--bg)]/80 backdrop-blur-xl border border-[var(--border)] shadow-2xl shadow-black/15"
+            : "top-0 w-full bg-[var(--bg)]/90 backdrop-blur-md border-b border-transparent"
         }`}
       >
-        <nav className="flex h-16 items-center justify-between px-[5%] sm:px-[8%]">
-          <div className="flex items-center gap-4">
+        <nav
+          className={`flex items-center justify-between transition-all duration-300 ${
+            scrolled ? "h-14 px-5 sm:px-6" : "h-16 px-[5%] sm:px-[8%]"
+          }`}
+        >
+          <div className="flex items-center gap-3.5">
             <button
               onClick={() => setOpen(true)}
               className="sm:hidden nav-icon-animate p-1"
               aria-label="Open menu"
             >
-              <Menu size={24} />
+              <Menu size={22} />
             </button>
             <button
               onClick={toggle}
               aria-label="Toggle theme"
               className="nav-icon-animate flex items-center p-1 rounded-full hover:bg-[var(--bg-alt)] transition-all"
             >
-              {theme === "dark" ? <Sun size={22} className="text-amber-400" /> : <Moon size={22} className="text-slate-700" />}
+              {theme === "dark" ? <Sun size={20} className="text-amber-400" /> : <Moon size={20} className="text-slate-700" />}
             </button>
             <a
               href="#home"
               className="hidden items-center gap-2 sm:flex nav-logo-animate"
               onClick={(e) => { e.preventDefault(); scrollTo("home"); }}
             >
-              <Image src="/logo.svg" alt="MB logo" width={42} height={32} className="h-8 w-auto" priority />
+              <Image src="/logo.svg" alt="MB logo" width={38} height={28} className="h-7 w-auto" priority />
             </a>
             <a
               href={siteConfig.socials.softwareHouse.url}
@@ -92,7 +96,7 @@ export default function Navbar() {
               title={`Software House: ${siteConfig.socials.softwareHouse.name}`}
               className="hidden sm:flex items-center text-[var(--text)] nav-icon-animate p-1"
             >
-              <MitrivoxIcon size={22} />
+              <MitrivoxIcon size={20} />
             </a>
           </div>
 
@@ -103,8 +107,10 @@ export default function Navbar() {
                 <button
                   key={id}
                   onClick={() => scrollTo(id)}
-                  className={`nav-link-item rounded-lg px-3.5 py-1.5 text-[0.98rem] font-medium transition-all ${
-                    isActive ? "active-nav font-semibold" : "text-[var(--text-muted)]"
+                  className={`nav-link-item rounded-full px-3.5 py-1 text-[0.92rem] font-medium transition-all ${
+                    isActive
+                      ? "bg-accent !text-white font-semibold shadow-md shadow-accent/25"
+                      : "text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--bg-alt)]/60"
                   }`}
                 >
                   {label}
