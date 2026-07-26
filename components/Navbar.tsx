@@ -80,13 +80,7 @@ export default function Navbar() {
             >
               {theme === "dark" ? <Sun size={20} className="text-amber-400" /> : <Moon size={20} className="text-slate-700" />}
             </button>
-            <a
-              href="#home"
-              className="hidden items-center gap-1 sm:flex nav-logo-animate font-sans text-base font-bold tracking-tight text-[var(--text)] hover:opacity-90 transition-opacity"
-              onClick={(e) => { e.preventDefault(); scrollTo("home"); }}
-            >
-              {siteConfig.shortName}<span className="text-accent">.</span>
-            </a>
+
             <a
               href={siteConfig.socials.softwareHouse.url}
               target="_blank"
@@ -135,11 +129,8 @@ export default function Navbar() {
             <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-night/80 to-black/90" />
 
             <div className="relative flex h-full flex-col p-6 text-white">
-              {/* header: logo + close */}
-              <div className="flex items-center justify-between border-b border-white/15 pb-4">
-                <span className="font-sans text-lg font-bold tracking-tight text-white">
-                  {siteConfig.shortName}<span className="text-accent">.</span>
-                </span>
+              {/* header: close button */}
+              <div className="flex items-center justify-end border-b border-white/15 pb-4">
                 <button
                   onClick={() => setOpen(false)}
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20"
