@@ -1,7 +1,6 @@
 "use client";
 
 import { useState, useEffect } from "react";
-import Image from "next/image";
 import { Menu, X, Sun, Moon, Github, Linkedin, Instagram, Mail } from "lucide-react";
 import MitrivoxIcon from "./MitrivoxIcon";
 import { useTheme } from "./ThemeProvider";
@@ -83,10 +82,10 @@ export default function Navbar() {
             </button>
             <a
               href="#home"
-              className="hidden items-center gap-2 sm:flex nav-logo-animate"
+              className="hidden items-center gap-1 sm:flex nav-logo-animate font-sans text-base font-bold tracking-tight text-[var(--text)] hover:opacity-90 transition-opacity"
               onClick={(e) => { e.preventDefault(); scrollTo("home"); }}
             >
-              <Image src="/logo.svg" alt="MB logo" width={38} height={28} className="h-7 w-auto" priority />
+              {siteConfig.shortName}<span className="text-accent">.</span>
             </a>
             <a
               href={siteConfig.socials.softwareHouse.url}
@@ -138,7 +137,9 @@ export default function Navbar() {
             <div className="relative flex h-full flex-col p-6 text-white">
               {/* header: logo + close */}
               <div className="flex items-center justify-between border-b border-white/15 pb-4">
-                <Image src="/logo.svg" alt="MB logo" width={48} height={36} className="h-9 w-auto" />
+                <span className="font-sans text-lg font-bold tracking-tight text-white">
+                  {siteConfig.shortName}<span className="text-accent">.</span>
+                </span>
                 <button
                   onClick={() => setOpen(false)}
                   className="flex h-9 w-9 items-center justify-center rounded-full border border-white/20 bg-white/10 text-white transition-colors hover:bg-white/20"
