@@ -210,6 +210,48 @@ a:not(.btn-accent):not(.btn-outline):hover {
   overflow: hidden;
 }
 
+/* Background floating animations for exact image artwork */
+.animate-hero-bg-float {
+  will-change: transform;
+  animation: heroBgFloat 22s ease-in-out infinite alternate;
+}
+
+.animate-footer-bg-float {
+  will-change: transform;
+  animation: footerBgFloat 18s ease-in-out infinite alternate;
+}
+
+@keyframes heroBgFloat {
+  0% {
+    transform: scale(1.03) translate3d(0, 0, 0) rotate(0deg);
+  }
+  25% {
+    transform: scale(1.07) translate3d(-1.5%, 1%, 0) rotate(0.6deg);
+  }
+  50% {
+    transform: scale(1.09) translate3d(1.2%, -1.2%, 0) rotate(-0.5deg);
+  }
+  75% {
+    transform: scale(1.06) translate3d(-1%, -0.8%, 0) rotate(0.4deg);
+  }
+  100% {
+    transform: scale(1.1) translate3d(1.5%, 1.5%, 0) rotate(-0.7deg);
+  }
+}
+
+@keyframes footerBgFloat {
+  0% {
+    transform: scale(1.02) translate3d(0, 0, 0);
+  }
+  50% {
+    transform: scale(1.06) translate3d(1%, -1%, 0);
+  }
+  100% {
+    transform: scale(1.03) translate3d(-1%, 1%, 0);
+  }
+}
+
+
 
 /* mobile drawer background — always dark for readable white text */
 .drawer-bg {

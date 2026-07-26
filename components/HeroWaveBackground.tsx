@@ -1,11 +1,11 @@
 "use client";
 
-import WaveCanvas from "./WaveCanvas";
+import AnimatedImageBackground from "./AnimatedImageBackground";
 
 /**
- * HeroWaveBackground — Ultra-smooth flowing concentric wave lines for the Hero section.
- * Features 60FPS fluid motion and soft Gaussian cursor ripple interaction.
+ * HeroWaveBackground — Uses the exact original line artwork image (bg-light.png & bg-dark.png)
+ * and animates it with continuous floating movement & smooth mouse parallax.
  */
 export default function HeroWaveBackground() {
-  return <WaveCanvas preset="hero" />;
+  return <AnimatedImageBackground variant="hero" />;
 }

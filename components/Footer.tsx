@@ -2,14 +2,14 @@
 
 import { Github, Linkedin, Instagram, Mail } from "lucide-react";
 import MitrivoxIcon from "./MitrivoxIcon";
-import WaveCanvas from "./WaveCanvas";
+import AnimatedImageBackground from "./AnimatedImageBackground";
 import { siteConfig } from "@/lib/site-config";
 
 export default function Footer() {
   return (
     <footer className="relative overflow-hidden px-[5%] py-14 text-center">
-      {/* Animated Flowing Wavy Lines Background */}
-      <WaveCanvas preset="footer" />
+      {/* Animated Flowing Line Artwork Background */}
+      <AnimatedImageBackground variant="footer" />
 
       {/* Footer Content */}
       <div className="relative z-10">
