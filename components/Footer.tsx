@@ -2,18 +2,18 @@
 
 import { Github, Linkedin, Instagram, Mail } from "lucide-react";
 import MitrivoxIcon from "./MitrivoxIcon";
-import WaveCanvas, { FOOTER_WAVES } from "./WaveCanvas";
+import ParticleCanvas from "./ParticleCanvas";
 import { siteConfig } from "@/lib/site-config";
 
 export default function Footer() {
   return (
-    <footer className="relative overflow-hidden px-[5%] py-12 text-center">
-      {/* Animated Wave Background */}
-      <WaveCanvas groups={FOOTER_WAVES} />
+    <footer className="relative overflow-hidden px-[5%] py-14 text-center">
+      {/* Animated Floating Particles Background */}
+      <ParticleCanvas preset="footer" />
 
       {/* Footer Content */}
       <div className="relative z-10">
-        <div className="mb-4 flex flex-wrap justify-center items-center gap-5">
+        <div className="mb-5 flex flex-wrap justify-center items-center gap-5">
           <a href={siteConfig.socials.github} target="_blank" rel="noreferrer" className="transition-colors hover:text-accent" aria-label="GitHub">
             <Github size={22} />
           </a>

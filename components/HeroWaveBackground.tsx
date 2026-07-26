@@ -1,11 +1,11 @@
 "use client";
 
-import WaveCanvas, { HERO_WAVES } from "./WaveCanvas";
+import ParticleCanvas from "./ParticleCanvas";
 
 /**
- * HeroWaveBackground — Smooth animated flowing wave lines for the Hero section.
- * Uses quadratic Bézier curves for perfectly smooth rendering.
+ * HeroWaveBackground — Floating particle dash animation for the Hero section.
+ * Antigravity-inspired style with cursor interaction.
  */
 export default function HeroWaveBackground() {
-  return <WaveCanvas groups={HERO_WAVES} />;
+  return <ParticleCanvas preset="hero" />;
 }
