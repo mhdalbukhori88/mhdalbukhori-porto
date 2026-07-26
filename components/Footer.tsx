@@ -11,8 +11,8 @@ export default function Footer() {
       {/* Animated Original Line Artwork Background */}
       <ImageWaveCanvas variant="footer" />
 
-      {/* Footer Content */}
-      <div className="relative z-10">
+      {/* Footer Content Card with Frosted Backdrop for Perfect Contrast */}
+      <div className="relative z-10 mx-auto max-w-xl rounded-2xl border border-[var(--border)] bg-[var(--bg)]/85 p-6 backdrop-blur-md shadow-xl sm:p-8">
         <div className="mb-5 flex flex-wrap justify-center items-center gap-5">
           <a href={siteConfig.socials.github} target="_blank" rel="noreferrer" className="transition-colors hover:text-accent" aria-label="GitHub">
             <Github size={22} />

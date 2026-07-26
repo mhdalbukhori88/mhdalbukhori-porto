@@ -161,6 +161,9 @@ export default function ImageWaveCanvas({
         const rippleR = (isMobile ? 140 : (variant === "hero" ? 220 : 150)) * dpr;
         const rippleF = (isMobile ? 10 : (variant === "hero" ? 22 : 14)) * dpr;
 
+        // Apply subtle transparency for footer variant so text remains crystal clear
+        ctx.globalAlpha = variant === "footer" ? (isDark ? 0.32 : 0.22) : 1.0;
+
         for (let i = 0; i < NUM_SLICES; i++) {
           const sx = i * srcSliceW;
           const dx = startX + i * sliceWidth;
@@ -205,6 +208,7 @@ export default function ImageWaveCanvas({
             drawH
           );
         }
+        ctx.globalAlpha = 1.0;
       }
 
       // Soft linear gradient overlay for text readability
