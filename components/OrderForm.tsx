@@ -7,7 +7,7 @@ import Reveal from "./Reveal";
 import ReCaptcha, { RECAPTCHA_SITE_KEY } from "./ReCaptcha";
 
 const projectTypes = [
-  "Software House Custom Project (Golden Tech ID)",
+  "Software House Custom Project (Mitrivox Digital)",
   "Full Stack Web Application / SaaS",
   "Mobile App Development (Android & iOS)",
   "Company Profile & Corporate Website",

@@ -1,7 +1,7 @@
 "use client";
 
 import { Github, Linkedin, Instagram, Mail } from "lucide-react";
-import GoldenTechIcon from "./GoldenTechIcon";
+import MitrivoxIcon from "./MitrivoxIcon";
 import { siteConfig } from "@/lib/site-config";
 
 export default function Footer() {
@@ -25,7 +25,7 @@ export default function Footer() {
           aria-label={siteConfig.socials.softwareHouse.name}
           title={`Software House: ${siteConfig.socials.softwareHouse.name} (${siteConfig.socials.softwareHouse.handle})`}
         >
-          <GoldenTechIcon size={22} />
+          <MitrivoxIcon size={22} />
         </a>
         <a href={`mailto:${siteConfig.contact.email}`} className="transition-colors hover:text-accent" aria-label="Email">
           <Mail size={22} />

@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { Github, Linkedin, Instagram, Mail, Download, Rocket } from "lucide-react";
-import GoldenTechIcon from "@/components/GoldenTechIcon";
+import MitrivoxIcon from "@/components/MitrivoxIcon";
 import { siteConfig } from "@/lib/site-config";
 
 export default function Hero() {
@@ -32,7 +32,7 @@ export default function Hero() {
             <Social href={siteConfig.socials.linkedin} title="LinkedIn"><Linkedin size={26} /></Social>
             <Social href={siteConfig.socials.instagram} title="Personal Instagram"><Instagram size={26} /></Social>
             <Social href={siteConfig.socials.softwareHouse.url} title={`Software House: ${siteConfig.socials.softwareHouse.name} (${siteConfig.socials.softwareHouse.handle})`}>
-              <GoldenTechIcon size={26} />
+              <MitrivoxIcon size={26} />
             </Social>
             <Social href={`mailto:${siteConfig.contact.email}`} title="Email"><Mail size={26} /></Social>
           </div>

@@ -1,7 +1,7 @@
 "use client";
 
 import { Mail, Phone, MapPin, Github, Linkedin, Instagram, MessageCircle } from "lucide-react";
-import GoldenTechIcon from "./GoldenTechIcon";
+import MitrivoxIcon from "./MitrivoxIcon";
 import { siteConfig } from "@/lib/site-config";
 import Reveal from "./Reveal";
 
@@ -12,7 +12,7 @@ export default function Contact() {
 
   const items = [
     {
-      icon: GoldenTechIcon,
+      icon: MitrivoxIcon,
       label: "Software House",
       value: siteConfig.socials.softwareHouse.name,
       subValue: siteConfig.socials.softwareHouse.handle,

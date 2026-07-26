@@ -3,7 +3,7 @@
 import { useState, useEffect } from "react";
 import Image from "next/image";
 import { Menu, X, Sun, Moon, Github, Linkedin, Instagram, Mail } from "lucide-react";
-import GoldenTechIcon from "./GoldenTechIcon";
+import MitrivoxIcon from "./MitrivoxIcon";
 import { useTheme } from "./ThemeProvider";
 import { siteConfig } from "@/lib/site-config";
 
@@ -92,7 +92,7 @@ export default function Navbar() {
               title={`Software House: ${siteConfig.socials.softwareHouse.name}`}
               className="hidden sm:flex items-center text-[var(--text)] nav-icon-animate p-1"
             >
-              <GoldenTechIcon size={22} />
+              <MitrivoxIcon size={22} />
             </a>
           </div>
 
@@ -178,7 +178,7 @@ export default function Navbar() {
                     <Instagram size={20} />
                   </a>
                   <a href={siteConfig.socials.softwareHouse.url} target="_blank" rel="noreferrer" aria-label={siteConfig.socials.softwareHouse.name} title={siteConfig.socials.softwareHouse.name} className="text-white/80 hover:text-accent">
-                    <GoldenTechIcon size={20} />
+                    <MitrivoxIcon size={20} />
                   </a>
                   <a href={`mailto:${siteConfig.contact.email}`} aria-label="Email" className="text-white/80 hover:text-accent">
                     <Mail size={20} />

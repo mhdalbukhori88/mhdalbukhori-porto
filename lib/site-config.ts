@@ -25,9 +25,9 @@ export const siteConfig = {
     instagram: "https://instagram.com/mhdalbukhori_",
     instagramHandle: "@mhdalbukhori_",
     softwareHouse: {
-      name: "Golden Tech Indonesia",
-      handle: "@goldentech.id",
-      url: "https://www.instagram.com/goldentech.id",
+      name: "Mitrivox Digital",
+      handle: "@mitrivoxdigital.official",
+      url: "https://www.instagram.com/mitrivoxdigital.official",
     },
     website: "https://mhdalbukhori-porto.vercel.app",
   },
