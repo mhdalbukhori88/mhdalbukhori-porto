@@ -55,14 +55,14 @@ export default function Navbar() {
     <>
       <header
         id="navigation"
-        className={`fixed left-0 right-0 z-50 transition-all duration-300 ${
+        className={`fixed left-0 right-0 z-50 floating-nav-transition ${
           scrolled
-            ? "top-3 sm:top-4 mx-auto w-[92%] sm:w-[86%] max-w-5xl rounded-full bg-[var(--bg)]/80 backdrop-blur-xl border border-[var(--border)] shadow-2xl shadow-black/15"
+            ? "top-3 sm:top-4 mx-auto w-[92%] sm:w-[86%] max-w-5xl rounded-full bg-[var(--bg)]/80 backdrop-blur-xl border border-[var(--border)] shadow-2xl shadow-black/15 animate-nav-float-enter"
             : "top-0 w-full bg-[var(--bg)]/90 backdrop-blur-md border-b border-transparent"
         }`}
       >
         <nav
-          className={`flex items-center justify-between transition-all duration-300 ${
+          className={`flex items-center justify-between floating-nav-transition ${
             scrolled ? "h-14 px-5 sm:px-6" : "h-16 px-[5%] sm:px-[8%]"
           }`}
         >
@@ -107,9 +107,9 @@ export default function Navbar() {
                 <button
                   key={id}
                   onClick={() => scrollTo(id)}
-                  className={`nav-link-item rounded-full px-3.5 py-1 text-[0.92rem] font-medium transition-all ${
+                  className={`nav-link-item rounded-full px-3.5 py-1 text-[0.92rem] font-medium transition-all duration-300 ${
                     isActive
-                      ? "bg-accent !text-white font-semibold shadow-md shadow-accent/25"
+                      ? "bg-accent !text-white font-semibold shadow-md shadow-accent/25 floating-nav-pill-active"
                       : "text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--bg-alt)]/60"
                   }`}
                 >

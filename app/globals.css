@@ -210,6 +210,51 @@ a:not(.btn-accent):not(.btn-outline):hover {
   overflow: hidden;
 }
 
+/* Floating Navbar Smooth Spring Transitions & Keyframes */
+.floating-nav-transition {
+  transition: transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              width 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              top 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              border-radius 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              box-shadow 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.45s cubic-bezier(0.16, 1, 0.3, 1),
+              padding 0.45s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: transform, width, top, border-radius;
+}
+
+.animate-nav-float-enter {
+  animation: navFloatEnter 0.45s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+.floating-nav-pill-active {
+  animation: navPillPop 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes navFloatEnter {
+  0% {
+    transform: translateY(-16px) scale(0.96);
+    opacity: 0.8;
+  }
+  100% {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+@keyframes navPillPop {
+  0% {
+    transform: scale(0.92);
+  }
+  60% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+
 /* Background floating animations for exact image artwork */
 .animate-hero-bg-float {
   will-change: transform;
