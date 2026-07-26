@@ -4,9 +4,9 @@ import { useEffect, useRef, useCallback } from "react";
 import { useTheme } from "./ThemeProvider";
 
 /* ──────────────────────────────────────────────────────────────────────────
- *  WaveCanvas — Ultra-smooth, elegant flowing wavy line artwork.
- *  Recreates the signature curved wave-lines pattern with fluid 60FPS motion
- *  and gentle interactive water-ripple cursor reaction.
+ *  WaveCanvas — Animated Concentric Wave Lines Artwork.
+ *  Renders an array of individual curved lines that undulate, flow, and
+ *  ripple continuously independently, creating a mesmerizing living mesh.
  * ────────────────────────────────────────────────────────────────────────── */
 
 export type WavePreset = "hero" | "footer";
@@ -21,7 +21,6 @@ interface PresetConfig {
   lineCount: number;
   baseAmplitude: number;
   speed: number;
-  frequency: number;
   spread: number;
   rippleRadius: number;
   rippleForce: number;
@@ -29,22 +28,20 @@ interface PresetConfig {
 
 const PRESETS: Record<WavePreset, PresetConfig> = {
   hero: {
-    lineCount: 42,
-    baseAmplitude: 65,
-    speed: 0.35,
-    frequency: 0.0018,
-    spread: 0.85,
-    rippleRadius: 200,
-    rippleForce: 28,
+    lineCount: 46,
+    baseAmplitude: 75,
+    speed: 0.4,
+    spread: 0.9,
+    rippleRadius: 220,
+    rippleForce: 35,
   },
   footer: {
-    lineCount: 24,
-    baseAmplitude: 40,
-    speed: 0.25,
-    frequency: 0.0022,
-    spread: 0.7,
-    rippleRadius: 150,
-    rippleForce: 18,
+    lineCount: 26,
+    baseAmplitude: 45,
+    speed: 0.3,
+    spread: 0.75,
+    rippleRadius: 160,
+    rippleForce: 22,
   },
 };
 
@@ -107,21 +104,21 @@ export default function WaveCanvas({
     resize();
     window.addEventListener("resize", resize, { passive: true });
 
-    // Smoothed mouse position for fluid movement without jumps
+    // Interpolated cursor position
     const sm = { x: -9999, y: -9999 };
 
     const draw = (time: number) => {
       const t = time * 0.001;
       const isDark = themeRef.current === "dark";
 
-      // Smooth cursor position interpolation
+      // Smooth cursor lerp
       const raw = mouseRef.current;
       if (raw.active) {
-        sm.x += (raw.x - sm.x) * 0.06;
-        sm.y += (raw.y - sm.y) * 0.06;
+        sm.x += (raw.x - sm.x) * 0.08;
+        sm.y += (raw.y - sm.y) * 0.08;
       } else {
-        sm.x += (-9999 - sm.x) * 0.03;
-        sm.y += (-9999 - sm.y) * 0.03;
+        sm.x += (-9999 - sm.x) * 0.04;
+        sm.y += (-9999 - sm.y) * 0.04;
       }
 
       ctx.clearRect(0, 0, W, H);
@@ -131,39 +128,46 @@ export default function WaveCanvas({
       ctx.fillRect(0, 0, W, H);
 
       const count = cfg.lineCount;
-      const numSteps = Math.max(60, Math.floor(W / (12 * dpr)));
+      const numSteps = Math.max(80, Math.floor(W / (10 * dpr)));
       const stepX = W / numSteps;
       const centerY = H * 0.5;
 
       const rippleR = cfg.rippleRadius * dpr;
       const rippleF = cfg.rippleForce * dpr;
 
-      // Draw concentric curved lines
+      // Render each line with its own individual wave motion & phase displacement
       for (let i = 0; i < count; i++) {
         const progress = i / (count - 1); // 0 to 1
         const lineOffset = (progress - 0.5) * (H * cfg.spread);
 
-        // Color computation
+        // Independent line parameters
+        const lineSpeed = cfg.speed * (0.8 + Math.sin(i * 0.35) * 0.35);
+        const linePhase = i * 0.18 + Math.cos(i * 0.25) * 0.5;
+        const lineAmpMult = 0.6 + Math.sin(progress * Math.PI) * 0.8;
+
+        // Dynamic alpha pulse for glowing strand effect
+        const alphaPulse = Math.sin(t * 1.4 + i * 0.4) * 0.04;
+
         let strokeColor: string;
         if (isDark) {
-          // Dark mode: slate blue to cyan neon glow
-          const alpha = 0.08 + Math.sin(progress * Math.PI) * 0.18;
-          const r = Math.round(100 + progress * 60);
-          const g = Math.round(160 + progress * 70);
-          const b = Math.round(230 + progress * 25);
-          strokeColor = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+          // Dark mode: slate blue to glowing cyan-indigo
+          const baseAlpha = 0.1 + Math.sin(progress * Math.PI) * 0.2 + alphaPulse;
+          const r = Math.round(100 + progress * 70);
+          const g = Math.round(170 + progress * 65);
+          const b = Math.round(235 + progress * 20);
+          strokeColor = `rgba(${r}, ${g}, ${b}, ${Math.max(0.04, Math.min(0.45, baseAlpha))})`;
         } else {
-          // Light mode: elegant dark slate to ocean blue
-          const alpha = 0.07 + Math.sin(progress * Math.PI) * 0.16;
-          const r = Math.round(30 + progress * 40);
-          const g = Math.round(50 + progress * 50);
-          const b = Math.round(90 + progress * 80);
-          strokeColor = `rgba(${r}, ${g}, ${b}, ${alpha})`;
+          // Light mode: elegant deep slate to ocean blue
+          const baseAlpha = 0.08 + Math.sin(progress * Math.PI) * 0.18 + alphaPulse;
+          const r = Math.round(25 + progress * 45);
+          const g = Math.round(45 + progress * 55);
+          const b = Math.round(85 + progress * 85);
+          strokeColor = `rgba(${r}, ${g}, ${b}, ${Math.max(0.04, Math.min(0.4, baseAlpha))})`;
         }
 
         ctx.beginPath();
         ctx.strokeStyle = strokeColor;
-        ctx.lineWidth = (0.7 + Math.sin(progress * Math.PI) * 0.9) * dpr;
+        ctx.lineWidth = (0.75 + Math.sin(progress * Math.PI) * 0.85) * dpr;
         ctx.lineCap = "round";
         ctx.lineJoin = "round";
 
@@ -171,26 +175,33 @@ export default function WaveCanvas({
 
         for (let s = 0; s <= numSteps; s++) {
           const x = s * stepX;
+          const normX = x / W; // 0..1
 
-          // Multi-frequency wave calculation for organic swirl effect
+          // Concentric S-curve envelope matching original wave artwork shape
+          const sCurve = Math.sin(normX * Math.PI * 1.6 - 0.4) * (H * 0.15);
+
+          // Individual continuous wave motion equations for each line
           const wave1 =
-            Math.sin(x * cfg.frequency + t * cfg.speed + progress * 2.2) *
+            Math.sin(normX * Math.PI * 2.2 + t * lineSpeed + linePhase) *
             cfg.baseAmplitude *
+            lineAmpMult *
             dpr;
+
           const wave2 =
-            Math.cos(x * cfg.frequency * 1.8 - t * cfg.speed * 0.7 + progress * 1.5) *
-            (cfg.baseAmplitude * 0.45) *
+            Math.cos(normX * Math.PI * 3.8 - t * lineSpeed * 1.25 + i * 0.12) *
+            (cfg.baseAmplitude * 0.35) *
             dpr;
+
           const wave3 =
-            Math.sin(x * cfg.frequency * 3.2 + t * 0.5 + i * 0.1) * (12 * dpr);
+            Math.sin(normX * Math.PI * 6.5 + t * 0.9 + i * 0.3) *
+            (8 * dpr);
 
-          // Envelope curve so lines fan out gracefully in the center
-          const centerFactor = Math.sin((x / W) * Math.PI);
-          const waveTotal = (wave1 + wave2 + wave3) * (0.6 + centerFactor * 0.6);
+          // Continuous horizontal wave drift so lines flow across the screen
+          const driftY = Math.sin(normX * Math.PI * 1.2 + t * 0.6 + i * 0.15) * (15 * dpr);
 
-          let y = centerY + lineOffset + waveTotal;
+          let y = centerY + lineOffset + sCurve + wave1 + wave2 + wave3 + driftY;
 
-          // Interactive Gaussian Cursor Ripple Effect
+          // Interactive Gaussian Cursor Impulse (reacts per line)
           if (sm.x > -1000) {
             const dx = x - sm.x;
             const dy = y - sm.y;
@@ -198,10 +209,10 @@ export default function WaveCanvas({
 
             if (dist < rippleR) {
               const normDist = dist / rippleR;
-              // Smooth Gaussian bell curve
-              const rippleFactor = Math.exp(-normDist * normDist * 4);
-              const waveRipple = Math.cos(dist * 0.04 - t * 4) * rippleF * rippleFactor;
-              y += waveRipple;
+              const rippleFactor = Math.exp(-normDist * normDist * 3.5);
+              const cursorImpulse =
+                Math.sin(dist * 0.035 - t * 4.5 + i * 0.1) * rippleF * rippleFactor;
+              y += cursorImpulse;
             }
           }
 
@@ -223,9 +234,9 @@ export default function WaveCanvas({
         ctx.stroke();
       }
 
-      // Soft radial glow tracking the cursor
+      // Cursor follower radial glow
       if (sm.x > -1000) {
-        const glowRadius = 220 * dpr;
+        const glowRadius = 240 * dpr;
         const glow = ctx.createRadialGradient(
           sm.x,
           sm.y,
@@ -235,12 +246,12 @@ export default function WaveCanvas({
           glowRadius
         );
         if (isDark) {
-          glow.addColorStop(0, "rgba(56, 189, 248, 0.06)");
-          glow.addColorStop(0.5, "rgba(99, 102, 241, 0.025)");
+          glow.addColorStop(0, "rgba(56, 189, 248, 0.065)");
+          glow.addColorStop(0.5, "rgba(99, 102, 241, 0.02)");
           glow.addColorStop(1, "transparent");
         } else {
           glow.addColorStop(0, "rgba(59, 130, 246, 0.05)");
-          glow.addColorStop(0.5, "rgba(99, 102, 241, 0.02)");
+          glow.addColorStop(0.5, "rgba(99, 102, 241, 0.018)");
           glow.addColorStop(1, "transparent");
         }
         ctx.fillStyle = glow;
