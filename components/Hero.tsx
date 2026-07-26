@@ -3,14 +3,14 @@
 import Image from "next/image";
 import { Github, Linkedin, Instagram, Mail, Download, Rocket } from "lucide-react";
 import MitrivoxIcon from "@/components/MitrivoxIcon";
+import HeroWaveBackground from "@/components/HeroWaveBackground";
 import { siteConfig } from "@/lib/site-config";
 
 export default function Hero() {
   return (
     <section id="home" className="hero-bg relative flex min-h-[720px] items-center px-[8%] pt-20 sm:px-[12%]">
-      {/* Animated Moving Background Image Layer */}
-      <div className="hero-bg-layer" aria-hidden="true" />
-      <div className="hero-bg-shimmer" aria-hidden="true" />
+      {/* Interactive Animated Wave Background Canvas */}
+      <HeroWaveBackground />
 
       {/* Main Content (z-10 to stay strictly above animated background) */}
       <div className="relative z-10 flex w-full flex-col items-center gap-10 py-16 sm:flex-row sm:items-center sm:gap-12 sm:py-0">
