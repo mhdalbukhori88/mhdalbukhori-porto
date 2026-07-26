@@ -266,6 +266,27 @@ a:not(.btn-accent):not(.btn-outline):hover {
   animation: footerBgFloat 18s ease-in-out infinite alternate;
 }
 
+/* Hide default Google Translate banner frame and top body margin */
+.goog-te-banner-frame.skiptranslate,
+.goog-te-banner-frame {
+  display: none !important;
+}
+
+body {
+  top: 0px !important;
+  position: static !important;
+}
+
+.goog-tooltip,
+.goog-tooltip:hover {
+  display: none !important;
+}
+
+.goog-text-highlight {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}
+
 @keyframes heroBgFloat {
   0% {
     transform: scale(1.03) translate3d(0, 0, 0) rotate(0deg);

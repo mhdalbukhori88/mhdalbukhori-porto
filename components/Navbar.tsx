@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import { Menu, X, Sun, Moon, Globe, Github, Linkedin, Instagram, Mail } from "lucide-react";
 import MitrivoxIcon from "./MitrivoxIcon";
+import GoogleTranslate from "./GoogleTranslate";
 import { useTheme } from "./ThemeProvider";
 import { useLanguage } from "./LanguageProvider";
 import { translations } from "@/lib/translations";
@@ -10,7 +11,7 @@ import { siteConfig } from "@/lib/site-config";
 
 export default function Navbar() {
   const { theme, toggle } = useTheme();
-  const { language, toggleLanguage } = useLanguage();
+  const { language } = useLanguage();
   const tNav = translations[language].nav;
 
   const [open, setOpen] = useState(false);
@@ -88,15 +89,8 @@ export default function Navbar() {
               {theme === "dark" ? <Sun size={19} className="text-amber-400" /> : <Moon size={19} className="text-slate-700" />}
             </button>
 
-            {/* Language Selector Pill (EN | ID) */}
-            <button
-              onClick={toggleLanguage}
-              title={language === "en" ? "Switch to Bahasa Indonesia" : "Switch to English"}
-              className="flex items-center gap-1.5 rounded-full bg-[var(--bg-alt)]/80 px-2.5 py-1 text-xs font-mono font-semibold text-[var(--text)] border border-[var(--border)] hover:border-accent hover:text-accent transition-all"
-            >
-              <Globe size={13} className="text-accent" />
-              <span>{language.toUpperCase()}</span>
-            </button>
+            {/* Google Translate Multilingual Dropdown (100+ Languages) */}
+            <GoogleTranslate />
 
             <a
               href={siteConfig.socials.softwareHouse.url}
