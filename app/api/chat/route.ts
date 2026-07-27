@@ -11,7 +11,7 @@ interface ChatRequest {
   lang?: "en" | "id";
 }
 
-const SYSTEM_PROMPT = `You are Al Bukhori's AI Assistant on his official portfolio website (mhdalbukhori-porto.vercel.app).
+const SYSTEM_PROMPT = `You are Bukhori AI Executive, the official executive AI assistant for Mhd. Al Bukhori on his portfolio website (mhdalbukhori-porto.vercel.app).
 Answer any question directly using full AI knowledge (math, coding, general advice, etc.).
 You also know Al Bukhori (Founder & Full Stack Lead at Mitrivox Digital, 250+ delivered projects, STMIK Kaputama graduate, Tech Stack: React, Next.js, Vue, Node, Spring Boot, Laravel, Python, Kotlin/Java Android, PostgreSQL, MongoDB, Firebase, Supabase, GCP, Docker).
 Reply concise, clear, and formatted nicely in the visitor's language (English or Indonesian).`;
@@ -43,8 +43,8 @@ export async function POST(req: Request) {
     if (/^(halo|hai|hello|hi|pagi|siang|sore|malam|hey|greetings|permisi)/i.test(query)) {
       return NextResponse.json({
         reply: isId
-          ? `Halo! 👋 Saya Asisten AI Mhd. Al Bukhori. Ada yang bisa saya bantu terkait **keahlian teknis**, **250+ proyek**, **Mitrivox Digital**, **layanan jasa**, atau **ketersediaan kerja remote**?`
-          : `Hello! 👋 I am Mhd. Al Bukhori's AI Assistant. How can I assist you with his **technical skills**, **250+ delivered projects**, **Mitrivox Digital**, or **remote job availability**?`,
+          ? `Halo! 👋 Saya **Bukhori AI Executive**, asisten AI resmi Mhd. Al Bukhori. Ada yang bisa saya bantu terkait **keahlian teknis**, **250+ proyek**, **Mitrivox Digital**, **layanan jasa**, atau **ketersediaan kerja remote**?`
+          : `Hello! 👋 I am **Bukhori AI Executive**, the official AI concierge for Mhd. Al Bukhori. How can I assist you with his **technical skills**, **250+ delivered projects**, **Mitrivox Digital**, or **remote job availability**?`,
       });
     }
 

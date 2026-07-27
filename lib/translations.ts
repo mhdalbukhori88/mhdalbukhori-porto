@@ -93,10 +93,10 @@ export const translations = {
 
     // AI Assistant
     ai: {
-      floatingBadge: "AI Assistant",
-      bubbleWelcome: "Hello! Need quick info about Al Bukhori's skills, 250+ projects, or remote availability? Ask me anything!",
-      headerTitle: "Al Bukhori's AI Assistant",
-      onlineStatus: "Online · Responds in EN / ID",
+      floatingBadge: "Bukhori AI Concierge",
+      bubbleWelcome: "Hello! I am Bukhori AI Executive. Need quick insights on Al Bukhori's technical skills, 250+ projects, or global remote availability?",
+      headerTitle: "Bukhori AI Executive",
+      onlineStatus: "Active · Executive AI Concierge (EN / ID)",
       inputPlaceholder: "Ask about skills, projects, experience, or hire for remote jobs...",
       sendBtn: "Send",
       clearBtn: "Clear Chat",
@@ -108,7 +108,7 @@ export const translations = {
         "How do I order a custom project or get a quote?",
       ],
       defaultAnswer:
-        "Hello! I am Al Bukhori's AI Assistant. I can help answer questions about his 250+ delivered projects, full-stack tech stack (React, Next.js, Spring, Laravel, Node, Kotlin), Mitrivox Digital software house, and availability for global remote jobs. Feel free to ask in English or Bahasa Indonesia!",
+        "Greetings! I am Bukhori AI Executive, the official AI assistant for Mhd. Al Bukhori. I can provide instant insights into his 250+ delivered projects, full-stack tech stack (React, Next.js, Spring, Laravel, Node, Kotlin), Mitrivox Digital software house, and availability for global remote jobs. Feel free to ask in English or Bahasa Indonesia!",
     },
 
     // Footer
@@ -212,10 +212,10 @@ export const translations = {
 
     // AI Assistant
     ai: {
-      floatingBadge: "Asisten AI",
-      bubbleWelcome: "Halo! Butuh info cepat tentang keahlian Al Bukhori, 250+ proyek, atau ketersediaan kerja remote? Tanyakan pada saya!",
-      headerTitle: "Asisten AI Al Bukhori",
-      onlineStatus: "Online · Menjawab dalam Bahasa EN / ID",
+      floatingBadge: "Bukhori AI Concierge",
+      bubbleWelcome: "Halo! Saya Bukhori AI Executive. Butuh info cepat seputar keahlian teknis Al Bukhori, 250+ proyek, atau ketersediaan kerja remote?",
+      headerTitle: "Bukhori AI Executive",
+      onlineStatus: "Aktif · Konsultan AI Eksekutif (EN / ID)",
       inputPlaceholder: "Tanyakan tentang skill, proyek, pengalaman, atau perekrutan remote...",
       sendBtn: "Kirim",
       clearBtn: "Hapus Chat",
@@ -227,7 +227,7 @@ export const translations = {
         "Bagaimana cara pesan proyek atau dapatkan estimasi harga?",
       ],
       defaultAnswer:
-        "Halo! Saya Asisten AI Al Bukhori. Saya dapat membantu menjawab pertanyaan tentang 250+ proyek yang diselesaikannya, tech stack full-stack (React, Next.js, Spring, Laravel, Node, Kotlin), software house Mitrivox Digital, serta ketersediaannya untuk pekerjaan remote global. Silakan tanyakan dalam Bahasa Indonesia atau Inggris!",
+        "Halo! Saya Bukhori AI Executive, asisten AI eksekutif resmi Mhd. Al Bukhori. Saya dapat membantu memberikan informasi seputar 250+ proyek yang diselesaikannya, tech stack full-stack (React, Next.js, Spring, Laravel, Node, Kotlin), software house Mitrivox Digital, serta ketersediaannya untuk pekerjaan remote global. Silakan tanyakan dalam Bahasa Indonesia atau Inggris!",
     },
 
     // Footer
