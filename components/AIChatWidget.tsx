@@ -332,15 +332,15 @@ export default function AIChatWidget() {
             setIsOpen(true);
             setShowBubble(false);
           }}
-          className="group relative flex items-center gap-2.5 rounded-full bg-gradient-to-r from-accent via-indigo-600 to-accent bg-[length:200%_auto] px-4.5 py-3.5 text-white shadow-2xl shadow-accent/30 transition-all duration-300 hover:scale-105 hover:shadow-accent/50 active:scale-95 border border-white/20"
+          className="group relative inline-flex items-center justify-center gap-2.5 whitespace-nowrap rounded-full bg-gradient-to-r from-accent via-indigo-600 to-accent bg-[length:200%_auto] px-5 py-3 text-white shadow-2xl shadow-accent/30 transition-all duration-300 hover:scale-105 hover:shadow-accent/50 active:scale-95 border border-white/20"
           aria-label="Open AI Assistant"
         >
-          <span className="relative flex h-3 w-3">
+          <span className="relative flex h-2.5 w-2.5 shrink-0">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
-            <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-400" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
           </span>
-          <Sparkles size={18} className="animate-pulse text-amber-300" />
-          <span className="font-sans text-xs font-bold tracking-wide">
+          <Sparkles size={16} className="shrink-0 animate-pulse text-amber-300" />
+          <span className="font-sans text-xs font-bold tracking-wide whitespace-nowrap">
             {t.floatingBadge}
           </span>
         </button>
