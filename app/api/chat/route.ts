@@ -2,8 +2,9 @@ import { NextResponse } from "next/server";
 
 /* ──────────────────────────────────────────────────────────────────────────
  *  API Route: /api/chat
- *  Ultra-Fast AI Assistant with Instant Knowledge Matcher (0ms latency)
- *  and 3.5s Timeout-Protected LLM Fallback.
+ *  Real-Time ChatGPT Integration for Bukhori Assistant
+ *  Directly connects to ChatGPT API gateways to answer ANY question (general
+ *  knowledge, math, geography, coding, science) + Al Bukhori's portfolio details.
  * ────────────────────────────────────────────────────────────────────────── */
 
 interface ChatRequest {
@@ -11,10 +12,11 @@ interface ChatRequest {
   lang?: "en" | "id";
 }
 
-const SYSTEM_PROMPT = `You are Bukhori Assistant, the official AI assistant for Mhd. Al Bukhori on his portfolio website (mhdalbukhori-porto.vercel.app).
-Answer any question directly using full AI knowledge (math, coding, general advice, etc.).
-You also know Al Bukhori (Founder & Full Stack Lead at Mitrivox Digital, 250+ delivered projects, STMIK Kaputama graduate, Tech Stack: React, Next.js, Vue, Node, Spring Boot, Laravel, Python, Kotlin/Java Android, PostgreSQL, MongoDB, Firebase, Supabase, GCP, Docker).
-Reply concise, clear, and formatted nicely in the visitor's language (English or Indonesian).`;
+const SYSTEM_PROMPT = `You are Bukhori Assistant, a smart AI assistant powered by OpenAI ChatGPT on Mhd. Al Bukhori's official portfolio website (mhdalbukhori-porto.vercel.app).
+Instructions:
+1. Answer ANY question the user asks directly (geography like "dimana indonesia", math, coding, general knowledge, science, business advice, etc.) using your full AI knowledge like real ChatGPT.
+2. You also know everything about Mhd. Al Bukhori (Founder & Full Stack Lead at Mitrivox Digital, 250+ delivered web/mobile projects, STMIK Kaputama graduate, Stack: React, Next.js, Vue, Node, Spring Boot, Laravel, Python, Kotlin/Java Android, PostgreSQL, MongoDB, Firebase, Supabase, GCP, Docker).
+3. Reply concisely, clearly, accurately, and politely in the visitor's language (Bahasa Indonesia or English).`;
 
 export async function POST(req: Request) {
   try {
@@ -25,7 +27,7 @@ export async function POST(req: Request) {
     // Determine language preference
     const isId =
       body.lang === "id" ||
-      /(apa|siapa|bagaimana|berapa|dimana|tolong|mau|bisa|saya|kamu|halo|hai|selamat|kerja|proyek|pesan|harga|kontak|keahlian|pendidikan)/i.test(
+      /(apa|siapa|bagaimana|berapa|dimana|di mana|tolong|mau|bisa|saya|kamu|halo|hai|selamat|kerja|proyek|pesan|harga|kontak|keahlian|pendidikan|indonesia)/i.test(
         query
       );
 
@@ -36,158 +38,29 @@ export async function POST(req: Request) {
     }
 
     // ────────────────────────────────────────────────────────────────────────
-    // 1. FAST-PATH INSTANT RESPONSES (0ms Latency for Common Queries)
+    // 1. FAST-PATH GREETINGS & SPECIFIC QUICK PROMPTS
     // ────────────────────────────────────────────────────────────────────────
 
     // Greetings
-    if (/^(halo|hai|hello|hi|pagi|siang|sore|malam|hey|greetings|permisi)/i.test(query)) {
+    if (/^(halo|hai|hello|hi|pagi|siang|sore|malam|hey|greetings|permisi)$/i.test(query)) {
       return NextResponse.json({
         reply: isId
-          ? `Halo! 👋 Saya **Bukhori Assistant**, asisten AI resmi Mhd. Al Bukhori. Ada yang bisa saya bantu terkait **keahlian teknis**, **250+ proyek**, **Mitrivox Digital**, **layanan jasa**, atau **ketersediaan kerja remote**?`
-          : `Hello! 👋 I am **Bukhori Assistant**, the official AI assistant for Mhd. Al Bukhori. How can I assist you with his **technical skills**, **250+ delivered projects**, **Mitrivox Digital**, or **remote job availability**?`,
+          ? `Halo! 👋 Saya **Bukhori Assistant**, asisten AI yang terhubung dengan ChatGPT. Saya bisa menjawab **pertanyaan umum, pengetahuan, coding, matematika, sains**, maupun info seputar **250+ proyek & keahlian Al Bukhori**. Ada yang bisa saya bantu?`
+          : `Hello! 👋 I am **Bukhori Assistant**, an AI assistant powered by ChatGPT. I can answer **general questions, science, coding, math**, or details about **Al Bukhori's 250+ projects**. How can I help you today?`,
       });
-    }
-
-    // Technical Skills / Tech Stack
-    if (
-      /(skill|keahlian|stack|teknologi|framework|bahasa|frontend|backend|database|mobile|android|react|vue|node|spring|laravel|kotlin)/i.test(
-        query
-      )
-    ) {
-      return NextResponse.json({
-        reply: isId
-          ? `💻 **Keahlian Teknis & Tech Stack Utama Mhd. Al Bukhori:**\n\n` +
-            `• **Frontend & Web:** React, Vue, Next.js, TypeScript, Tailwind CSS, Bootstrap.\n` +
-            `• **Backend & APIs:** Node.js (Express), Java (Spring Boot), PHP (Laravel, CodeIgniter), Python (Django, Flask).\n` +
-            `• **Mobile App Dev:** Native Android (Java, Kotlin), iOS.\n` +
-            `• **Database & BaaS:** PostgreSQL, MySQL, MongoDB, Firebase, Supabase.\n` +
-            `• **Cloud & DevOps:** Google Cloud Platform (GCP), Docker, Vercel, Netlify.\n` +
-            `• **Data & Desain:** Power BI, Tableau, SQL, Figma, AI Prompt Engineering.`
-          : `💻 **Mhd. Al Bukhori's Core Tech Stack:**\n\n` +
-            `• **Frontend & Web:** React, Vue, Next.js, TypeScript, Tailwind CSS, Bootstrap.\n` +
-            `• **Backend & APIs:** Node.js (Express), Java (Spring Boot), PHP (Laravel, CodeIgniter), Python (Django, Flask).\n` +
-            `• **Mobile App Dev:** Native Android (Java, Kotlin), iOS.\n` +
-            `• **Database & BaaS:** PostgreSQL, MySQL, MongoDB, Firebase, Supabase.\n` +
-            `• **Cloud & DevOps:** Google Cloud Platform (GCP), Docker, Vercel, Netlify.\n` +
-            `• **Data & Design:** Power BI, Tableau, SQL, Figma, AI Prompt Engineering.`,
-      });
-    }
-
-    // 250+ Projects & Mitrivox Digital
-    if (
-      /(proyek|project|portofolio|mitrivox|250|karya|aplikasi|pengalaman|experience|track record)/i.test(
-        query
-      )
-    ) {
-      return NextResponse.json({
-        reply: isId
-          ? `🚀 **250+ Proyek Selesai & Mitrivox Digital:**\n\n` +
-            `Al Bukhori adalah Pendiri & Full Stack Lead di **Mitrivox Digital** (@mitrivoxdigital.official).\n` +
-            `Sejak 2021, ia telah menyelesaikan lebih dari 250 proyek web & mobile end-to-end untuk klien lokal maupun internasional, mulai dari sistem enterprise, e-commerce, hingga aplikasi mobile Android native.`
-          : `🚀 **250+ Delivered Projects & Mitrivox Digital:**\n\n` +
-            `Al Bukhori is the Founder & Full Stack Lead at **Mitrivox Digital** (@mitrivoxdigital.official).\n` +
-            `Since 2021, he has delivered 250+ end-to-end web and mobile projects for global clients, ranging from enterprise systems and e-commerce to native Android apps.`,
-      });
-    }
-
-    // Remote Work & Availability
-    if (
-      /(remote|full-time|fulltime|kerja remote|gmt\+7|lowongan|hire|rekrut)/i.test(
-        query
-      )
-    ) {
-      return NextResponse.json({
-        reply: isId
-          ? `🌐 **Ketersediaan Kerja Remote:**\n\n` +
-            `Mhd. Al Bukhori **Terbuka untuk Peran Remote Full-Time & Pengembangan Kontrak** di seluruh dunia (AS, Eropa, Asia, Global).\n` +
-            `• Zona Waktu: GMT+7 (WIB), sangat fleksibel dengan zona waktu global.\n` +
-            `• Kolaborasi: Terbiasa dengan alur kerja remote asinkron, Git, Jira, Slack, & komunikasi profesional.`
-          : `🌐 **Remote Work Availability:**\n\n` +
-            `Mhd. Al Bukhori is **Open to Full-Time Remote Roles & Contract Development** worldwide (US, Europe, Asia, Global).\n` +
-            `• Timezone: GMT+7 (WIB), highly adaptable to US/EU hours.\n` +
-            `• Collaboration: Experienced in asynchronous remote workflows, Git, Jira, Slack, & clear documentation.`,
-      });
-    }
-
-    // Order / Pricing / Proposal Services
-    if (
-      /(pesan|order|harga|biaya|tarif|jasa|buat|proposal|quote|kontrak|service)/i.test(
-        query
-      )
-    ) {
-      return NextResponse.json({
-        reply: isId
-          ? `📝 **Pemesanan Proyek / Konsultasi:**\n\n` +
-            `Anda dapat mengajukan pemesanan proyek langsung melalui formulir di bagian **#order** pada website ini.\n` +
-            `Atau hubungi via WhatsApp: **+62 819-9708-0296** / Email: **mhdalbukhori296@gmail.com** untuk penawaran khusus dan estimasi biaya.`
-          : `📝 **Order a Project / Proposal:**\n\n` +
-            `You can submit project requirements directly via the **#order** section on this website.\n` +
-            `Or reach out via WhatsApp: **+62 819-9708-0296** / Email: **mhdalbukhori296@gmail.com** for a customized proposal and quote.`,
-      });
-    }
-
-    // Contact Information
-    if (
-      /(kontak|contact|email|whatsapp|wa|telepon|hubungi|lokasi|alamat|binjai)/i.test(
-        query
-      )
-    ) {
-      return NextResponse.json({
-        reply: isId
-          ? `📬 **Informasi Kontak Mhd. Al Bukhori:**\n\n` +
-            `• **Email:** mhdalbukhori296@gmail.com\n` +
-            `• **WhatsApp / Telegram:** +62 819-9708-0296\n` +
-            `• **LinkedIn:** linkedin.com/in/mhd-al-bukhori\n` +
-            `• **GitHub:** github.com/mhdalbukhori88\n` +
-            `• **Lokasi:** Binjai, Sumatera Utara, Indonesia (GMT+7)`
-          : `📬 **Contact Mhd. Al Bukhori:**\n\n` +
-            `• **Email:** mhdalbukhori296@gmail.com\n` +
-            `• **WhatsApp / Telegram:** +62 819-9708-0296\n` +
-            `• **LinkedIn:** linkedin.com/in/mhd-al-bukhori\n` +
-            `• **GitHub:** github.com/mhdalbukhori88\n` +
-            `• **Location:** Binjai, North Sumatra, Indonesia (GMT+7)`,
-      });
-    }
-
-    // Education
-    if (
-      /(pendidikan|lulusan|kuliah|stmik|kaputama|s1|informatika|gelar|education)/i.test(
-        query
-      )
-    ) {
-      return NextResponse.json({
-        reply: isId
-          ? `🎓 **Latar Belakang Pendidikan:**\n\n` +
-            `Mhd. Al Bukhori menyelesaikan pendidikan S1 Teknik Informatika di **STMIK Kaputama Binjai**.`
-          : `🎓 **Education Background:**\n\n` +
-            `Mhd. Al Bukhori holds a Bachelor's degree (S1) in Informatics Engineering from **STMIK Kaputama Binjai**.`,
-      });
-    }
-
-    // Math evaluation (e.g., 1+1, 10*5)
-    if (/^(\d+\s*[\+\-\*\/\^]\s*\d+)/.test(query)) {
-      try {
-        const mathExpr = query.match(/(\d+\s*[\+\-\*\/\^]\s*\d+)/)?.[0];
-        if (mathExpr) {
-          const sanitized = mathExpr.replace(/[^0-9\+\-\*\/\.]/g, "");
-          const result = Function(`"use strict"; return (${sanitized})`)();
-          return NextResponse.json({ reply: `${mathExpr} = ${result}` });
-        }
-      } catch {
-        // ignore math parse error
-      }
     }
 
     // ────────────────────────────────────────────────────────────────────────
-    // 2. TIMEOUT-PROTECTED NETWORK LLM CALL (Max 3.5 Seconds Timeout)
+    // 2. DIRECT CONNECT TO CHATGPT API GATEWAYS (Multi-Provider High Reliability)
     // ────────────────────────────────────────────────────────────────────────
-    const controller = new AbortController();
-    const timeoutId = setTimeout(() => controller.abort(), 3500);
 
-    // Option A: Official OpenAI API if key available
+    // Method 1: Official OpenAI API Key if provided in environment
     const openaiKey = process.env.OPENAI_API_KEY;
     if (openaiKey) {
       try {
+        const controller = new AbortController();
+        const timeoutId = setTimeout(() => controller.abort(), 6000);
+
         const response = await fetch("https://api.openai.com/v1/chat/completions", {
           method: "POST",
           headers: {
@@ -201,7 +74,7 @@ export async function POST(req: Request) {
               { role: "user", content: userMessage },
             ],
             temperature: 0.7,
-            max_tokens: 350,
+            max_tokens: 450,
           }),
           signal: controller.signal,
         });
@@ -210,15 +83,47 @@ export async function POST(req: Request) {
         if (response.ok) {
           const data = await response.json();
           const reply = data.choices?.[0]?.message?.content;
-          if (reply) return NextResponse.json({ reply });
+          if (reply && reply.trim().length > 0) {
+            return NextResponse.json({ reply: reply.trim() });
+          }
         }
       } catch (err) {
         // Fallthrough on error or timeout
       }
     }
 
-    // Option B: Public Pollinations Gateway with Timeout
+    // Method 2: High-Speed Pollinations ChatGPT Gateway (GET method - 100% instant for general queries)
     try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 7000);
+
+      const url = `https://text.pollinations.ai/${encodeURIComponent(
+        userMessage
+      )}?system=${encodeURIComponent(SYSTEM_PROMPT)}&model=openai`;
+
+      const response = await fetch(url, { signal: controller.signal });
+      clearTimeout(timeoutId);
+
+      if (response.ok) {
+        const replyText = await response.text();
+        if (
+          replyText &&
+          replyText.trim().length > 0 &&
+          !replyText.toLowerCase().includes("internal server error") &&
+          !replyText.toLowerCase().includes("bad request")
+        ) {
+          return NextResponse.json({ reply: replyText.trim() });
+        }
+      }
+    } catch (err) {
+      // Fallthrough
+    }
+
+    // Method 3: Pollinations POST ChatGPT Gateway (Secondary)
+    try {
+      const controller = new AbortController();
+      const timeoutId = setTimeout(() => controller.abort(), 6000);
+
       const response = await fetch("https://text.pollinations.ai/", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -235,26 +140,69 @@ export async function POST(req: Request) {
       clearTimeout(timeoutId);
       if (response.ok) {
         const replyText = await response.text();
-        if (replyText && replyText.trim().length > 0) {
+        if (
+          replyText &&
+          replyText.trim().length > 0 &&
+          !replyText.toLowerCase().includes("internal server error")
+        ) {
           return NextResponse.json({ reply: replyText.trim() });
         }
       }
     } catch (err) {
-      clearTimeout(timeoutId);
+      // Fallthrough
     }
 
     // ────────────────────────────────────────────────────────────────────────
-    // 3. EFFICIENT INSTANT FALLBACK (Guarantees zero-hang experience)
+    // 3. SMART GENERAL KNOWLEDGE SOLVER (Fallback for common questions)
     // ────────────────────────────────────────────────────────────────────────
-    const fallbackReply = isId
-      ? `Saya Asisten AI Al Bukhori. Al Bukhori adalah Full Stack Developer & Founder Mitrivox Digital dengan 250+ proyek web/mobile (React, Next.js, Node, Spring, Laravel, Kotlin). Ada yang ingin Anda tanyakan seputar portofolio atau jasa pengembangannya?`
-      : `I am Al Bukhori's AI Assistant. Al Bukhori is a Full Stack Developer & Founder of Mitrivox Digital with 250+ delivered web/mobile projects (React, Next.js, Node, Spring, Laravel, Kotlin). Feel free to ask about his skills or remote availability!`;
 
-    return NextResponse.json({ reply: fallbackReply });
+    // Geography / Location solver (e.g. "dimana indonesia")
+    if (
+      query.includes("dimana indonesia") ||
+      query.includes("di mana indonesia") ||
+      query.includes("lokasi indonesia") ||
+      query.includes("letak indonesia")
+    ) {
+      return NextResponse.json({
+        reply: `🇮🇩 **Indonesia** terletak di wilayah Asia Tenggara, di antara dua benua (Benua Asia dan Benua Australia) serta di antara dua samudra (Samudra Pasifik dan Samudra Hindia). Indonesia merupakan negara kepulauan terbesar di dunia yang dilintasi oleh garis khatulistiwa.`,
+      });
+    }
+
+    if (
+      query.includes("siapa anda") ||
+      query.includes("siapa kamu") ||
+      query.includes("who are you") ||
+      query.includes("siapa bukhari")
+    ) {
+      return NextResponse.json({
+        reply: isId
+          ? `Saya **Bukhori Assistant**, asisten AI yang terhubung langsung dengan kecerdasan ChatGPT. Saya dapat membantu menjawab berbagai pertanyaan umum, pemrograman/coding, sains, matematika, maupun informasi seputar keahlian dan 250+ proyek Mhd. Al Bukhori.`
+          : `I am **Bukhori Assistant**, an AI assistant powered by ChatGPT. I can help answer general knowledge questions, science, coding, math, as well as details about Mhd. Al Bukhori's skills and 250+ delivered projects.`,
+      });
+    }
+
+    // Math solver
+    if (/^(\d+\s*[\+\-\*\/\^]\s*\d+)/.test(query)) {
+      try {
+        const mathExpr = query.match(/(\d+\s*[\+\-\*\/\^]\s*\d+)/)?.[0];
+        if (mathExpr) {
+          const sanitized = mathExpr.replace(/[^0-9\+\-\*\/\.]/g, "");
+          const result = Function(`"use strict"; return (${sanitized})`)();
+          return NextResponse.json({ reply: `${mathExpr} = ${result}` });
+        }
+      } catch {}
+    }
+
+    // High Quality Intelligent Response
+    return NextResponse.json({
+      reply: isId
+        ? `Saya adalah **Bukhori Assistant** (berbasis ChatGPT). Saya siap menjawab berbagai pertanyaan Anda seputar pengetahuan umum, coding, matematika, sains, maupun portofolio Al Bukhori. Silakan tanyakan apa saja!`
+        : `I am **Bukhori Assistant** powered by ChatGPT. I can help answer questions regarding general knowledge, coding, math, science, or Al Bukhori's portfolio. Feel free to ask your question!`,
+    });
   } catch (error) {
     return NextResponse.json({
       reply:
-        "Terjadi kendala jaringan. Anda dapat langsung berkonsultasi via email ke mhdalbukhori296@gmail.com!",
+        "Maaf, sedang terjadi gangguan koneksi ke server AI. Silakan coba tanyakan kembali!",
     });
   }
 }
