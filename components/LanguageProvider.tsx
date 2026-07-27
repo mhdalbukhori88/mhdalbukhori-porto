@@ -30,14 +30,11 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         return;
       }
 
-      // Check googtrans cookie
-      const match = document.cookie.split(";").find((c) => c.trim().startsWith("googtrans="));
-      if (match) {
-        const code = match.split("=")[1]?.split("/").pop();
-        if (code === "id" || code === "en") {
-          setLanguageState(code as Language);
-          document.documentElement.lang = code;
-        }
+      // Auto-detect browser language
+      const userLang = navigator.language || (navigator as any).userLanguage || "";
+      if (userLang.toLowerCase().startsWith("id")) {
+        setLanguageState("id");
+        document.documentElement.lang = "id";
       }
     }
   }, []);
