@@ -1,11 +1,9 @@
 "use client";
 
 import { useState, useEffect, useRef } from "react";
-import Image from "next/image";
-import { Sparkles, MessageSquare, X, Send, Trash2, Bot, Globe, CheckCircle2 } from "lucide-react";
+import { Sparkles, MessageSquare, X, Send, Trash2, Bot, CheckCircle2, ChevronRight } from "lucide-react";
 import { useLanguage } from "./LanguageProvider";
 import { translations } from "@/lib/translations";
-import { siteConfig } from "@/lib/site-config";
 
 interface Message {
   id: string;
@@ -34,11 +32,11 @@ export default function AIChatWidget() {
 
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
-  // Proactive greeting bubble after 2.5s
+  // Proactive greeting bubble after 2s
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowBubble(true);
-    }, 2500);
+    }, 2000);
     return () => clearTimeout(timer);
   }, []);
 
@@ -131,76 +129,90 @@ export default function AIChatWidget() {
     ]);
   };
 
-  // Helper to format bold markdown and links
+  // Helper to format bold markdown and links cleanly
   const renderFormattedText = (text: string) => {
     const lines = text.split("\n");
     return lines.map((line, idx) => {
-      // Bold text **text**
-      const formatted = line.replace(/\*\*(.*?)\*\*/g, "<strong>$1</strong>");
+      const formatted = line.replace(/\*\*(.*?)\*\*/g, "<strong class='font-bold text-accent-light'>$1</strong>");
       return (
         <span
           key={idx}
           dangerouslySetInnerHTML={{ __html: formatted }}
-          className="block min-h-[1.2em]"
+          className="block min-h-[1.25em]"
         />
       );
     });
   };
 
   return (
-    <div className="fixed bottom-5 right-5 z-[70] flex flex-col items-end">
-      {/* ── Proactive Greeting Bubble ── */}
+    <div className="fixed bottom-5 right-5 z-[70] flex flex-col items-end font-sans">
+      {/* ── Proactive Glassmorphic Greeting Bubble ── */}
       {!isOpen && showBubble && (
-        <div className="mb-3 max-w-xs animate-[fadeInUp_0.4s_ease] rounded-2xl border border-[var(--border)] bg-[var(--bg)]/95 p-4 shadow-2xl backdrop-blur-xl">
-          <div className="flex items-start justify-between gap-2 mb-1.5">
-            <div className="flex items-center gap-2">
-              <span className="flex h-6 w-6 items-center justify-center rounded-full bg-accent text-white">
-                <Sparkles size={13} />
-              </span>
-              <span className="font-sans text-xs font-bold text-[var(--text)]">
-                {t.headerTitle}
-              </span>
+        <div className="mb-3.5 w-80 animate-[fadeInUp_0.4s_cubic-bezier(0.16,1,0.3,1)] rounded-3xl border border-accent/30 bg-[var(--bg)]/95 p-4.5 shadow-[0_15px_35px_rgba(0,0,0,0.3)] backdrop-blur-2xl ring-1 ring-accent/20">
+          <div className="flex items-center justify-between gap-2 mb-2 pb-2 border-b border-[var(--border)]/60">
+            <div className="flex items-center gap-2.5">
+              <div className="relative flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-tr from-accent via-indigo-500 to-emerald-400 p-[1.5px] shadow-sm">
+                <div className="flex h-full w-full items-center justify-center rounded-full bg-[var(--bg)] text-accent">
+                  <Sparkles size={13} className="animate-pulse" />
+                </div>
+              </div>
+              <div>
+                <span className="block text-xs font-bold text-[var(--text)] tracking-tight">
+                  {t.headerTitle}
+                </span>
+                <span className="flex items-center gap-1 text-[9px] font-mono text-emerald-400 font-semibold">
+                  <span className="h-1.5 w-1.5 rounded-full bg-emerald-400 animate-ping" />
+                  Online
+                </span>
+              </div>
             </div>
             <button
               onClick={() => setShowBubble(false)}
-              className="text-[var(--text-muted)] hover:text-[var(--text)] p-0.5"
+              className="rounded-full p-1 text-[var(--text-muted)] hover:bg-[var(--bg-alt)] hover:text-[var(--text)] transition-all"
               aria-label="Close bubble"
             >
               <X size={14} />
             </button>
           </div>
-          <p className="font-sans text-xs text-[var(--text-muted)] leading-relaxed">
+
+          <p className="text-xs text-[var(--text)]/90 leading-relaxed font-normal">
             {t.bubbleWelcome}
           </p>
+
           <button
             onClick={() => {
               setIsOpen(true);
               setShowBubble(false);
             }}
-            className="mt-2.5 w-full rounded-xl bg-accent/15 px-3 py-1.5 font-sans text-xs font-semibold text-accent hover:bg-accent hover:text-white transition-all flex items-center justify-center gap-1.5"
+            className="mt-3.5 w-full rounded-2xl bg-gradient-to-r from-accent via-indigo-600 to-accent bg-[length:200%_auto] px-4 py-2.5 text-xs font-bold text-white shadow-lg shadow-accent/25 hover:shadow-accent/40 hover:scale-[1.02] active:scale-[0.98] transition-all duration-300 flex items-center justify-center gap-2 group"
           >
-            <MessageSquare size={13} /> Chat Now
+            <MessageSquare size={14} className="group-hover:rotate-12 transition-transform" />
+            <span>Chat Now</span>
+            <ChevronRight size={14} className="group-hover:translate-x-0.5 transition-transform" />
           </button>
         </div>
       )}
 
-      {/* ── Main Chat Modal ── */}
+      {/* ── Main High-End Chat Modal ── */}
       {isOpen ? (
-        <div className="flex h-[540px] w-[92vw] max-w-[400px] flex-col overflow-hidden rounded-3xl border border-[var(--border)] bg-[var(--bg)]/95 shadow-2xl backdrop-blur-2xl animate-[fadeInUp_0.35s_ease]">
+        <div className="flex h-[560px] w-[92vw] max-w-[410px] flex-col overflow-hidden rounded-3xl border border-accent/30 bg-[var(--bg)]/95 shadow-[0_25px_60px_rgba(0,0,0,0.45)] backdrop-blur-2xl animate-[fadeInUp_0.35s_cubic-bezier(0.16,1,0.3,1)]">
           {/* Modal Header */}
-          <div className="flex items-center justify-between border-b border-[var(--border)] bg-[var(--bg-alt)]/60 px-4 py-3">
+          <div className="flex items-center justify-between border-b border-[var(--border)] bg-gradient-to-r from-[var(--bg-alt)]/80 via-[var(--bg-alt)]/40 to-transparent px-4 py-3.5">
             <div className="flex items-center gap-3">
               <div className="relative">
-                <div className="flex h-9 w-9 items-center justify-center rounded-full bg-gradient-to-br from-accent to-indigo-600 text-white shadow-md">
-                  <Bot size={20} />
+                <div className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-br from-accent via-indigo-600 to-accent text-white shadow-md shadow-accent/20">
+                  <Bot size={22} />
                 </div>
-                <span className="absolute bottom-0 right-0 h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-[var(--bg)]" />
+                <span className="absolute -bottom-0.5 -right-0.5 flex h-3 w-3 items-center justify-center">
+                  <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
+                  <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-500 ring-2 ring-[var(--bg)]" />
+                </span>
               </div>
               <div>
-                <h3 className="font-sans text-sm font-bold text-[var(--text)] leading-none">
+                <h3 className="text-sm font-bold text-[var(--text)] leading-snug">
                   {t.headerTitle}
                 </h3>
-                <span className="font-mono text-[10px] text-emerald-500 font-semibold flex items-center gap-1 mt-0.5">
+                <span className="font-mono text-[10px] text-emerald-400 font-semibold flex items-center gap-1">
                   <CheckCircle2 size={10} /> {t.onlineStatus}
                 </span>
               </div>
@@ -210,22 +222,22 @@ export default function AIChatWidget() {
               <button
                 onClick={handleClear}
                 title={t.clearBtn}
-                className="p-1.5 text-[var(--text-muted)] hover:text-red-400 transition-colors rounded-lg"
+                className="p-2 text-[var(--text-muted)] hover:text-red-400 hover:bg-red-500/10 transition-all rounded-xl"
               >
                 <Trash2 size={16} />
               </button>
               <button
                 onClick={() => setIsOpen(false)}
-                className="p-1.5 text-[var(--text-muted)] hover:text-[var(--text)] transition-colors rounded-lg"
+                className="p-2 text-[var(--text-muted)] hover:text-[var(--text)] hover:bg-[var(--bg-alt)] transition-all rounded-xl"
                 aria-label="Close AI Chat"
               >
-                <X size={20} />
+                <X size={18} />
               </button>
             </div>
           </div>
 
           {/* Messages Area */}
-          <div className="flex-1 overflow-y-auto p-4 space-y-3.5 text-xs font-sans">
+          <div className="flex-1 overflow-y-auto p-4 space-y-4 text-xs">
             {messages.map((msg) => (
               <div
                 key={msg.id}
@@ -234,20 +246,20 @@ export default function AIChatWidget() {
                 }`}
               >
                 {msg.sender === "ai" && (
-                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-accent/20 text-accent font-bold">
+                  <div className="flex h-7 w-7 shrink-0 items-center justify-center rounded-xl bg-accent/15 text-accent font-bold border border-accent/20">
                     <Sparkles size={14} />
                   </div>
                 )}
                 <div
-                  className={`max-w-[82%] rounded-2xl px-3.5 py-2.5 leading-relaxed shadow-sm ${
+                  className={`max-w-[84%] rounded-2xl px-4 py-3 leading-relaxed shadow-sm ${
                     msg.sender === "user"
-                      ? "bg-accent text-white rounded-tr-none font-medium"
-                      : "bg-[var(--bg-alt)] text-[var(--text)] rounded-tl-none border border-[var(--border)]"
+                      ? "bg-gradient-to-r from-accent to-indigo-600 text-white rounded-tr-none font-medium shadow-md shadow-accent/20"
+                      : "bg-[var(--bg-alt)]/90 text-[var(--text)] rounded-tl-none border border-[var(--border)]"
                   }`}
                 >
                   {renderFormattedText(msg.text)}
                   <span
-                    className={`mt-1 block text-[9px] ${
+                    className={`mt-1.5 block text-[9px] font-mono ${
                       msg.sender === "user" ? "text-white/70 text-right" : "text-[var(--text-muted)]"
                     }`}
                   >
@@ -258,10 +270,10 @@ export default function AIChatWidget() {
             ))}
 
             {isLoading && (
-              <div className="flex items-center gap-2 text-accent text-xs p-2">
-                <Sparkles size={14} className="animate-spin" />
-                <span className="font-mono text-[11px] animate-pulse">
-                  {language === "en" ? "AI is thinking..." : "AI sedang berpikir..."}
+              <div className="flex items-center gap-2.5 text-accent text-xs p-2.5 rounded-xl bg-accent/10 border border-accent/20 w-fit animate-pulse">
+                <Sparkles size={15} className="animate-spin text-accent" />
+                <span className="font-mono text-[11px] font-semibold">
+                  {language === "en" ? "AI is generating answer..." : "AI sedang mengetik jawaban..."}
                 </span>
               </div>
             )}
@@ -269,18 +281,18 @@ export default function AIChatWidget() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Quick Prompts */}
-          <div className="border-t border-[var(--border)] bg-[var(--bg-alt)]/30 px-3 py-2">
-            <p className="mb-1.5 text-[10px] font-semibold text-[var(--text-muted)] uppercase tracking-wider">
+          {/* Quick Prompts Chips */}
+          <div className="border-t border-[var(--border)] bg-[var(--bg-alt)]/40 px-3.5 py-2.5">
+            <p className="mb-1.5 text-[10px] font-bold text-[var(--text-muted)] uppercase tracking-wider font-mono">
               {t.quickPromptsTitle}
             </p>
-            <div className="flex flex-wrap gap-1.5 max-h-20 overflow-y-auto">
+            <div className="flex flex-wrap gap-1.5 max-h-24 overflow-y-auto">
               {t.prompts.map((promptText, i) => (
                 <button
                   key={i}
                   onClick={() => handleSend(promptText)}
                   disabled={isLoading}
-                  className="rounded-lg bg-[var(--bg)] px-2.5 py-1 text-[11px] text-[var(--text)] border border-[var(--border)] hover:border-accent hover:text-accent transition-all text-left font-sans"
+                  className="rounded-xl bg-[var(--bg)] px-3 py-1.5 text-[11px] text-[var(--text)] border border-[var(--border)] hover:border-accent hover:text-accent hover:bg-accent/5 transition-all text-left font-medium active:scale-95 disabled:opacity-50"
                 >
                   {promptText}
                 </button>
@@ -301,33 +313,33 @@ export default function AIChatWidget() {
               value={inputMessage}
               onChange={(e) => setInputMessage(e.target.value)}
               placeholder={t.inputPlaceholder}
-              className="flex-1 rounded-xl bg-[var(--bg-alt)] px-3.5 py-2 text-xs text-[var(--text)] outline-none border border-transparent focus:border-accent transition-all placeholder:text-[var(--text-muted)]"
+              className="flex-1 rounded-2xl bg-[var(--bg-alt)] px-4 py-2.5 text-xs text-[var(--text)] outline-none border border-[var(--border)] focus:border-accent focus:ring-1 focus:ring-accent transition-all placeholder:text-[var(--text-muted)]"
             />
             <button
               type="submit"
               disabled={isLoading || !inputMessage.trim()}
-              className="flex h-9 w-9 items-center justify-center rounded-xl bg-accent text-white transition-all disabled:opacity-40 hover:scale-105 active:scale-95"
+              className="flex h-10 w-10 items-center justify-center rounded-2xl bg-gradient-to-r from-accent to-indigo-600 text-white transition-all disabled:opacity-30 hover:scale-105 active:scale-95 shadow-md shadow-accent/25"
               aria-label={t.sendBtn}
             >
-              <Send size={15} />
+              <Send size={16} />
             </button>
           </form>
         </div>
       ) : (
-        /* ── Floating Badge Button ── */
+        /* ── Floating Glowing Badge Button ── */
         <button
           onClick={() => {
             setIsOpen(true);
             setShowBubble(false);
           }}
-          className="group relative flex items-center gap-2.5 rounded-full bg-gradient-to-r from-accent via-indigo-600 to-accent px-4 py-3 text-white shadow-2xl transition-all duration-300 hover:scale-105 active:scale-95 border border-white/20"
+          className="group relative flex items-center gap-2.5 rounded-full bg-gradient-to-r from-accent via-indigo-600 to-accent bg-[length:200%_auto] px-4.5 py-3.5 text-white shadow-2xl shadow-accent/30 transition-all duration-300 hover:scale-105 hover:shadow-accent/50 active:scale-95 border border-white/20"
           aria-label="Open AI Assistant"
         >
           <span className="relative flex h-3 w-3">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
             <span className="relative inline-flex h-3 w-3 rounded-full bg-emerald-400" />
           </span>
-          <Sparkles size={18} className="animate-pulse" />
+          <Sparkles size={18} className="animate-pulse text-amber-300" />
           <span className="font-sans text-xs font-bold tracking-wide">
             {t.floatingBadge}
           </span>
