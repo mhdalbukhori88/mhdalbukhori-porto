@@ -30,7 +30,7 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
         return;
       }
 
-      // Fallback: check googtrans cookie
+      // Check googtrans cookie
       const match = document.cookie.split(";").find((c) => c.trim().startsWith("googtrans="));
       if (match) {
         const code = match.split("=")[1]?.split("/").pop();
@@ -47,7 +47,6 @@ export function LanguageProvider({ children }: { children: React.ReactNode }) {
     setLanguageState(validLang);
     if (typeof window !== "undefined") {
       window.localStorage.setItem("preferred_lang", validLang);
-      document.cookie = `googtrans=/en/${validLang}; path=/;`;
       document.documentElement.lang = validLang;
     }
   };

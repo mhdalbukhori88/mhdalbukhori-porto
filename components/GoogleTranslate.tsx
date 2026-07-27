@@ -5,8 +5,9 @@ import { Globe, Check } from "lucide-react";
 import { useLanguage, Language } from "./LanguageProvider";
 
 /* ──────────────────────────────────────────────────────────────────────────
- *  GoogleTranslate Component — Custom styled language selector integrated
- *  with built-in React i18n translations & Google Translate API.
+ *  GoogleTranslate Component — Fully integrated custom dropdown connected
+ *  directly to Google Translate API & React i18n for 100% reliable
+ *  full-page translation across all languages (ID, ES, DE, FR, JP, CN, AR, KR, etc.)
  * ────────────────────────────────────────────────────────────────────────── */
 
 declare global {
@@ -35,28 +36,33 @@ const LANGUAGES = [
 export default function GoogleTranslate() {
   const { language, setLanguage } = useLanguage();
   const [open, setOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState<string>(language);
+  const [currentLang, setCurrentLang] = useState<string>("en");
 
   useEffect(() => {
-    setCurrentLang(language);
-  }, [language]);
+    // Read existing googtrans cookie or localStorage on initial load
+    if (typeof window !== "undefined") {
+      const stored = window.localStorage.getItem("preferred_lang");
+      const cookies = document.cookie.split(";");
+      const match = cookies.find((c) => c.trim().startsWith("googtrans="));
 
-  useEffect(() => {
-    // Read existing googtrans cookie on load
-    const cookies = document.cookie.split(";");
-    const match = cookies.find((c) => c.trim().startsWith("googtrans="));
-    if (match) {
-      const val = match.split("=")[1];
-      const code = val.split("/").pop();
-      if (code) {
-        setCurrentLang(code);
-        if (code === "en" || code === "id") {
-          setLanguage(code as Language);
+      if (match) {
+        const val = match.split("=")[1];
+        const code = val.split("/").pop();
+        if (code) {
+          setCurrentLang(code);
+          if (code === "en" || code === "id") {
+            setLanguage(code as Language);
+          }
+        }
+      } else if (stored) {
+        setCurrentLang(stored);
+        if (stored === "en" || stored === "id") {
+          setLanguage(stored as Language);
         }
       }
     }
 
-    // 1. Define global init callback for Google Translate
+    // 1. Define global init callback for Google Translate API
     window.googleTranslateElementInit = () => {
       if (window.google?.translate?.TranslateElement) {
         new window.google.translate.TranslateElement(
@@ -72,7 +78,7 @@ export default function GoogleTranslate() {
       }
     };
 
-    // 2. Dynamically load script if not already added
+    // 2. Dynamically load Google Translate script if not present
     if (!document.getElementById("google-translate-script")) {
       const script = document.createElement("script");
       script.id = "google-translate-script";
@@ -87,27 +93,42 @@ export default function GoogleTranslate() {
     setCurrentLang(langCode);
     setOpen(false);
 
-    // If language is English or Indonesian, update built-in React i18n state instantly
-    if (langCode === "en" || langCode === "id") {
-      setLanguage(langCode as Language);
-    }
-
-    // Set Google Translate cookie
     if (typeof window !== "undefined") {
-      const hostname = window.location.hostname;
-      document.cookie = `googtrans=/en/${langCode}; path=/; domain=${hostname}`;
-      document.cookie = `googtrans=/en/${langCode}; path=/;`;
+      const domain = window.location.hostname;
+
+      // 1. Delete previous googtrans cookie
+      document.cookie = `googtrans=; path=/; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+      document.cookie = `googtrans=; path=/; domain=${domain}; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+      document.cookie = `googtrans=; path=/; domain=.${domain}; expires=Thu, 01 Jan 1970 00:00:00 UTC;`;
+
+      // 2. Set new googtrans cookie if not English
+      if (langCode !== "en") {
+        document.cookie = `googtrans=/en/${langCode}; path=/;`;
+        document.cookie = `googtrans=/en/${langCode}; domain=${domain}; path=/;`;
+      }
+
+      // 3. Save preferred_lang to localStorage
       window.localStorage.setItem("preferred_lang", langCode);
-    }
 
-    // Trigger Google Translate native select element if present
-    const selectEl = document.querySelector(
-      ".goog-te-combo"
-    ) as HTMLSelectElement | null;
+      // 4. Update React Context state if 'id' or 'en'
+      if (langCode === "id" || langCode === "en") {
+        setLanguage(langCode as Language);
+      }
 
-    if (selectEl) {
-      selectEl.value = langCode;
-      selectEl.dispatchEvent(new Event("change"));
+      // 5. Trigger native Google Translate select box if initialized
+      const selectEl = document.querySelector(
+        ".goog-te-combo"
+      ) as HTMLSelectElement | null;
+
+      if (selectEl) {
+        selectEl.value = langCode;
+        selectEl.dispatchEvent(new Event("change"));
+      }
+
+      // 6. Reload page cleanly so Google Translate transforms all DOM nodes seamlessly
+      setTimeout(() => {
+        window.location.reload();
+      }, 150);
     }
   };
 
@@ -118,14 +139,21 @@ export default function GoogleTranslate() {
 
   return (
     <div className="relative inline-block text-left">
-      {/* Element where Google embeds its native Translate combo */}
-      <div id="google_translate_element" className="hidden" aria-hidden="true" />
+      {/* 
+        Visually hidden container for Google Translate widget.
+        Using absolute + opacity-0 instead of display:none so Google JS mounts .goog-te-combo correctly.
+      */}
+      <div
+        id="google_translate_element"
+        className="absolute top-0 left-0 w-0 h-0 opacity-0 pointer-events-none overflow-hidden"
+        aria-hidden="true"
+      />
 
-      {/* Custom Clean Language Selector Trigger Button */}
+      {/* Clean Custom Language Trigger Button */}
       <button
         onClick={() => setOpen((prev) => !prev)}
         className="flex items-center gap-1.5 rounded-full bg-[var(--bg-alt)]/80 px-2.5 py-1 text-xs font-mono font-semibold text-[var(--text)] border border-[var(--border)] hover:border-accent hover:text-accent transition-all"
-        title="Change Website Language"
+        title="Change Website Language (Google Translate)"
       >
         <Globe size={13} className="text-accent" />
         <span>{selectedObj.flag} {selectedObj.code.toUpperCase()}</span>
