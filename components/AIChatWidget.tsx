@@ -332,15 +332,15 @@ export default function AIChatWidget() {
             setIsOpen(true);
             setShowBubble(false);
           }}
-          className="group relative inline-flex h-11 items-center justify-center gap-2.5 whitespace-nowrap rounded-full bg-gradient-to-r from-indigo-600 via-indigo-500 to-violet-600 px-4.5 text-white shadow-[0_8px_25px_rgba(79,70,229,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0_12px_30px_rgba(79,70,229,0.6)] active:scale-95 border border-white/25 cursor-pointer"
+          className="group relative inline-flex h-11 items-center justify-center gap-2.5 whitespace-nowrap rounded-full bg-gradient-to-r from-indigo-600 via-indigo-500 to-violet-600 px-6 text-white shadow-[0_8px_25px_rgba(79,70,229,0.4)] transition-all duration-300 hover:scale-105 hover:shadow-[0_12px_30px_rgba(79,70,229,0.6)] active:scale-95 border border-white/25 cursor-pointer"
           aria-label="Open AI Assistant"
         >
-          <span className="relative flex h-2.5 w-2.5 shrink-0">
+          <span className="relative flex h-2.5 w-2.5 shrink-0 ml-0.5">
             <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-emerald-400 opacity-75" />
             <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-emerald-400" />
           </span>
           <Sparkles size={16} className="shrink-0 animate-pulse text-amber-300" />
-          <span className="font-sans text-xs font-bold tracking-wide whitespace-nowrap">
+          <span className="font-sans text-xs font-bold tracking-wide whitespace-nowrap mr-0.5">
             {t.floatingBadge}
           </span>
         </button>
