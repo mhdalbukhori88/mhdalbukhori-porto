@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { Github, Linkedin, Instagram, Mail, Download, Rocket, Globe } from "lucide-react";
+import { Github, Linkedin, Instagram, Mail, Download, Rocket } from "lucide-react";
 import MitrivoxIcon from "@/components/MitrivoxIcon";
 import HeroWaveBackground from "@/components/HeroWaveBackground";
 import { useLanguage } from "./LanguageProvider";
@@ -50,9 +50,6 @@ export default function Hero() {
           <div className="mb-1.5 flex items-center justify-center sm:justify-start gap-2">
             <span className="font-mono text-xs uppercase tracking-[0.25em] text-accent font-semibold">
               {tHero.greeting}
-            </span>
-            <span className="rounded-full bg-emerald-500/15 px-2.5 py-0.5 font-mono text-[10px] font-semibold text-emerald-500 border border-emerald-500/30 inline-flex items-center gap-1">
-              <Globe size={11} /> {tHero.openRemote}
             </span>
           </div>
 

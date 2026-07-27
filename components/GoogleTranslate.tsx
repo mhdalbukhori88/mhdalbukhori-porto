@@ -2,11 +2,11 @@
 
 import { useEffect, useState } from "react";
 import { Globe, Check } from "lucide-react";
+import { useLanguage, Language } from "./LanguageProvider";
 
 /* ──────────────────────────────────────────────────────────────────────────
- *  GoogleTranslate Component — Embeds Google Translate API with custom
- *  styled language selector supporting 100+ languages worldwide for
- *  international remote job recruiters & clients.
+ *  GoogleTranslate Component — Custom styled language selector integrated
+ *  with built-in React i18n translations & Google Translate API.
  * ────────────────────────────────────────────────────────────────────────── */
 
 declare global {
@@ -33,8 +33,13 @@ const LANGUAGES = [
 ];
 
 export default function GoogleTranslate() {
+  const { language, setLanguage } = useLanguage();
   const [open, setOpen] = useState(false);
-  const [currentLang, setCurrentLang] = useState("en");
+  const [currentLang, setCurrentLang] = useState<string>(language);
+
+  useEffect(() => {
+    setCurrentLang(language);
+  }, [language]);
 
   useEffect(() => {
     // Read existing googtrans cookie on load
@@ -43,8 +48,11 @@ export default function GoogleTranslate() {
     if (match) {
       const val = match.split("=")[1];
       const code = val.split("/").pop();
-      if (code && code !== "en") {
+      if (code) {
         setCurrentLang(code);
+        if (code === "en" || code === "id") {
+          setLanguage(code as Language);
+        }
       }
     }
 
@@ -79,10 +87,18 @@ export default function GoogleTranslate() {
     setCurrentLang(langCode);
     setOpen(false);
 
+    // If language is English or Indonesian, update built-in React i18n state instantly
+    if (langCode === "en" || langCode === "id") {
+      setLanguage(langCode as Language);
+    }
+
     // Set Google Translate cookie
-    const hostname = window.location.hostname;
-    document.cookie = `googtrans=/en/${langCode}; path=/; domain=${hostname}`;
-    document.cookie = `googtrans=/en/${langCode}; path=/;`;
+    if (typeof window !== "undefined") {
+      const hostname = window.location.hostname;
+      document.cookie = `googtrans=/en/${langCode}; path=/; domain=${hostname}`;
+      document.cookie = `googtrans=/en/${langCode}; path=/;`;
+      window.localStorage.setItem("preferred_lang", langCode);
+    }
 
     // Trigger Google Translate native select element if present
     const selectEl = document.querySelector(
@@ -93,15 +109,12 @@ export default function GoogleTranslate() {
       selectEl.value = langCode;
       selectEl.dispatchEvent(new Event("change"));
     }
-
-    // Reload page to apply translation cleanly across all DOM nodes
-    setTimeout(() => {
-      window.location.reload();
-    }, 100);
   };
 
   const selectedObj =
-    LANGUAGES.find((l) => l.code === currentLang) || LANGUAGES[0];
+    LANGUAGES.find((l) => l.code === currentLang) ||
+    LANGUAGES.find((l) => l.code === language) ||
+    LANGUAGES[0];
 
   return (
     <div className="relative inline-block text-left">
@@ -112,7 +125,7 @@ export default function GoogleTranslate() {
       <button
         onClick={() => setOpen((prev) => !prev)}
         className="flex items-center gap-1.5 rounded-full bg-[var(--bg-alt)]/80 px-2.5 py-1 text-xs font-mono font-semibold text-[var(--text)] border border-[var(--border)] hover:border-accent hover:text-accent transition-all"
-        title="Change Website Language (Google Translate)"
+        title="Change Website Language"
       >
         <Globe size={13} className="text-accent" />
         <span>{selectedObj.flag} {selectedObj.code.toUpperCase()}</span>
@@ -127,7 +140,7 @@ export default function GoogleTranslate() {
           />
           <div className="absolute right-0 mt-2 z-50 w-44 rounded-2xl border border-[var(--border)] bg-[var(--bg)]/95 p-1.5 shadow-2xl backdrop-blur-2xl animate-[fadeInUp_0.2s_ease]">
             <div className="px-2 py-1 text-[10px] font-mono font-bold uppercase text-[var(--text-muted)] tracking-wider">
-              Select Language / Google Translate
+              Select Language
             </div>
             <div className="max-h-56 overflow-y-auto space-y-0.5">
               {LANGUAGES.map((lang) => (

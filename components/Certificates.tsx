@@ -6,14 +6,18 @@ import { Award, ExternalLink, FileText, X, Download } from "lucide-react";
 import { certificates } from "@/lib/content";
 import { siteConfig } from "@/lib/site-config";
 import Reveal from "./Reveal";
+import { useLanguage } from "./LanguageProvider";
+import { translations } from "@/lib/translations";
 
 export default function Certificates() {
   const [preview, setPreview] = useState<string | null>(null);
+  const { language } = useLanguage();
+  const titleText = translations[language].nav.certificates;
 
   return (
     <section id="certificates" className="section">
       <Reveal>
-        <h1 className="section-title">Certificates</h1>
+        <h1 className="section-title">{titleText}</h1>
       </Reveal>
 
       <div className="grid gap-10 md:grid-cols-2 lg:grid-cols-3">
