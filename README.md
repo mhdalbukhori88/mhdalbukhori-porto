@@ -43,7 +43,7 @@ To update them, just replace these files with the same names.
 The form **always works**. When a visitor submits an order:
 
 1. It tries to send the order to your email via the `/api/order` endpoint.
-2. If no email provider is configured, it automatically **opens WhatsApp** (`0819-9708-0296`) and your **email app** (`mhdalbukhori296@gmail.com`) with the order pre-filled.
+2. If no email provider is configured, it automatically **opens WhatsApp** (`0851-1717-0702`) and your **email app** (`mhdalbukhori296@gmail.com`) with the order pre-filled.
 
 There are also dedicated **"Order via WhatsApp"** and **"Order via Email"** buttons.
 

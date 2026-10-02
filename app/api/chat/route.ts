@@ -289,14 +289,14 @@ function getSmartReply(query: string, isId: boolean): string | null {
 
   if (/(kontak|contact|email|whatsapp|wa|hubungi)/i.test(query)) {
     return isId
-      ? `📬 **Kontak Mhd. Al Bukhori:**\n\n• **Email:** mhdalbukhori296@gmail.com\n• **WhatsApp:** +62 819-9708-0296\n• **LinkedIn:** linkedin.com/in/mhd-al-bukhori\n• **GitHub:** github.com/mhdalbukhori88\n• **Lokasi:** Binjai, Sumatera Utara, Indonesia`
-      : `📬 **Contact Mhd. Al Bukhori:**\n\n• **Email:** mhdalbukhori296@gmail.com\n• **WhatsApp:** +62 819-9708-0296\n• **LinkedIn:** linkedin.com/in/mhd-al-bukhori\n• **GitHub:** github.com/mhdalbukhori88\n• **Location:** Binjai, North Sumatra, Indonesia`;
+      ? `📬 **Kontak Mhd. Al Bukhori:**\n\n• **Email:** mhdalbukhori296@gmail.com\n• **WhatsApp:** +62 851-1717-0702\n• **LinkedIn:** linkedin.com/in/mhd-al-bukhori\n• **GitHub:** github.com/mhdalbukhori88\n• **Lokasi:** Binjai, Sumatera Utara, Indonesia`
+      : `📬 **Contact Mhd. Al Bukhori:**\n\n• **Email:** mhdalbukhori296@gmail.com\n• **WhatsApp:** +62 851-1717-0702\n• **LinkedIn:** linkedin.com/in/mhd-al-bukhori\n• **GitHub:** github.com/mhdalbukhori88\n• **Location:** Binjai, North Sumatra, Indonesia`;
   }
 
   if (/(pesan|order|harga|jasa|proposal|quote|service|biaya)/i.test(query)) {
     return isId
-      ? `📝 **Pemesanan Proyek:**\n\nAjukan pemesanan melalui formulir **#order** di website ini, atau hubungi:\n• **WhatsApp:** +62 819-9708-0296\n• **Email:** mhdalbukhori296@gmail.com`
-      : `📝 **Order a Project:**\n\nSubmit requirements via the **#order** section, or reach out:\n• **WhatsApp:** +62 819-9708-0296\n• **Email:** mhdalbukhori296@gmail.com`;
+      ? `📝 **Pemesanan Proyek:**\n\nAjukan pemesanan melalui formulir **#order** di website ini, atau hubungi:\n• **WhatsApp:** +62 851-1717-0702\n• **Email:** mhdalbukhori296@gmail.com`
+      : `📝 **Order a Project:**\n\nSubmit requirements via the **#order** section, or reach out:\n• **WhatsApp:** +62 851-1717-0702\n• **Email:** mhdalbukhori296@gmail.com`;
   }
 
   if (/(pendidikan|education|kuliah|stmik|kaputama|lulusan)/i.test(query)) {

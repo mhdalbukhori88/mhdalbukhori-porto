@@ -14,9 +14,9 @@ export const siteConfig = {
 
   contact: {
     email: "mhdalbukhori296@gmail.com",
-    phone: "+62 819-9708-0296",
-    phoneRaw: "6281997080296", // for WhatsApp links (no +, no spaces)
-    whatsappDisplay: "0819-9708-0296",
+    phone: "+62 851-1717-0702",
+    phoneRaw: "6285117170702", // for WhatsApp links (no +, no spaces)
+    whatsappDisplay: "0851-1717-0702",
   },
 
   socials: {
